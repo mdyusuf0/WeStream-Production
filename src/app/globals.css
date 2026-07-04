@@ -7,31 +7,77 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-surface: var(--surface);
   --color-border: var(--border);
+  --color-accent: var(--accent);
 }
 
 @layer base {
   :root {
-    --background: #ffffff;
-    --foreground: #09090b;
-    --muted: #f4f4f5;
-    --muted-foreground: #71717a;
-    --surface: #fafafa;
-    --border: #e4e4e7;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background: #09090b;
-      --foreground: #fafafa;
-      --muted: #27272a;
-      --muted-foreground: #a1a1aa;
-      --surface: #18181b;
-      --border: #27272a;
-    }
+    /* Premium cinematic dark theme by default for WeStream */
+    --background: #0a0a0a;
+    --foreground: #fcfcfc;
+    --muted: #171717;
+    --muted-foreground: #a1a1aa;
+    --surface: #121212;
+    --border: #27272a;
+    --accent: #ffffff;
   }
 
   body {
     background-color: var(--background);
     color: var(--foreground);
+    @apply antialiased selection:bg-white selection:text-black;
+  }
+
+  /* Responsive Typography System using clamp */
+  h1, .text-display {
+    font-size: clamp(2.5rem, 5vw + 1rem, 5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+  }
+  
+  h2, .text-heading-lg {
+    font-size: clamp(2rem, 4vw + 1rem, 3.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+  }
+
+  h3, .text-heading-md {
+    font-size: clamp(1.5rem, 3vw + 0.5rem, 2.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+
+  .text-body-lg {
+    font-size: clamp(1.125rem, 2vw + 0.5rem, 1.5rem);
+    line-height: 1.5;
+    color: var(--muted-foreground);
+  }
+
+  .text-label {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    color: var(--muted-foreground);
+  }
+
+  /* Restrained interactions */
+  a {
+    @apply transition-colors duration-300;
+  }
+}
+
+@layer utilities {
+  .section-space {
+    @apply py-24 md:py-32 lg:py-40;
+  }
+  .container-safe {
+    @apply mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-24;
+  }
+  .media-placeholder {
+    @apply bg-muted border border-border w-full flex items-center justify-center text-muted-foreground relative overflow-hidden;
   }
 }

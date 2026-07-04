@@ -15,10 +15,31 @@
 
 ## Full-Site Audit Requirement
 
-Do not audit only the homepage visually. Create a route inventory of relevant publicly accessible pages discovered from the primary site.
-For each verified route, record: URL, page type, purpose, major sections, shared components, unique components, content depth, conversion pattern, media usage, motion behavior (if verified), responsive behavior (if verified), SEO role (if inferable).
+**Verified Route Inventory (Moshi Moshi):**
+
+- `OBSERVED` Homepage (`/`): High-impact reel, featured case studies, social proof, blog highlights. High conversion focus.
+- `OBSERVED` About Us (`/about-us`): Company story, team culture, broad capability overview.
+- `OBSERVED` Service Page (`/video-production-company-india`): Detailed "why invest", process breakdown, sub-services (Brand, Explainer, Social), FAQs for SEO, prominent CTAs.
+- `OBSERVED` Case Study (`/post/uber-case-study...`): Deep dive into challenge, solution, and multi-channel campaign execution.
+- `OBSERVED` Contact (`/contact-us`): Standard inquiry flow.
 
 ## Audit Statements
+
+**What works well:**
+
+- Strong portfolio integration directly on the homepage.
+- Clear structural hierarchy in service pages (Why -> How -> Types -> FAQs).
+- Heavy use of social proof (testimonials, client logos).
+- Robust local SEO strategy in the footer (location x service pages).
+
+**What feels weak/dated for 2026 WeStream:**
+
+- The navigation and layout feel slightly traditional/corporate agency rather than a premium, cinematic production studio.
+- Very text-heavy in places; a premium studio should lean heavier into full-bleed visual storytelling and micro-interactions.
+
+**Lesson for WeStream:**
+
+- Do not copy the text-heavy approach or the exact structure. WeStream needs a more immersive, video-first experience with a sleek, dark/cinematic UI, while still preserving the structural clarity of Moshi Moshi's service and SEO silos.
 
 - **Observed:** The reference site uses portfolio-led storytelling and heavy media integration.
 - **Inferred:** The target audience values visual proof of capabilities over text-heavy descriptions.

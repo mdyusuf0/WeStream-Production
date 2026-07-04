@@ -6,10 +6,31 @@ export function SiteHeader() {
       <Container>
         <div className="flex h-16 items-center justify-between">
           <div className="font-bold tracking-tight">WeStream Production</div>
-          <nav className="hidden md:flex gap-6">
-            <span className="text-sm text-muted-foreground">
-              Navigation pending
-            </span>
+          <nav className="hidden md:flex gap-8">
+            <a
+              href="#work"
+              className="text-sm font-medium hover:text-muted-foreground transition-colors"
+            >
+              Work
+            </a>
+            <a
+              href="#services"
+              className="text-sm font-medium hover:text-muted-foreground transition-colors"
+            >
+              Services
+            </a>
+            <a
+              href="#studio"
+              className="text-sm font-medium hover:text-muted-foreground transition-colors"
+            >
+              Studio
+            </a>
+            <a
+              href="#contact"
+              className="text-sm font-medium hover:text-muted-foreground transition-colors"
+            >
+              Contact
+            </a>
           </nav>
         </div>
       </Container>
