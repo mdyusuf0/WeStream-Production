@@ -8,65 +8,98 @@
   --color-surface: var(--surface);
   --color-border: var(--border);
   --color-accent: var(--accent);
+  
+  /* Custom theme colors */
+  --color-gold: #D4AF37;
+  --color-black: #0B0B0B;
+  --color-dark-gray: #1A1A1A;
+  --color-dark-gray-light: #2A2A2A;
+  
+  /* Custom Fonts loaded via next/font in layout */
+  --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
+  --font-heading: var(--font-heading), system-ui, sans-serif;
 }
 
 @layer base {
   :root {
-    /* Premium cinematic dark theme by default for WeStream */
-    --background: #0a0a0a;
-    --foreground: #fcfcfc;
-    --muted: #171717;
-    --muted-foreground: #a1a1aa;
-    --surface: #121212;
-    --border: #27272a;
-    --accent: #ffffff;
+    /* Premium cinematic dark theme base */
+    --background: #0B0B0B;
+    --foreground: #FFFFFF;
+    --muted: #1A1A1A;
+    --muted-foreground: #A0A0A0;
+    --surface: #141414;
+    --border: #2A2A2A;
+    --accent: #D4AF37;
   }
 
   body {
     background-color: var(--background);
     color: var(--foreground);
-    @apply antialiased selection:bg-white selection:text-black;
+    font-family: var(--font-sans);
+    @apply antialiased overflow-x-hidden selection:bg-gold selection:text-black;
+  }
+
+  /* Headings with Film Title design */
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    text-transform: uppercase;
   }
 
   /* Responsive Typography System using clamp */
   h1, .text-display {
-    font-size: clamp(2.5rem, 5vw + 1rem, 5rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    font-weight: 500;
+    font-size: clamp(2.5rem, 6vw + 1rem, 6rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
   }
   
   h2, .text-heading-lg {
     font-size: clamp(2rem, 4vw + 1rem, 3.5rem);
-    line-height: 1.15;
-    letter-spacing: -0.015em;
-    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
   }
 
   h3, .text-heading-md {
-    font-size: clamp(1.5rem, 3vw + 0.5rem, 2.5rem);
-    line-height: 1.2;
+    font-size: clamp(1.5rem, 3vw + 0.5rem, 2.25rem);
+    line-height: 1.15;
     letter-spacing: -0.01em;
-    font-weight: 500;
   }
 
   .text-body-lg {
-    font-size: clamp(1.125rem, 2vw + 0.5rem, 1.5rem);
-    line-height: 1.5;
+    font-size: clamp(1.1rem, 1.5vw + 0.5rem, 1.35rem);
+    line-height: 1.6;
     color: var(--muted-foreground);
   }
 
   .text-label {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.2em;
     font-weight: 600;
-    color: var(--muted-foreground);
+    color: #D4AF37;
+    font-family: var(--font-heading);
   }
 
-  /* Restrained interactions */
-  a {
-    @apply transition-colors duration-300;
+  /* Smooth-scroll helper */
+  html.lenis, html.lenis body {
+    height: auto;
+  }
+
+  .lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis-smooth [data-lenis-prevent] {
+    overflow: clip;
+  }
+
+  .lenis-target {
+    scroll-behavior: clip;
+  }
+
+  .lenis-stopped {
+    overflow: hidden;
   }
 }
 
@@ -80,4 +113,71 @@
   .media-placeholder {
     @apply bg-muted border border-border w-full flex items-center justify-center text-muted-foreground relative overflow-hidden;
   }
+  
+  /* Luxury Gold Gradient overlay */
+  .gold-gradient-text {
+    @apply bg-gradient-to-r from-white via-[#F5E6C4] to-gold bg-clip-text text-transparent;
+  }
+  
+  /* Horizontal line motif */
+  .line-divider {
+    @apply h-[1px] w-full bg-gradient-to-r from-transparent via-border to-transparent;
+  }
+
+  /* Hide default cursor on desktop when custom cursor is active */
+  @media (pointer: fine) {
+    .custom-cursor-active, 
+    .custom-cursor-active * {
+      cursor: none !important;
+    }
+  }
+}
+
+/* Custom Cursor design */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #D4AF37;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, background-color 0.3s;
+}
+
+.custom-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+}
+
+/* Marquee slide animation */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+/* Pulse animation for Live rec-dot */
+@keyframes rec-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.9); }
+}
+
+.animate-rec-pulse {
+  animation: rec-pulse 2s infinite ease-in-out;
 }
