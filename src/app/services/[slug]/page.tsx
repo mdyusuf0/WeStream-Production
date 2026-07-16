@@ -23,21 +23,21 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   }
 
   return (
-    <div className="bg-[#0B0B0B] text-white pt-32 pb-24 min-h-screen">
+    <div className="bg-background text-foreground pt-32 pb-24 min-h-screen">
       {/* 1. Header Banner */}
       <Container className="mb-16">
         <div className="flex flex-col gap-6 max-w-4xl">
           <Link
             href="/services"
-            className="text-xs font-heading font-extrabold tracking-widest text-gold hover:text-white uppercase inline-flex items-center gap-2 w-max transition-colors"
+            className="text-xs font-heading font-extrabold tracking-widest text-gold hover:text-foreground uppercase inline-flex items-center gap-2 w-max transition-colors"
           >
             &larr; Back to Services
           </Link>
           <span className="text-label block">Service Deep-Dive</span>
-          <h1 className="text-display font-heading font-extrabold text-white leading-none">
+          <h1 className="text-display font-heading font-extrabold text-foreground leading-none">
             {service.title}
           </h1>
-          <p className="text-body-lg max-w-2xl leading-relaxed pt-2">
+          <p className="text-body-lg max-w-2xl leading-relaxed pt-2 text-muted-foreground">
             {service.shortDesc}
           </p>
         </div>
@@ -55,7 +55,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           >
             <source src={service.videoUrl} type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent pointer-events-none" />
           {/* Subtle live indicator in top corner */}
           <div className="absolute top-6 left-6 flex items-center gap-2 bg-black/60 backdrop-blur-sm px-3 py-1.5 border border-border/50">
             <span className="h-2 w-2 rounded-full bg-gold animate-pulse" />
@@ -72,7 +72,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           {/* Left Column: Description & Sub-services */}
           <div className="lg:col-span-7 space-y-8">
             <div className="space-y-4">
-              <h3 className="text-xl font-heading font-extrabold text-white uppercase tracking-wider">
+              <h3 className="text-xl font-heading font-extrabold text-foreground uppercase tracking-wider">
                 Technical Scope & Operations
               </h3>
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-sans">
@@ -89,12 +89,12 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 {service.subServices.map((sub, idx) => (
                   <div
                     key={idx}
-                    className="flex items-start gap-3 p-4 bg-black border border-border/40 rounded-sm hover:border-gold/20 transition-all duration-300"
+                    className="flex items-start gap-3 p-4 bg-surface border border-border/40 rounded-sm hover:border-gold/20 transition-all duration-300"
                   >
                     <span className="text-gold font-heading text-xs font-bold mt-0.5">
                       {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
                     </span>
-                    <span className="text-xs md:text-sm font-sans text-white/90">
+                    <span className="text-xs md:text-sm font-sans text-foreground/90">
                       {sub}
                     </span>
                   </div>
@@ -105,7 +105,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
           {/* Right Column: Key Highlights / Features */}
           <div className="lg:col-span-5 space-y-8">
-            <div className="bg-black/60 border border-border/40 p-8 rounded-sm space-y-6">
+            <div className="bg-surface/60 border border-border/40 p-8 rounded-sm space-y-6">
               <h3 className="text-sm font-heading font-extrabold text-gold tracking-widest uppercase">
                 Operational Highlights
               </h3>
@@ -116,7 +116,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                       ✓
                     </span>
                     <div className="space-y-1">
-                      <p className="text-xs md:text-sm font-heading font-bold text-white uppercase tracking-wide">
+                      <p className="text-xs md:text-sm font-heading font-bold text-foreground uppercase tracking-wide">
                         {feature.split(":")[0]}
                       </p>
                       {feature.includes(":") && (
@@ -135,11 +135,11 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
       {/* 4. Action Banner */}
       <Container className="text-center">
-        <div className="max-w-3xl mx-auto space-y-6 py-12 border border-gold/15 bg-black/60 rounded-sm">
+        <div className="max-w-3xl mx-auto space-y-6 py-12 border border-gold/15 bg-surface/60 rounded-sm">
           <span className="text-[10px] font-heading font-extrabold tracking-widest text-gold uppercase block">
             Start a Consultation
           </span>
-          <h3 className="text-xl md:text-2xl font-heading font-extrabold text-white">
+          <h3 className="text-xl md:text-2xl font-heading font-extrabold text-foreground">
             Wired for your next {service.title} setup
           </h3>
           <p className="text-xs text-muted-foreground font-sans max-w-md mx-auto leading-relaxed">

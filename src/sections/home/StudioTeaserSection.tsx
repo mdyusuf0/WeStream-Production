@@ -62,14 +62,14 @@ export function StudioTeaserSection() {
   ];
 
   return (
-    <section className="section-space bg-black relative">
+    <section className="section-space bg-background relative">
       <Container>
         {/* Top: Blurb & Stats Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 mb-32 items-center">
           {/* Left Column: Teaser Copy */}
           <div className="lg:col-span-6 space-y-6">
             <span className="text-label block">About WeStream</span>
-            <h2 className="text-heading-lg font-heading font-extrabold text-white leading-tight">
+            <h2 className="text-heading-lg font-heading font-extrabold text-foreground leading-tight">
               We Create.<br />We Capture.<br />We Stream.
             </h2>
             <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-sans max-w-xl">
@@ -82,7 +82,7 @@ export function StudioTeaserSection() {
               <Magnetic range={30} strength={0.3}>
                 <Link
                   href="/about"
-                  className="text-xs font-heading font-extrabold tracking-widest text-gold hover:text-white uppercase py-2 transition-colors inline-flex items-center gap-2 border-b border-gold/20 hover:border-white"
+                  className="text-xs font-heading font-extrabold tracking-widest text-gold hover:text-foreground uppercase py-2 transition-colors inline-flex items-center gap-2 border-b border-gold/20 hover:border-foreground"
                 >
                   Our Story & Philosophy
                   <span>&rarr;</span>
@@ -105,7 +105,7 @@ export function StudioTeaserSection() {
                 <div className="text-4xl md:text-5xl">
                   <Counter value={stat.value} />
                 </div>
-                <h4 className="text-xs font-heading font-bold tracking-widest uppercase text-white">
+                <h4 className="text-xs font-heading font-bold tracking-widest uppercase text-foreground">
                   {stat.label}
                 </h4>
                 <p className="text-xs text-muted-foreground leading-relaxed font-sans">
@@ -120,7 +120,7 @@ export function StudioTeaserSection() {
         <div className="border-t border-border/30 pt-24">
           <div className="mb-16 text-center max-w-2xl mx-auto">
             <span className="text-label block mb-3">Our Core Pillars</span>
-            <h3 className="text-heading-md font-heading font-extrabold text-white">
+            <h3 className="text-heading-md font-heading font-extrabold text-foreground">
               Why WeStream Production?
             </h3>
           </div>
@@ -133,7 +133,7 @@ export function StudioTeaserSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="bg-[#0B0B0B] border border-border/40 p-6 rounded-sm hover:border-gold/25 transition-all duration-300 group"
+                className="bg-surface border border-border/40 p-6 rounded-sm hover:border-gold/25 transition-all duration-300 group"
               >
                 {/* Visual Motif: scanning lens circle */}
                 <div className="mb-4 flex items-center justify-between">
@@ -144,7 +144,7 @@ export function StudioTeaserSection() {
                     Pillar.0{idx + 1}
                   </span>
                 </div>
-                <h4 className="text-sm font-heading font-extrabold text-white mb-2 group-hover:text-gold transition-colors duration-300">
+                <h4 className="text-sm font-heading font-extrabold text-foreground mb-2 group-hover:text-gold transition-colors duration-300">
                   {benefit.title}
                 </h4>
                 <p className="text-xs text-muted-foreground leading-relaxed font-sans">

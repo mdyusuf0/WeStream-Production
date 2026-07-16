@@ -29,7 +29,7 @@ export function TrustSection() {
   ];
 
   return (
-    <section className="section-space bg-[#0D0D0D] relative overflow-hidden">
+    <section className="section-space bg-background relative overflow-hidden">
       {/* 1. Logo Marquee strip */}
       <div className="mb-28">
         <div className="mb-10 text-center">
@@ -44,7 +44,7 @@ export function TrustSection() {
           {/* Left Column: Heading */}
           <div className="lg:col-span-5 space-y-6">
             <span className="text-label block">Client Reviews</span>
-            <h3 className="text-heading-md font-heading font-extrabold text-white leading-tight">
+            <h3 className="text-heading-md font-heading font-extrabold text-foreground leading-tight">
               The WeStream<br />Production Impact
             </h3>
             <p className="text-sm text-muted-foreground leading-relaxed font-sans max-w-sm">
@@ -68,7 +68,7 @@ export function TrustSection() {
 
           {/* Right Column: Active Testimonial Card */}
           <div className="lg:col-span-7">
-            <div className="relative min-h-[250px] bg-black border border-border/40 p-8 md:p-12 rounded-sm hover:border-gold/20 transition-all duration-500 flex flex-col justify-between">
+            <div className="relative min-h-[250px] bg-surface border border-border/40 p-8 md:p-12 rounded-sm hover:border-gold/20 transition-all duration-500 flex flex-col justify-between">
               {/* Quote Motif decoration */}
               <div className="absolute top-6 right-8 font-heading text-8xl text-gold/5 font-extrabold select-none pointer-events-none">
                 “
@@ -83,13 +83,13 @@ export function TrustSection() {
                   transition={{ duration: 0.4 }}
                   className="space-y-6"
                 >
-                  <p className="text-sm md:text-base text-white/90 leading-relaxed font-sans italic">
+                  <p className="text-sm md:text-base text-foreground/90 leading-relaxed font-sans italic">
                     &ldquo;{testimonials[activeTestimonial].text}&rdquo;
                   </p>
                   
                   <div className="border-t border-border/30 pt-6 flex justify-between items-end">
                     <div>
-                      <h5 className="font-heading text-xs md:text-sm font-extrabold text-white uppercase tracking-wider">
+                      <h5 className="font-heading text-xs md:text-sm font-extrabold text-foreground uppercase tracking-wider">
                         {testimonials[activeTestimonial].author}
                       </h5>
                       <p className="text-xs text-muted-foreground font-sans mt-0.5">

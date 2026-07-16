@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SkipLink } from "@/components/layout/SkipLink";
 import ClientLayout from "@/components/layout/ClientLayout";
+import { ThemeProvider } from "@/components/theme/ThemeContext";
 
 // Montserrat for cinematic film-card headings
 const montserrat = Montserrat({
@@ -90,9 +91,36 @@ export default function RootLayout({
     ]
   };
 
+  const themeScript = `
+    (function() {
+      try {
+        var theme = localStorage.getItem('westream_theme') || 'dark';
+        if (theme === 'system') {
+          var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+          if (darkQuery.matches) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+          } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+          }
+        } else if (theme === 'light') {
+          document.documentElement.classList.add('light');
+          document.documentElement.classList.remove('dark');
+        } else {
+          document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('light');
+        }
+      } catch (e) {}
+    })();
+  `;
+
   return (
-    <html lang="en" className={`${poppins.variable} ${montserrat.variable} scroll-smooth`}>
+    <html lang="en" className={`${poppins.variable} ${montserrat.variable} scroll-smooth`} suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{ __html: themeScript }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -100,13 +128,15 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col bg-background text-foreground antialiased font-sans">
         <SkipLink />
-        <ClientLayout>
-          <SiteHeader />
-          <main id="main-content" className="flex-1">
-            {children}
-          </main>
-          <SiteFooter />
-        </ClientLayout>
+        <ThemeProvider>
+          <ClientLayout>
+            <SiteHeader />
+            <main id="main-content" className="flex-1">
+              {children}
+            </main>
+            <SiteFooter />
+          </ClientLayout>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -35,16 +35,16 @@ function TeamAvatar({ src, name, index }: { src: string; name: string; index: nu
 
 export default function TeamPage() {
   return (
-    <div className="bg-[#0B0B0B] text-white pt-32 pb-24 min-h-screen">
+    <div className="bg-background text-foreground pt-32 pb-24 min-h-screen">
       {/* Page Header */}
       <Container className="mb-24">
         <div className="max-w-4xl space-y-6">
           <span className="text-label block">Who We Are</span>
-          <h1 className="text-display font-heading font-extrabold text-white leading-none">
+          <h1 className="text-display font-heading font-extrabold text-foreground leading-none">
             The Minds Behind<br />
             <span className="gold-gradient-text">The Lenses.</span>
           </h1>
-          <p className="text-body-lg max-w-2xl pt-4">
+          <p className="text-body-lg max-w-2xl pt-4 text-muted-foreground">
             Meet the WeStream Production team. A select group of broadcast engineers, directors, and editors based in Bangalore, working together to deliver zero-fail streaming operations.
           </p>
         </div>
@@ -71,7 +71,7 @@ export default function TeamPage() {
                   <span className="text-[10px] font-heading font-extrabold tracking-widest text-gold uppercase">
                     {member.role}
                   </span>
-                  <h3 className="text-lg md:text-xl font-heading font-extrabold text-white group-hover:text-gold transition-colors duration-300">
+                  <h3 className="text-lg md:text-xl font-heading font-extrabold text-foreground group-hover:text-gold transition-colors duration-300">
                     {member.name}
                   </h3>
                 </div>
@@ -85,7 +85,7 @@ export default function TeamPage() {
                   {member.tags.map((tag, idx) => (
                     <span
                       key={idx}
-                      className="text-[9px] font-heading font-extrabold tracking-wider uppercase px-2.5 py-1 bg-black border border-border/40 text-muted-foreground rounded-sm select-none"
+                      className="text-[9px] font-heading font-extrabold tracking-wider uppercase px-2.5 py-1 bg-surface border border-border/40 text-muted-foreground rounded-sm select-none"
                     >
                       {tag}
                     </span>
@@ -101,7 +101,7 @@ export default function TeamPage() {
       <Container className="text-center">
         <div className="max-w-2xl mx-auto space-y-6 py-12 border-t border-border/30">
           <span className="text-label block">Work With Us</span>
-          <h3 className="text-lg md:text-xl font-heading font-extrabold text-white uppercase">
+          <h3 className="text-lg md:text-xl font-heading font-extrabold text-foreground uppercase">
             Join the WeStream Crew
           </h3>
           <p className="text-xs text-muted-foreground font-sans max-w-md mx-auto leading-relaxed">
@@ -110,7 +110,7 @@ export default function TeamPage() {
           <div className="pt-4">
             <a
               href="mailto:ersamirsingh@gmail.com?subject=WeStream%20Production%20Career%20Enquiry" // comment placeholder email
-              className="inline-flex px-8 py-3 bg-transparent hover:bg-white hover:text-black text-white border border-white font-heading font-extrabold text-[10px] tracking-widest uppercase rounded-sm transition-colors duration-300"
+              className="inline-flex px-8 py-3 bg-transparent hover:bg-foreground hover:text-background text-foreground border border-foreground font-heading font-extrabold text-[10px] tracking-widest uppercase rounded-sm transition-colors duration-300"
             >
               Submit Your Showreel
             </a>

@@ -37,10 +37,10 @@ const initialFormState: FormState = {
 function FAQCard({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="border border-border/40 bg-black/60 rounded-sm hover:border-gold/25 transition-all duration-300">
+    <div className="border border-border/40 bg-surface/60 rounded-sm hover:border-gold/25 transition-all duration-300">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between w-full p-6 text-left font-heading text-xs md:text-sm font-extrabold uppercase tracking-wider text-white hover:text-gold transition-colors cursor-pointer"
+        className="flex items-center justify-between w-full p-6 text-left font-heading text-xs md:text-sm font-extrabold uppercase tracking-wider text-foreground hover:text-gold transition-colors cursor-pointer"
       >
         <span>{question}</span>
         {isOpen ? <ChevronUp className="h-4 w-4 text-gold shrink-0 ml-4" /> : <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0 ml-4" />}
@@ -159,16 +159,16 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="bg-[#0B0B0B] text-white pt-32 pb-24 min-h-screen">
+    <div className="bg-background text-foreground pt-32 pb-24 min-h-screen">
       {/* 1. Page Header */}
       <Container className="mb-20">
         <div className="max-w-4xl space-y-6">
           <span className="text-label block">Get In Touch</span>
-          <h1 className="text-display font-heading font-extrabold text-white leading-none">
+          <h1 className="text-display font-heading font-extrabold text-foreground leading-none">
             Let's Bring Your<br />
             <span className="gold-gradient-text">Story to Life.</span>
           </h1>
-          <p className="text-body-lg max-w-2xl pt-4">
+          <p className="text-body-lg max-w-2xl pt-4 text-muted-foreground">
             Tell us about your broadcasting requirements or video goals, and our Bangalore directors will map out your production plan.
           </p>
           <div className="h-[1px] w-40 bg-gold/50" />
@@ -181,7 +181,7 @@ export default function ContactPage() {
           
           {/* Left Column: Form */}
           <div className="lg:col-span-7">
-            <div className="relative bg-black border border-border/40 p-8 md:p-10 rounded-sm">
+            <div className="relative bg-surface border border-border/40 p-8 md:p-10 rounded-sm">
               <AnimatePresence mode="wait">
                 {!submitted ? (
                   <motion.form
@@ -206,7 +206,7 @@ export default function ContactPage() {
                           name="fullName"
                           value={form.fullName}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111111] border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-white transition-all rounded-sm"
+                          className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm"
                           placeholder="e.g. Yusuf Khan"
                         />
                         {errors.fullName && <p className="text-[10px] text-red-500 font-sans">{errors.fullName}</p>}
@@ -221,7 +221,7 @@ export default function ContactPage() {
                           name="company"
                           value={form.company}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111111] border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-white transition-all rounded-sm"
+                          className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm"
                           placeholder="e.g. Work India"
                         />
                       </div>
@@ -238,7 +238,7 @@ export default function ContactPage() {
                           name="email"
                           value={form.email}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111111] border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-white transition-all rounded-sm"
+                          className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm"
                           placeholder="e.g. contact@domain.com"
                         />
                         {errors.email && <p className="text-[10px] text-red-500 font-sans">{errors.email}</p>}
@@ -253,7 +253,7 @@ export default function ContactPage() {
                           name="phone"
                           value={form.phone}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111111] border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-white transition-all rounded-sm"
+                          className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm"
                           placeholder="e.g. +91 99999 99999"
                         />
                         {errors.phone && <p className="text-[10px] text-red-500 font-sans">{errors.phone}</p>}
@@ -270,7 +270,7 @@ export default function ContactPage() {
                           name="projectType"
                           value={form.projectType}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111111] border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-white transition-all rounded-sm cursor-pointer"
+                          className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm cursor-pointer"
                         >
                           <option value="">Select Category...</option>
                           <option value="Corporate Film">Corporate Film</option>
@@ -291,13 +291,13 @@ export default function ContactPage() {
                           name="timeline"
                           value={form.timeline}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111111] border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-white transition-all rounded-sm"
+                          className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm"
                           placeholder="e.g. Immediate / Next Month"
                         />
                       </div>
                     </div>
 
-                    {/* Row 4: Private Budget field (collected privately, never displayed) */}
+                    {/* Row 4: Private Budget field */}
                     <div className="space-y-2">
                       <label className="text-[10px] font-heading font-bold uppercase tracking-widest text-muted-foreground block">
                         Approximate Budget (Private / Optional)
@@ -307,7 +307,7 @@ export default function ContactPage() {
                         name="budget"
                         value={form.budget}
                         onChange={handleInputChange}
-                        className="w-full bg-[#111111] border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-white transition-all rounded-sm"
+                        className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm"
                         placeholder="e.g. INR 2 Lakhs - 5 Lakhs"
                       />
                     </div>
@@ -323,7 +323,7 @@ export default function ContactPage() {
                           name="references"
                           value={form.references}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111111] border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-white transition-all rounded-sm"
+                          className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm"
                           placeholder="e.g. https://youtube.com/..."
                         />
                       </div>
@@ -337,7 +337,7 @@ export default function ContactPage() {
                           name="driveLink"
                           value={form.driveLink}
                           onChange={handleInputChange}
-                          className="w-full bg-[#111111] border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-white transition-all rounded-sm"
+                          className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm"
                           placeholder="e.g. https://drive.google.com/..."
                         />
                       </div>
@@ -353,7 +353,7 @@ export default function ContactPage() {
                         value={form.description}
                         onChange={handleInputChange}
                         rows={5}
-                        className="w-full bg-[#111111] border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-white transition-all rounded-sm resize-none"
+                        className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm resize-none"
                         placeholder="Detail your event venue, multi-cam requirements, or video story objectives..."
                       />
                       {errors.description && <p className="text-[10px] text-red-500 font-sans">{errors.description}</p>}
@@ -376,7 +376,7 @@ export default function ContactPage() {
                     </button>
                   </motion.form>
                 ) : (
-                  // Cinematic success confirmation pay-off
+                  // Cinematic success confirmation payoff
                   <motion.div
                     key="success-payoff"
                     initial={{ opacity: 0, scale: 0.95 }}
@@ -387,7 +387,7 @@ export default function ContactPage() {
                       <Check className="h-8 w-8" />
                     </div>
                     <div className="space-y-2">
-                      <h3 className="font-heading text-lg font-extrabold text-white uppercase tracking-wider">
+                      <h3 className="font-heading text-lg font-extrabold text-foreground uppercase tracking-wider">
                         Briefing Received
                       </h3>
                       <p className="text-xs md:text-sm text-muted-foreground font-sans max-w-sm">
@@ -409,10 +409,10 @@ export default function ContactPage() {
           {/* Right Column: Direct Contact & Social details */}
           <div className="lg:col-span-5 space-y-10">
             {/* Direct contact info box */}
-            <div className="bg-black/60 border border-border/40 p-8 rounded-sm space-y-8">
+            <div className="bg-surface/60 border border-border/40 p-8 rounded-sm space-y-8">
               <div className="flex items-center gap-2.5">
                 <span className="h-2 w-2 rounded-full bg-gold animate-rec-pulse" />
-                <h3 className="font-heading text-xs md:text-sm font-extrabold text-white uppercase tracking-widest">
+                <h3 className="font-heading text-xs md:text-sm font-extrabold text-foreground uppercase tracking-widest">
                   Direct Inquiries
                 </h3>
               </div>
@@ -439,7 +439,7 @@ export default function ContactPage() {
                 <p className="text-[10px] font-heading font-bold text-muted-foreground uppercase tracking-widest">
                   Direct Line
                 </p>
-                <p className="text-sm font-heading font-extrabold text-white tracking-widest">
+                <p className="text-sm font-heading font-extrabold text-foreground tracking-widest">
                   [TODO — Phone Number]
                 </p>
               </div>
@@ -463,7 +463,7 @@ export default function ContactPage() {
                   href="https://www.instagram.com/westream_production"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs font-heading font-extrabold tracking-widest text-gold hover:text-white uppercase transition-colors"
+                  className="text-xs font-heading font-extrabold tracking-widest text-gold hover:text-foreground uppercase transition-colors"
                 >
                   @westream_production
                 </a>
@@ -485,7 +485,7 @@ export default function ContactPage() {
         <div className="border-t border-border/30 pt-24 max-w-4xl mx-auto space-y-16">
           <div className="text-center space-y-4">
             <span className="text-label block">Technical FAQ</span>
-            <h2 className="text-heading-md font-heading font-extrabold text-white">
+            <h2 className="text-heading-md font-heading font-extrabold text-foreground">
               Common Broadcast Questions
             </h2>
           </div>

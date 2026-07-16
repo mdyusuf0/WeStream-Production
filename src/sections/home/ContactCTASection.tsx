@@ -8,7 +8,7 @@ import Magnetic from "@/components/ui/Magnetic";
 
 export function ContactCTASection() {
   return (
-    <section className="relative py-28 md:py-36 bg-black overflow-hidden border-t border-border/20">
+    <section className="relative py-28 md:py-36 bg-background overflow-hidden border-t border-border/20">
       {/* Dynamic graphic grids overlay */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(214,175,55,0.06)_0%,transparent_70%)] pointer-events-none" />
       
@@ -22,7 +22,7 @@ export function ContactCTASection() {
             </span>
           </div>
 
-          <h2 className="text-display text-white font-heading font-extrabold max-w-3xl leading-[1.05] tracking-tight">
+          <h2 className="text-display text-foreground font-heading font-extrabold max-w-3xl leading-[1.05] tracking-tight">
             Ready to bring your story to life?
           </h2>
           

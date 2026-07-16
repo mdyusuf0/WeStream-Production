@@ -32,11 +32,22 @@
     --accent: #D4AF37;
   }
 
+  /* Light Theme overrides */
+  html.light {
+    --background: #FAFAFA;
+    --foreground: #111111;
+    --muted: #F0F0F0;
+    --muted-foreground: #666666;
+    --surface: #FFFFFF;
+    --border: #E5E5E5;
+    --accent: #AA8009; /* Darker gold for WCAG contrast compliance */
+  }
+
   body {
     background-color: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans);
-    @apply antialiased overflow-x-hidden selection:bg-gold selection:text-black;
+    @apply antialiased overflow-x-hidden selection:bg-gold selection:text-black transition-colors duration-300;
   }
 
   /* Headings with Film Title design */

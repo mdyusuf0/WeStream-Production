@@ -5,29 +5,31 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/layout/Container";
-import { PROJECTS_DATA } from "@/lib/data";
+import { PROJECTS_DATA, Project } from "@/lib/data";
+import { MediaLightbox } from "@/components/ui/MediaLightbox";
 
 const categories = ["All", "Video Production", "Live Streaming", "Event Coverage", "Post Production"];
 
 export default function WorkPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
+  const [activeLightboxProject, setActiveLightboxProject] = useState<Project | null>(null);
 
   const filteredProjects = activeCategory === "All"
     ? PROJECTS_DATA
     : PROJECTS_DATA.filter((p) => p.category === activeCategory);
 
   return (
-    <div className="bg-[#0B0B0B] text-white pt-32 pb-24 min-h-screen">
+    <div className="bg-background text-foreground pt-32 pb-24 min-h-screen">
       {/* Page Header */}
       <Container className="mb-16">
         <div className="max-w-4xl space-y-6">
           <span className="text-label block">Selected Portfolio</span>
-          <h1 className="text-display font-heading font-extrabold text-white leading-none">
+          <h1 className="text-display font-heading font-extrabold text-foreground leading-none">
             Cinematic Outcomes.<br />
             <span className="gold-gradient-text">Zero Compromise.</span>
           </h1>
-          <p className="text-body-lg max-w-2xl pt-4">
+          <p className="text-body-lg max-w-2xl pt-4 text-muted-foreground">
             Explore WeStream's project portfolio, featuring corporate films, multi-camera broadcasting campaigns, political summits, and live event productions.
           </p>
         </div>
@@ -43,7 +45,7 @@ export default function WorkPage() {
                 key={category}
                 onClick={() => setActiveCategory(category)}
                 className={`relative px-5 py-2.5 font-heading text-xs font-bold tracking-widest uppercase transition-colors rounded-sm cursor-pointer ${
-                  isSelected ? "text-black" : "text-muted-foreground hover:text-white"
+                  isSelected ? "text-black" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 <span className="relative z-10">{category}</span>
@@ -83,7 +85,7 @@ export default function WorkPage() {
                   data-cursor-text={project.category === "Live Streaming" ? "STREAM" : "VIEW"}
                 >
                   {/* Thumbnail / Video Container */}
-                  <Link href={`/work/${project.slug}`}>
+                  <Link href={`/work/${project.slug}`} onClick={(e) => { e.preventDefault(); setActiveLightboxProject(project); }}>
                     <div className="relative aspect-[3/2] w-full overflow-hidden border border-border/40 bg-muted/15 rounded-sm group-hover:border-gold/30 transition-colors duration-500">
                       {/* Rec blinker indicator */}
                       <div className="absolute top-3 left-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded-full border border-border/50">
@@ -130,8 +132,8 @@ export default function WorkPage() {
                       <span className="text-[9px] font-heading font-extrabold tracking-widest text-gold uppercase">
                         {project.client}
                       </span>
-                      <Link href={`/work/${project.slug}`}>
-                        <h3 className="text-base md:text-lg font-heading font-extrabold text-white group-hover:text-gold transition-colors duration-300">
+                      <Link href={`/work/${project.slug}`} onClick={(e) => { e.preventDefault(); setActiveLightboxProject(project); }}>
+                        <h3 className="text-base md:text-lg font-heading font-extrabold text-foreground group-hover:text-gold transition-colors duration-300">
                           {project.title}
                         </h3>
                       </Link>
@@ -152,6 +154,16 @@ export default function WorkPage() {
           </div>
         )}
       </Container>
+
+      {/* Cinematic Media Lightbox Overlay */}
+      <AnimatePresence>
+        {activeLightboxProject && (
+          <MediaLightbox
+            project={activeLightboxProject}
+            onClose={() => setActiveLightboxProject(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -23,13 +23,13 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   }
 
   return (
-    <div className="bg-[#0B0B0B] text-white pt-32 pb-24 min-h-screen">
+    <div className="bg-background text-foreground pt-32 pb-24 min-h-screen">
       {/* 1. Header Banner */}
       <Container className="mb-16">
         <div className="flex flex-col gap-6 max-w-4xl">
           <Link
             href="/work"
-            className="text-xs font-heading font-extrabold tracking-widest text-gold hover:text-white uppercase inline-flex items-center gap-2 w-max transition-colors"
+            className="text-xs font-heading font-extrabold tracking-widest text-gold hover:text-foreground uppercase inline-flex items-center gap-2 w-max transition-colors"
           >
             &larr; Back to Portfolio
           </Link>
@@ -41,10 +41,10 @@ export default async function ProjectDetailPage({ params }: PageProps) {
               / Client: {project.client}
             </span>
           </div>
-          <h1 className="text-display font-heading font-extrabold text-white leading-none">
+          <h1 className="text-display font-heading font-extrabold text-foreground leading-none">
             {project.title}
           </h1>
-          <p className="text-body-lg max-w-2xl leading-relaxed pt-2">
+          <p className="text-body-lg max-w-2xl leading-relaxed pt-2 text-muted-foreground">
             {project.description}
           </p>
         </div>
@@ -62,7 +62,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           >
             <source src={project.videoUrl} type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent pointer-events-none" />
           
           {/* Subtle Rec status indicator overlay */}
           <div className="absolute top-6 left-6 flex items-center gap-2 bg-black/60 backdrop-blur-sm px-3 py-1.5 border border-border/50">
@@ -100,15 +100,15 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
             {/* Testimonial block if present */}
             {project.testimonial && (
-              <div className="relative bg-black border border-border/40 p-8 rounded-sm hover:border-gold/15 transition-all duration-300">
+              <div className="relative bg-surface border border-border/40 p-8 rounded-sm hover:border-gold/15 transition-all duration-300">
                 <div className="absolute top-4 right-6 font-heading text-6xl text-gold/5 font-extrabold select-none pointer-events-none">
                   “
                 </div>
-                <p className="text-xs md:text-sm text-white/95 leading-relaxed font-sans italic mb-6">
+                <p className="text-xs md:text-sm text-foreground/95 leading-relaxed font-sans italic mb-6">
                   &ldquo;{project.testimonial.text}&rdquo;
                 </p>
                 <div className="border-t border-border/30 pt-4">
-                  <p className="text-xs font-heading font-extrabold text-white uppercase tracking-wider">
+                  <p className="text-xs font-heading font-extrabold text-foreground uppercase tracking-wider">
                     {project.testimonial.author}
                   </p>
                   <p className="text-[10px] text-muted-foreground font-sans mt-0.5">
@@ -122,13 +122,13 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           {/* Right Column: Deliverables & Metrics */}
           <div className="lg:col-span-5 space-y-10">
             {/* Deliverables Box */}
-            <div className="bg-black/60 border border-border/40 p-8 rounded-sm space-y-6">
+            <div className="bg-surface/60 border border-border/40 p-8 rounded-sm space-y-6">
               <h3 className="text-xs font-heading font-extrabold text-gold tracking-widest uppercase">
                 Deliverables & Scope
               </h3>
               <ul className="space-y-3">
                 {project.deliverables.map((item, idx) => (
-                  <li key={idx} className="flex items-center gap-3 text-xs md:text-sm font-sans text-white/95">
+                  <li key={idx} className="flex items-center gap-3 text-xs md:text-sm font-sans text-foreground/95">
                     <span className="h-1.5 w-1.5 rounded-full bg-gold/70 shrink-0" />
                     {item}
                   </li>
@@ -138,14 +138,14 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
             {/* Results / Performance metrics if present */}
             {project.results && project.results.length > 0 && (
-              <div className="bg-black/40 border border-border/40 p-8 rounded-sm space-y-6">
+              <div className="bg-surface/40 border border-border/40 p-8 rounded-sm space-y-6">
                 <h3 className="text-xs font-heading font-extrabold text-gold tracking-widest uppercase">
                   Project Outcomes
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {project.results.map((result, idx) => (
                     <div key={idx} className="space-y-1 border-l border-border/50 pl-4">
-                      <p className="text-3xl font-heading font-extrabold text-white">
+                      <p className="text-3xl font-heading font-extrabold text-foreground">
                         {result.value}
                       </p>
                       <p className="text-[10px] font-heading font-bold text-muted-foreground uppercase tracking-widest leading-normal">
@@ -163,11 +163,11 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
       {/* 4. Action Banner */}
       <Container className="text-center">
-        <div className="max-w-3xl mx-auto space-y-6 py-12 border border-gold/15 bg-black/60 rounded-sm">
+        <div className="max-w-3xl mx-auto space-y-6 py-12 border border-gold/15 bg-surface/60 rounded-sm">
           <span className="text-[10px] font-heading font-extrabold tracking-widest text-gold uppercase block">
             Start Your Project
           </span>
-          <h3 className="text-xl md:text-2xl font-heading font-extrabold text-white uppercase">
+          <h3 className="text-xl md:text-2xl font-heading font-extrabold text-foreground uppercase">
             Have a similar event or film in mind?
           </h3>
           <p className="text-xs text-muted-foreground font-sans max-w-md mx-auto leading-relaxed">

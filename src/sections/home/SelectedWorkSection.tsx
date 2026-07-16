@@ -3,25 +3,28 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/layout/Container";
-import { PROJECTS_DATA } from "@/lib/data";
+import { PROJECTS_DATA, Project } from "@/lib/data";
 import Magnetic from "@/components/ui/Magnetic";
+import { MediaLightbox } from "@/components/ui/MediaLightbox";
 
 export function SelectedWorkSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [activeLightboxProject, setActiveLightboxProject] = useState<Project | null>(null);
 
   // Take first 3 projects for the home page teaser
   const featuredProjects = PROJECTS_DATA.slice(0, 3);
 
   return (
-    <section id="work" className="section-space relative bg-[#0B0B0B]">
+    <section id="work" className="section-space relative bg-background">
       <Container>
         {/* Section Header */}
+        <div className="gradient-divider" />
         <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-border/30 pb-10">
           <div>
             <span className="text-label block mb-3">Portfolio Teaser</span>
-            <h2 className="text-heading-lg font-heading font-extrabold text-white">
+            <h2 className="text-heading-lg font-heading font-extrabold text-foreground">
               Selected Work
             </h2>
           </div>
@@ -29,7 +32,7 @@ export function SelectedWorkSection() {
           <Magnetic range={30} strength={0.3}>
             <Link
               href="/work"
-              className="text-xs font-heading font-extrabold tracking-widest text-gold hover:text-white uppercase flex items-center gap-2 group transition-colors duration-300 py-2 border-b border-gold/30 hover:border-white"
+              className="text-xs font-heading font-extrabold tracking-widest text-gold hover:text-foreground uppercase flex items-center gap-2 group transition-colors duration-300 py-2 border-b border-gold/30 hover:border-foreground"
             >
               View Full Portfolio
               <span className="inline-block transform group-hover:translate-x-1 transition-transform duration-300">
@@ -58,6 +61,7 @@ export function SelectedWorkSection() {
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 data-cursor-text={project.category === "Live Streaming" ? "STREAM" : "VIEW"}
+                onClick={() => setActiveLightboxProject(project)}
               >
                 {/* Media frame with camera grid/motif styling */}
                 <div
@@ -115,11 +119,11 @@ export function SelectedWorkSection() {
                     <span className="text-[10px] font-heading font-extrabold tracking-[0.2em] text-gold uppercase">
                       {project.client}
                     </span>
-                    <h3 className="text-heading-md font-heading font-extrabold text-white group-hover:text-gold transition-colors duration-300">
+                    <h3 className="text-heading-md font-heading font-extrabold text-foreground group-hover:text-gold transition-colors duration-300">
                       {project.title}
                     </h3>
                   </div>
-                  <span className="text-xs font-heading font-bold text-muted-foreground/60 group-hover:text-white transition-colors duration-300">
+                  <span className="text-xs font-heading font-bold text-muted-foreground/60 group-hover:text-foreground transition-colors duration-300">
                     /{project.year}
                   </span>
                 </div>
@@ -128,6 +132,16 @@ export function SelectedWorkSection() {
           })}
         </div>
       </Container>
+
+      {/* Cinematic Media Lightbox Overlay */}
+      <AnimatePresence>
+        {activeLightboxProject && (
+          <MediaLightbox
+            project={activeLightboxProject}
+            onClose={() => setActiveLightboxProject(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }

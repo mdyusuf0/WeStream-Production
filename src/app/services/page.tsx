@@ -9,16 +9,16 @@ import Magnetic from "@/components/ui/Magnetic";
 
 export default function ServicesPage() {
   return (
-    <div className="bg-[#0B0B0B] text-white pt-32 pb-24">
+    <div className="bg-background text-foreground pt-32 pb-24">
       {/* Page Header */}
       <Container className="mb-24">
         <div className="max-w-4xl space-y-6">
           <span className="text-label block">What We Offer</span>
-          <h1 className="text-display font-heading font-extrabold text-white leading-none">
+          <h1 className="text-display font-heading font-extrabold text-foreground leading-none">
             End-To-End<br />
             <span className="gold-gradient-text">Production Power.</span>
           </h1>
-          <p className="text-body-lg max-w-2xl pt-4">
+          <p className="text-body-lg max-w-2xl pt-4 text-muted-foreground">
             From technical camera setups and live multi-provider cellular bonding to high-end video editing and motion design, WeStream offers robust visual solutions.
           </p>
         </div>
@@ -61,7 +61,7 @@ export default function ServicesPage() {
 
               {/* Right Side: Text Description & Sub-services */}
               <div className="w-full lg:w-1/2 space-y-6">
-                <h2 className="text-heading-md font-heading font-extrabold text-white">
+                <h2 className="text-heading-md font-heading font-extrabold text-foreground">
                   {service.title}
                 </h2>
                 <p className="text-sm md:text-base text-muted-foreground leading-relaxed font-sans">
@@ -77,7 +77,7 @@ export default function ServicesPage() {
                     {service.subServices.map((sub, idx) => (
                       <span
                         key={idx}
-                        className="text-[10px] font-heading tracking-wider uppercase font-bold px-3 py-1.5 bg-black border border-border/30 text-muted-foreground hover:border-gold/30 hover:text-gold transition-colors duration-300 rounded-sm select-none"
+                        className="text-[10px] font-heading tracking-wider uppercase font-bold px-3 py-1.5 bg-surface border border-border/30 text-muted-foreground hover:border-gold/30 hover:text-gold transition-colors duration-300 rounded-sm select-none"
                       >
                         {sub}
                       </span>
@@ -90,7 +90,7 @@ export default function ServicesPage() {
                   <Magnetic range={30} strength={0.3}>
                     <Link
                       href={`/services/${service.slug}`}
-                      className="inline-flex items-center gap-2 text-xs font-heading font-extrabold tracking-widest text-white hover:text-gold uppercase py-2 transition-colors border-b border-white hover:border-gold duration-300"
+                      className="inline-flex items-center gap-2 text-xs font-heading font-extrabold tracking-widest text-foreground hover:text-gold uppercase py-2 transition-colors border-b border-border hover:border-gold duration-300"
                     >
                       Deep Dive Overview
                       <span>&rarr;</span>
@@ -105,9 +105,9 @@ export default function ServicesPage() {
 
       {/* Global Bottom CTA banner */}
       <Container className="text-center">
-        <div className="max-w-2xl mx-auto space-y-6 py-12 bg-black border border-border/40 rounded-sm px-6">
+        <div className="max-w-2xl mx-auto space-y-6 py-12 bg-surface border border-border/40 rounded-sm px-6">
           <span className="h-1.5 w-1.5 rounded-full bg-gold inline-block animate-rec-pulse" />
-          <h3 className="text-lg md:text-xl font-heading font-extrabold text-white uppercase">
+          <h3 className="text-lg md:text-xl font-heading font-extrabold text-foreground uppercase">
             Need a custom production package?
           </h3>
           <p className="text-xs text-muted-foreground font-sans max-w-md mx-auto">
