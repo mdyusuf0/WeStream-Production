@@ -11,19 +11,29 @@ function createCinematicGradient(title: string, subtitle: string): string {
       <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" stop-color="#0B0B0B"/>
         <stop offset="50%" stop-color="#141414"/>
-        <stop offset="100%" stop-color="#1A1812"/>
+        <stop offset="100%" stop-color="#181712"/>
       </linearGradient>
-      <radialGradient id="bloom" cx="80%" cy="20%" r="60%">
-        <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.25"/>
+      <radialGradient id="bloom" cx="75%" cy="30%" r="65%">
+        <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.22"/>
         <stop offset="100%" stop-color="#0B0B0B" stop-opacity="0"/>
       </radialGradient>
+      <linearGradient id="flare" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#D4AF37" stop-opacity="0"/>
+        <stop offset="50%" stop-color="#D4AF37" stop-opacity="0.3"/>
+        <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+      </linearGradient>
     </defs>
     <rect width="1200" height="800" fill="url(#bg)"/>
     <rect width="1200" height="800" fill="url(#bloom)"/>
-    <circle cx="950" cy="180" r="280" stroke="#D4AF37" stroke-width="1" stroke-opacity="0.15" fill="none"/>
-    <line x1="100" y1="700" x2="1100" y2="700" stroke="#FFFFFF" stroke-opacity="0.08" stroke-dasharray="4 8"/>
-    <text x="100" y="650" font-family="sans-serif" font-size="28" font-weight="800" fill="#D4AF37" letter-spacing="4" text-transform="uppercase">${subtitle}</text>
-    <text x="100" y="600" font-family="sans-serif" font-size="44" font-weight="900" fill="#FFFFFF" letter-spacing="2" text-transform="uppercase">${title}</text>
+    
+    {/* Horizontal Anamorphic Lens Flare Line */}
+    <line x1="0" y1="400" x2="1200" y2="400" stroke="url(#flare)" stroke-width="1.5"/>
+    
+    <circle cx="900" cy="300" r="220" stroke="#D4AF37" stroke-width="1" stroke-opacity="0.12" fill="none"/>
+    <circle cx="900" cy="300" r="140" stroke="#D4AF37" stroke-width="0.5" stroke-opacity="0.08" fill="none"/>
+    
+    <text x="100" y="650" font-family="'Montserrat', sans-serif" font-size="20" font-weight="700" fill="#D4AF37" letter-spacing="6" text-transform="uppercase">${subtitle}</text>
+    <text x="100" y="590" font-family="'Montserrat', sans-serif" font-size="38" font-weight="800" fill="#FFFFFF" letter-spacing="3" text-transform="uppercase">${title}</text>
   </svg>`;
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }

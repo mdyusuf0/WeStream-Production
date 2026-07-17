@@ -4,6 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { PROJECTS_DATA } from "@/lib/data";
 import { Container } from "@/components/layout/Container";
+import { TelemetryMap } from "@/components/interactive/TelemetryMap";
+import { UplinkSwitcher } from "@/components/interactive/UplinkSwitcher";
+import { ColorGradingSlider } from "@/components/interactive/ColorGradingSlider";
+import { StageMatrix } from "@/components/interactive/StageMatrix";
 
 export function generateStaticParams() {
   return PROJECTS_DATA.map((project) => ({
@@ -24,7 +28,6 @@ export default async function ProjectDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  // Next project link for continuous browsing
   const nextProject = PROJECTS_DATA[(projectIndex + 1) % PROJECTS_DATA.length];
 
   const equipmentList = [
@@ -37,7 +40,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
   ];
 
   return (
-    <div className="bg-background text-foreground transition-colors duration-500 pt-32 pb-24 min-h-screen">
+    <div className="bg-transparent text-foreground transition-colors duration-500 pt-32 pb-24 min-h-screen">
       
       {/* 1. HERO & BREADCRUMB */}
       <Container className="mb-12">
@@ -88,7 +91,15 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </div>
       </Container>
 
-      {/* 3. OVERVIEW & CHALLENGE / SOLUTION */}
+      {/* 3. SIGNATURE INTERACTION SECTION (UNIQUE TO EACH CASE STUDY) */}
+      <Container className="mb-24">
+        {slug === "global-leadership-summit-2025" && <TelemetryMap />}
+        {slug === "national-political-convention" && <UplinkSwitcher />}
+        {slug === "international-tech-conference" && <ColorGradingSlider imageSrc={project.thumbnail} />}
+        {slug === "live-music-festival" && <StageMatrix />}
+      </Container>
+
+      {/* 4. OVERVIEW & CHALLENGE / SOLUTION */}
       <Container className="mb-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 border-t border-header-border pt-16">
           
@@ -149,16 +160,16 @@ export default async function ProjectDetailPage({ params }: PageProps) {
             {project.results && project.results.length > 0 && (
               <div className="bg-surface border border-header-border p-8 rounded-sm space-y-5">
                 <h2 className="text-xs font-heading font-extrabold text-accent tracking-widest uppercase">
-                  Measured Performance
+                  Verified Performance Metrics
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {project.results.map((result, idx) => (
-                    <div key={idx} className="space-y-1 border-l border-header-border pl-4">
-                      <p className="text-2xl font-heading font-extrabold text-foreground">
-                        {result.value}
+                <div className="grid grid-cols-2 gap-4">
+                  {project.results.map((res, idx) => (
+                    <div key={idx} className="space-y-1">
+                      <p className="text-2xl font-heading font-extrabold text-accent">
+                        {res.value}
                       </p>
                       <p className="text-[10px] font-heading font-bold text-muted-foreground uppercase">
-                        {result.label}
+                        {res.label}
                       </p>
                     </div>
                   ))}
@@ -170,76 +181,88 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         </div>
       </Container>
 
-      {/* 4. GALLERY SECTION */}
+      {/* 5. BEHIND-THE-SCENES PRODUCTION GALLERY */}
       <Container className="mb-24">
         <div className="border-t border-header-border pt-16 mb-12">
           <span className="font-heading text-xs font-bold tracking-[0.25em] text-muted-foreground uppercase block mb-2">
-            PRODUCTION GALLERY
+            PRODUCTION ARCHIVE
           </span>
           <h2 className="text-2xl md:text-4xl font-heading font-extrabold text-foreground uppercase tracking-tight">
-            Behind the Lens
+            Behind the Lens & Control Room
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="relative aspect-[16/9] w-full rounded-sm overflow-hidden border border-header-border bg-surface">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="relative aspect-video rounded-sm overflow-hidden border border-header-border bg-surface group">
             <Image
               src={project.thumbnail}
-              alt={`${project.title} gallery 1`}
+              alt="Control Room Monitoring"
               fill
-              className="object-cover"
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
             />
+            <div className="absolute inset-0 bg-background/30 group-hover:bg-transparent transition-colors" />
+            <div className="absolute bottom-4 left-4 bg-background/80 backdrop-blur-md px-3 py-1 rounded-sm border border-header-border text-[9px] font-heading font-bold text-accent uppercase">
+              CONTROL ROOM SDI FEED
+            </div>
           </div>
-          <div className="relative aspect-[16/9] w-full rounded-sm overflow-hidden border border-header-border bg-surface">
+
+          <div className="relative aspect-video rounded-sm overflow-hidden border border-header-border bg-surface group">
             <Image
               src={project.thumbnail}
-              alt={`${project.title} gallery 2`}
+              alt="Stage Rigging & Optics"
               fill
-              className="object-cover brightness-95"
+              className="object-cover group-hover:scale-105 transition-transform duration-500 saturate-150"
             />
+            <div className="absolute inset-0 bg-background/30 group-hover:bg-transparent transition-colors" />
+            <div className="absolute bottom-4 left-4 bg-background/80 backdrop-blur-md px-3 py-1 rounded-sm border border-header-border text-[9px] font-heading font-bold text-accent uppercase">
+              MAINSTAGE OPTICS RIG
+            </div>
           </div>
         </div>
       </Container>
 
-      {/* 5. EQUIPMENT USED */}
-      <Container className="mb-24">
+      {/* 6. HARDWARE SPECS GRID */}
+      <Container className="mb-28">
         <div className="border-t border-header-border pt-16 mb-12">
           <span className="font-heading text-xs font-bold tracking-[0.25em] text-muted-foreground uppercase block mb-2">
             HARDWARE SPECIFICATION
           </span>
           <h2 className="text-2xl md:text-4xl font-heading font-extrabold text-foreground uppercase tracking-tight">
-            Equipment Employed
+            Production Equipment Rigged
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {equipmentList.map((item, idx) => (
+          {equipmentList.map((eq, idx) => (
             <div key={idx} className="bg-surface border border-header-border p-5 rounded-sm flex items-center gap-3">
-              <span className="h-2 w-2 rounded-full bg-accent shrink-0" />
-              <span className="text-xs font-heading font-bold text-foreground">{item}</span>
+              <span className="h-1.5 w-1.5 rounded-full bg-accent shrink-0" />
+              <span className="text-xs font-heading font-bold text-foreground uppercase">{eq}</span>
             </div>
           ))}
         </div>
       </Container>
 
-      {/* 6. NEXT PROJECT FOOTER LINK */}
+      {/* 7. NEXT PROJECT NAVIGATION CARD */}
       <Container>
-        <div className="border-t border-header-border pt-16 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div>
-            <span className="font-heading text-xs font-bold tracking-[0.25em] text-muted-foreground uppercase block mb-1">
-              CONTINUE EXPLORING
+        <Link
+          href={`/work/${nextProject.slug}`}
+          className="group block bg-surface border border-header-border p-10 md:p-14 rounded-sm hover:border-accent/40 transition-all duration-300 space-y-4"
+        >
+          <div className="flex items-center justify-between border-b border-header-border pb-4">
+            <span className="text-[10px] font-heading font-extrabold tracking-widest text-accent uppercase">
+              NEXT CASE STUDY
             </span>
-            <h3 className="text-xl md:text-3xl font-heading font-extrabold text-foreground uppercase">
-              {nextProject.title}
-            </h3>
+            <span className="text-xs font-heading font-bold text-foreground group-hover:translate-x-1 transition-transform">
+              Explore Project &rarr;
+            </span>
           </div>
-          <Link
-            href={`/work/${nextProject.slug}`}
-            className="inline-flex items-center justify-center px-8 py-3.5 bg-accent text-background font-heading text-xs font-bold tracking-[0.2em] uppercase rounded-full shadow-lg hover:opacity-90 transition-opacity"
-          >
-            Next Project &rarr;
-          </Link>
-        </div>
+          <h3 className="text-2xl md:text-4xl font-heading font-extrabold text-foreground group-hover:text-accent transition-colors uppercase">
+            {nextProject.title}
+          </h3>
+          <p className="text-xs md:text-sm text-muted-foreground font-sans">
+            {nextProject.description}
+          </p>
+        </Link>
       </Container>
 
     </div>

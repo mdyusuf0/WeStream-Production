@@ -3,6 +3,10 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { SERVICES_DATA, FAQS_DATA } from "@/lib/data";
 import { Container } from "@/components/layout/Container";
+import { CellularBondingSimulator } from "@/components/interactive/CellularBondingSimulator";
+import { CameraRigShowcase } from "@/components/interactive/CameraRigShowcase";
+import { SDIRouter } from "@/components/interactive/SDIRouter";
+import { AudioScrubber } from "@/components/interactive/AudioScrubber";
 
 export function generateStaticParams() {
   return SERVICES_DATA.map((service) => ({
@@ -30,7 +34,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   ];
 
   return (
-    <div className="bg-background text-foreground transition-colors duration-500 pt-32 pb-24 min-h-screen">
+    <div className="bg-transparent text-foreground transition-colors duration-500 pt-32 pb-24 min-h-screen">
       
       {/* 1. HERO BREADCRUMB & HEADER */}
       <Container className="mb-12">
@@ -72,7 +76,15 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </div>
       </Container>
 
-      {/* 3. CAPABILITIES & DELIVERABLES */}
+      {/* 3. SIGNATURE INTERACTION COMPONENT */}
+      <Container className="mb-24">
+        {slug === "live-streaming" && <CellularBondingSimulator />}
+        {slug === "video-production" && <CameraRigShowcase />}
+        {slug === "event-coverage" && <SDIRouter />}
+        {slug === "post-production" && <AudioScrubber />}
+      </Container>
+
+      {/* 4. CAPABILITIES & DELIVERABLES */}
       <Container className="mb-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 border-t border-header-border pt-16">
           
@@ -109,7 +121,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </div>
       </Container>
 
-      {/* 4. WORKFLOW LIFECYCLE */}
+      {/* 5. WORKFLOW LIFECYCLE */}
       <Container className="mb-24">
         <div className="border-t border-header-border pt-16 mb-12">
           <span className="font-heading text-xs font-bold tracking-[0.25em] text-muted-foreground uppercase block mb-2">
@@ -137,7 +149,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </div>
       </Container>
 
-      {/* 5. FREQUENTLY ASKED QUESTIONS */}
+      {/* 6. FREQUENTLY ASKED QUESTIONS */}
       <Container className="mb-24">
         <div className="border-t border-header-border pt-16 mb-12">
           <span className="font-heading text-xs font-bold tracking-[0.25em] text-muted-foreground uppercase block mb-2">
@@ -151,9 +163,9 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {FAQS_DATA.map((faq, idx) => (
             <div key={idx} className="bg-surface border border-header-border p-6 rounded-sm space-y-3">
-              <h4 className="text-sm font-heading font-extrabold text-foreground uppercase">
+              <h3 className="text-sm font-heading font-extrabold text-foreground uppercase">
                 {faq.question}
-              </h4>
+              </h3>
               <p className="text-xs text-muted-foreground font-sans leading-relaxed">
                 {faq.answer}
               </p>
@@ -162,21 +174,21 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </div>
       </Container>
 
-      {/* 6. CALL TO ACTION */}
+      {/* 7. CTA */}
       <Container>
         <div className="text-center bg-surface border border-header-border p-12 md:p-16 rounded-sm space-y-6">
           <h2 className="text-2xl sm:text-4xl font-heading font-extrabold uppercase text-foreground">
-            Book {service.title} Services
+            Request {service.title} Technical Spec
           </h2>
           <p className="text-xs sm:text-sm text-muted-foreground max-w-lg mx-auto font-sans">
-            Contact our technical team to discuss your event requirements, venue connectivity, and camera crew allocations.
+            Ready to book technical reconnaissance or reserve crew equipment for your event?
           </p>
           <div>
             <Link
-              href="/contact"
+              href={`/contact?service=${service.slug}`}
               className="inline-flex items-center justify-center px-8 py-3.5 bg-accent text-background font-heading text-xs font-bold tracking-[0.2em] uppercase rounded-full shadow-lg hover:opacity-90 transition-opacity"
             >
-              Request Quote
+              Contact Studio Engineering Team
             </Link>
           </div>
         </div>
