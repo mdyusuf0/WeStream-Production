@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SkipLink } from "@/components/layout/SkipLink";
 import ClientLayout from "@/components/layout/ClientLayout";
 import { ThemeProvider } from "@/components/theme/ThemeContext";
+import { AmbientBackground } from "@/components/ui/AmbientBackground";
 
 // Montserrat for cinematic film-card headings
 const montserrat = Montserrat({
@@ -129,9 +130,10 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col bg-background text-foreground antialiased font-sans">
         <SkipLink />
         <ThemeProvider>
+          <AmbientBackground />
           <ClientLayout>
             <SiteHeader />
-            <main id="main-content" className="flex-1">
+            <main id="main-content" className="flex-1 relative z-10">
               {children}
             </main>
             <SiteFooter />

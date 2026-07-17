@@ -6,7 +6,6 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/layout/Container";
 import { PROJECTS_DATA, Project } from "@/lib/data";
-import Magnetic from "@/components/ui/Magnetic";
 import { MediaLightbox } from "@/components/ui/MediaLightbox";
 
 export function SelectedWorkSection() {
@@ -17,33 +16,32 @@ export function SelectedWorkSection() {
   const featuredProjects = PROJECTS_DATA.slice(0, 3);
 
   return (
-    <section id="work" className="section-space relative bg-background">
+    <section id="work" className="section-space relative bg-transparent text-foreground transition-colors duration-500">
       <Container>
         {/* Section Header */}
-        <div className="gradient-divider" />
-        <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-border/30 pb-10">
+        <div className="mb-16 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-header-border pb-8 md:pb-10">
           <div>
-            <span className="text-label block mb-3">Portfolio Teaser</span>
-            <h2 className="text-heading-lg font-heading font-extrabold text-foreground">
+            <span className="font-heading text-xs font-bold tracking-[0.25em] uppercase text-muted-foreground block mb-3">
+              02 // FEATURED PORTFOLIO
+            </span>
+            <h2 className="text-3xl md:text-5xl font-heading font-extrabold text-foreground uppercase tracking-tight">
               Selected Work
             </h2>
           </div>
           
-          <Magnetic range={30} strength={0.3}>
-            <Link
-              href="/work"
-              className="text-xs font-heading font-extrabold tracking-widest text-gold hover:text-foreground uppercase flex items-center gap-2 group transition-colors duration-300 py-2 border-b border-gold/30 hover:border-foreground"
-            >
-              View Full Portfolio
-              <span className="inline-block transform group-hover:translate-x-1 transition-transform duration-300">
-                &rarr;
-              </span>
-            </Link>
-          </Magnetic>
+          <Link
+            href="/work"
+            className="text-xs font-heading font-extrabold tracking-widest text-accent hover:opacity-80 uppercase flex items-center gap-2 group transition-all duration-300 py-2 border-b border-accent/30"
+          >
+            View Full Portfolio
+            <span className="inline-block transform group-hover:translate-x-1 transition-transform duration-300">
+              &rarr;
+            </span>
+          </Link>
         </div>
 
         {/* Dynamic Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-14">
           {featuredProjects.map((project, index) => {
             const isFirst = index === 0;
             const isHovered = hoveredIndex === index;
@@ -51,36 +49,35 @@ export function SelectedWorkSection() {
             return (
               <motion.div
                 key={project.slug}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.15 }}
-                className={`relative flex flex-col gap-6 group cursor-pointer ${
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.12 }}
+                className={`relative flex flex-col gap-5 group cursor-pointer ${
                   isFirst ? "md:col-span-12" : "md:col-span-6"
                 }`}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                data-cursor-text={project.category === "Live Streaming" ? "STREAM" : "VIEW"}
                 onClick={() => setActiveLightboxProject(project)}
               >
-                {/* Media frame with camera grid/motif styling */}
+                {/* Media frame with camera motif styling */}
                 <div
-                  className={`relative w-full overflow-hidden border border-border/40 bg-muted/20 rounded-sm transition-all duration-700 ease-out group-hover:border-gold/30 ${
+                  className={`relative w-full overflow-hidden border border-header-border bg-surface rounded-sm transition-all duration-700 ease-out group-hover:border-accent/40 ${
                     isFirst 
-                      ? "aspect-[16/9] md:max-h-[550px]" 
+                      ? "aspect-[16/9] md:max-h-[520px]" 
                       : "aspect-[4/3] md:aspect-[3/2]"
                   }`}
                 >
-                  {/* Subtle Shutter Rec motif overlay in corners */}
-                  <div className="absolute top-4 left-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full border border-border/50">
-                    <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
-                    <span className="text-[9px] font-heading font-extrabold tracking-widest text-white uppercase">
+                  {/* Category Pill */}
+                  <div className="absolute top-4 left-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 bg-background/80 backdrop-blur-md px-3 py-1 rounded-full border border-header-border">
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+                    <span className="text-[9px] font-heading font-extrabold tracking-widest text-foreground uppercase">
                       {project.category}
                     </span>
                   </div>
 
                   {/* Case Study Year Overlay */}
-                  <div className="absolute bottom-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[10px] font-heading font-extrabold tracking-widest text-gold bg-black/60 backdrop-blur-sm px-3 py-1 border border-border/50">
+                  <div className="absolute bottom-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[10px] font-heading font-extrabold tracking-widest text-accent bg-background/80 backdrop-blur-md px-3 py-1 rounded-sm border border-header-border">
                     {project.year}
                   </div>
 
@@ -109,21 +106,21 @@ export function SelectedWorkSection() {
                     </video>
                   )}
 
-                  {/* Dark inner shadow */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                  {/* Dynamic Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent pointer-events-none" />
                 </div>
 
                 {/* Meta details */}
-                <div className="flex flex-col sm:flex-row justify-between items-start gap-3 mt-1 px-1">
+                <div className="flex flex-col sm:flex-row justify-between items-start gap-2 px-1">
                   <div className="space-y-1">
-                    <span className="text-[10px] font-heading font-extrabold tracking-[0.2em] text-gold uppercase">
+                    <span className="text-[10px] font-heading font-extrabold tracking-[0.2em] text-accent uppercase">
                       {project.client}
                     </span>
-                    <h3 className="text-heading-md font-heading font-extrabold text-foreground group-hover:text-gold transition-colors duration-300">
+                    <h3 className="text-xl md:text-2xl font-heading font-extrabold text-foreground group-hover:text-accent transition-colors duration-300">
                       {project.title}
                     </h3>
                   </div>
-                  <span className="text-xs font-heading font-bold text-muted-foreground/60 group-hover:text-foreground transition-colors duration-300">
+                  <span className="text-xs font-heading font-bold text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                     /{project.year}
                   </span>
                 </div>
