@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 interface VideoLayerProps {
@@ -11,6 +11,13 @@ interface VideoLayerProps {
 
 export function VideoLayer({ src, poster, className = "" }: VideoLayerProps) {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <motion.video
@@ -24,6 +31,7 @@ export function VideoLayer({ src, poster, className = "" }: VideoLayerProps) {
       muted
       loop
       playsInline
+      preload="none"
       poster={poster}
       className={`w-full h-full object-cover ${className}`}
       onLoadedData={() => setIsLoaded(true)}

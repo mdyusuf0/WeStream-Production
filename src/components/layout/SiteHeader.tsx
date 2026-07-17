@@ -21,14 +21,21 @@ export function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   
   const pathname = usePathname();
   const { scrollY } = useScroll();
   const { theme, setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
+    if (sessionStorage.getItem("westream_loader_seen")) {
+      setIsLoaded(true);
+      return;
+    }
+    const handleLoaded = () => setIsLoaded(true);
+    window.addEventListener("westream_loaded", handleLoaded);
+    return () => window.removeEventListener("westream_loaded", handleLoaded);
   }, []);
 
   // Handle Scroll behavior
@@ -81,9 +88,12 @@ export function SiteHeader() {
       {/* 1. DESKTOP & MOBILE FLOATING CAPSULE BAR                     */}
       {/* ============================================================ */}
       <motion.header
-        initial={{ y: 0 }}
-        animate={{ y: isHidden && !isMenuOpen ? "-150%" : "0%" }}
-        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ y: "-150%", opacity: 0 }}
+        animate={{ 
+          y: !isLoaded ? "-150%" : isHidden && !isMenuOpen ? "-150%" : "0%",
+          opacity: isLoaded ? 1 : 0
+        }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className={`fixed top-3 md:top-6 left-1/2 -translate-x-1/2 w-[calc(100%-1.5rem)] sm:w-[calc(100%-2.5rem)] max-w-7xl z-50 rounded-full transition-all duration-500 pt-[env(safe-area-inset-top,0)] ${
           isScrolled && !isMenuOpen
             ? "bg-surface-header backdrop-blur-md border border-header-border shadow-xl"

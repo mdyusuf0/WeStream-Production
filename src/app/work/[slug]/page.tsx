@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { PROJECTS_DATA } from "@/lib/data";
 import { Container } from "@/components/layout/Container";
+import { InteractiveWrapper } from "@/components/interactive/InteractiveWrapper";
 import { TelemetryMap } from "@/components/interactive/TelemetryMap";
 import { UplinkSwitcher } from "@/components/interactive/UplinkSwitcher";
 import { ColorGradingSlider } from "@/components/interactive/ColorGradingSlider";
@@ -93,10 +94,12 @@ export default async function ProjectDetailPage({ params }: PageProps) {
 
       {/* 3. SIGNATURE INTERACTION SECTION (UNIQUE TO EACH CASE STUDY) */}
       <Container className="mb-24">
-        {slug === "global-leadership-summit-2025" && <TelemetryMap />}
-        {slug === "national-political-convention" && <UplinkSwitcher />}
-        {slug === "international-tech-conference" && <ColorGradingSlider imageSrc={project.thumbnail} />}
-        {slug === "live-music-festival" && <StageMatrix />}
+        <InteractiveWrapper>
+          {slug === "global-leadership-summit-2025" && <TelemetryMap />}
+          {slug === "national-political-convention" && <UplinkSwitcher />}
+          {slug === "international-tech-conference" && <ColorGradingSlider imageSrc={project.thumbnail} />}
+          {slug === "live-music-festival" && <StageMatrix />}
+        </InteractiveWrapper>
       </Container>
 
       {/* 4. OVERVIEW & CHALLENGE / SOLUTION */}

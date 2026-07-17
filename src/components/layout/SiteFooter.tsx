@@ -8,30 +8,30 @@ import { SERVICES_DATA } from "@/lib/data";
 
 export function SiteFooter() {
   return (
-    <footer className="relative bg-transparent text-foreground transition-colors duration-500 border-t border-header-border pt-20 md:pt-32 pb-10 overflow-hidden">
+    <footer className="relative bg-transparent text-foreground transition-colors duration-500 border-t border-header-border pt-24 md:pt-40 pb-10 overflow-hidden">
       
-      {/* Volumetric Radial Gold Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
+      {/* Dynamic Volumetric Gold Aurora behind ending text */}
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-accent/8 rounded-full blur-[140px] pointer-events-none" />
 
       <Container>
         {/* ============================================================ */}
         {/* CINEMATIC ENDING HERO CALL-TO-ACTION                         */}
         {/* ============================================================ */}
-        <div className="text-center space-y-8 pb-20 border-b border-header-border max-w-4xl mx-auto mb-20 relative z-10">
-          <span className="text-[10px] font-heading font-extrabold tracking-[0.3em] text-accent uppercase block">
-            PARTNER WITH WESTREAM
+        <div className="text-center space-y-10 pb-24 border-b border-header-border max-w-5xl mx-auto mb-24 relative z-10">
+          <span className="text-[10px] font-heading font-extrabold tracking-[0.35em] text-accent uppercase block">
+            READY TO STREAM YOUR NEXT STORY?
           </span>
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-heading font-extrabold text-foreground uppercase tracking-tight leading-[0.95]">
+          <h2 className="text-4xl sm:text-6xl md:text-8xl font-heading font-extrabold text-foreground uppercase tracking-tight leading-[0.90] drop-shadow-2xl">
             BRING YOUR VISION<br />
             <span className="text-accent">TO BROADCAST.</span>
           </h2>
-          <p className="text-xs sm:text-sm text-muted-foreground max-w-lg mx-auto font-sans leading-relaxed">
-            From technical scripting to live satellite uplink transmission, our crew delivers zero-failure media environments across India.
+          <p className="text-xs sm:text-sm md:text-base text-muted-foreground max-w-xl mx-auto font-sans leading-relaxed">
+            From Bangalore to any venue in India. Deploys zero-failure 6K optical fields, satellite feeds, and multi-network bonding pipelines.
           </p>
-          <div className="pt-2">
+          <div className="pt-4">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-8 py-3.5 bg-accent text-background font-heading text-xs font-bold tracking-[0.2em] uppercase rounded-full shadow-lg hover:opacity-90 transition-opacity"
+              className="inline-flex items-center justify-center min-h-[52px] px-10 bg-accent text-background font-heading text-xs font-bold tracking-[0.25em] uppercase rounded-full shadow-2xl hover:opacity-90 transition-opacity"
             >
               Initiate Technical Brief
             </Link>

@@ -1,18 +1,37 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { MediaStage } from "@/components/media/MediaStage";
 
 export function HeroSection() {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("westream_loader_seen")) {
+      setIsLoaded(true);
+      return;
+    }
+    const handleLoaded = () => setIsLoaded(true);
+    window.addEventListener("westream_loaded", handleLoaded);
+    return () => window.removeEventListener("westream_loaded", handleLoaded);
+  }, []);
+
   return (
     <section 
       className="relative w-full h-[100dvh] flex items-center justify-center overflow-hidden bg-transparent text-foreground transition-colors duration-500"
     >
       {/* THE ENTIRE HERO IS THE MEDIASTAGE (100dvh Spatial Background) */}
-      <MediaStage mode="sculpture" withNoise={true} />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={isLoaded ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute inset-0 w-full h-full"
+      >
+        <MediaStage mode="sculpture" withNoise={true} />
+      </motion.div>
 
       {/* OVERLAY TYPOGRAPHY & CTAs (Off-Axis Editorial Alignment for Spatial Tension) */}
       <Container className="relative z-30 w-full h-full flex flex-col justify-between pt-28 pb-12 md:pb-16 pointer-events-none">
@@ -26,8 +45,8 @@ export function HeroSection() {
           {/* Main Headline (Off-axis offset left) */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
             <h1 className="font-heading font-extrabold text-[clamp(2.5rem,5.5vw,5.5rem)] uppercase tracking-tight leading-[0.92] text-foreground drop-shadow-2xl">
               Bringing Stories to Life.
@@ -37,19 +56,19 @@ export function HeroSection() {
           {/* Secondary Accent Headline */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 1.2, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
           >
             <h2 className="font-heading font-extrabold text-[clamp(1.5rem,3.2vw,3rem)] uppercase tracking-tight text-accent leading-[0.95]">
               Streaming Moments That Matter.
             </h2>
           </motion.div>
 
-          {/* Minimal Pinned CTAs */}
+          {/* Pinned CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.55 }}
+            animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 1.0, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
             className="flex items-center gap-6 pt-4"
           >
             <Link

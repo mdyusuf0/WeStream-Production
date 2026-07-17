@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { SERVICES_DATA, FAQS_DATA } from "@/lib/data";
 import { Container } from "@/components/layout/Container";
+import { InteractiveWrapper } from "@/components/interactive/InteractiveWrapper";
 import { CellularBondingSimulator } from "@/components/interactive/CellularBondingSimulator";
 import { CameraRigShowcase } from "@/components/interactive/CameraRigShowcase";
 import { SDIRouter } from "@/components/interactive/SDIRouter";
@@ -78,10 +79,12 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
       {/* 3. SIGNATURE INTERACTION COMPONENT */}
       <Container className="mb-24">
-        {slug === "live-streaming" && <CellularBondingSimulator />}
-        {slug === "video-production" && <CameraRigShowcase />}
-        {slug === "event-coverage" && <SDIRouter />}
-        {slug === "post-production" && <AudioScrubber />}
+        <InteractiveWrapper>
+          {slug === "live-streaming" && <CellularBondingSimulator />}
+          {slug === "video-production" && <CameraRigShowcase />}
+          {slug === "event-coverage" && <SDIRouter />}
+          {slug === "post-production" && <AudioScrubber />}
+        </InteractiveWrapper>
       </Container>
 
       {/* 4. CAPABILITIES & DELIVERABLES */}

@@ -96,7 +96,19 @@ export default function WorkPage() {
                   onMouseEnter={() => setHoveredSlug(project.slug)}
                   onMouseLeave={() => setHoveredSlug(null)}
                 >
-                  <Link href={`/work/${project.slug}`} className="block space-y-4">
+                  <Link 
+                    href={`/work/${project.slug}`} 
+                    className="block space-y-4"
+                    onClick={(e) => {
+                      const img = e.currentTarget.querySelector("img");
+                      if (img) {
+                        const rect = img.getBoundingClientRect();
+                        window.dispatchEvent(new CustomEvent("westream_expand_project", {
+                          detail: { src: project.thumbnail, rect }
+                        }));
+                      }
+                    }}
+                  >
                     {/* Thumbnail Frame */}
                     <div className="relative aspect-[16/9] w-full overflow-hidden border border-header-border bg-surface rounded-sm group-hover:border-accent/40 transition-colors duration-500">
                       

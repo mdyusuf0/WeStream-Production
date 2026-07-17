@@ -36,6 +36,7 @@ export default function LoadingScreen() {
     sessionStorage.setItem("westream_loader_seen", "true");
     setIsVisible(false);
     document.body.style.overflow = "";
+    window.dispatchEvent(new Event("westream_loaded"));
   };
 
   if (!isVisible) return null;
