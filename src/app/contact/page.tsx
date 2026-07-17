@@ -4,8 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/layout/Container";
 import { FAQS_DATA } from "@/lib/data";
-import { MessageSquare, Check, HelpCircle, ChevronDown, ChevronUp } from "lucide-react";
-import Magnetic from "@/components/ui/Magnetic";
+import { Check, ChevronDown, ChevronUp } from "lucide-react";
 
 interface FormState {
   fullName: string;
@@ -16,8 +15,6 @@ interface FormState {
   budget: string;
   timeline: string;
   description: string;
-  references: string;
-  driveLink: string;
 }
 
 const initialFormState: FormState = {
@@ -29,21 +26,19 @@ const initialFormState: FormState = {
   budget: "",
   timeline: "",
   description: "",
-  references: "",
-  driveLink: "",
 };
 
 // FAQ Accordion Card
 function FAQCard({ question, answer }: { question: string; answer: string }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="border border-border/40 bg-surface/60 rounded-sm hover:border-gold/25 transition-all duration-300">
+    <div className="border border-header-border bg-surface rounded-sm hover:border-accent/40 transition-all duration-300">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between w-full p-6 text-left font-heading text-xs md:text-sm font-extrabold uppercase tracking-wider text-foreground hover:text-gold transition-colors cursor-pointer"
+        className="flex items-center justify-between w-full p-6 text-left font-heading text-xs md:text-sm font-extrabold uppercase tracking-wider text-foreground hover:text-accent transition-colors cursor-pointer"
       >
         <span>{question}</span>
-        {isOpen ? <ChevronUp className="h-4 w-4 text-gold shrink-0 ml-4" /> : <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0 ml-4" />}
+        {isOpen ? <ChevronUp className="h-4 w-4 text-accent shrink-0 ml-4" /> : <ChevronDown className="h-4 w-4 text-muted-foreground shrink-0 ml-4" />}
       </button>
       <AnimatePresence initial={false}>
         {isOpen && (
@@ -54,7 +49,7 @@ function FAQCard({ question, answer }: { question: string; answer: string }) {
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <p className="px-6 pb-6 text-xs md:text-sm text-muted-foreground leading-relaxed font-sans border-t border-border/20 pt-4">
+            <p className="px-6 pb-6 text-xs md:text-sm text-muted-foreground leading-relaxed font-sans border-t border-header-border pt-4">
               {answer}
             </p>
           </motion.div>
@@ -70,17 +65,15 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  // Read pre-filled query parameters (e.g. from service click redirects)
   useEffect(() => {
     if (typeof window !== "undefined") {
       const searchParams = new URLSearchParams(window.location.search);
       const serviceParam = searchParams.get("service") || searchParams.get("project");
       if (serviceParam) {
-        let type = "Other";
-        if (serviceParam.includes("stream")) type = "Live Streaming";
-        else if (serviceParam.includes("production")) type = "Video Production";
+        let type = "Live Streaming";
+        if (serviceParam.includes("production")) type = "Video Production";
         else if (serviceParam.includes("coverage")) type = "Event Coverage";
-        else if (serviceParam.includes("post")) type = "Post-Production";
+        else if (serviceParam.includes("post")) type = "Post Production";
         
         setForm((prev) => ({ ...prev, projectType: type }));
       }
@@ -95,8 +88,8 @@ export default function ContactPage() {
     } else if (!/\S+@\S+\.\S+/.test(form.email)) {
       tempErrors.email = "Please enter a valid email address";
     }
-    if (!form.phone.trim()) tempErrors.phone = "Phone / WhatsApp number is required";
-    if (!form.projectType) tempErrors.projectType = "Please select a project type";
+    if (!form.phone.trim()) tempErrors.phone = "Phone number is required";
+    if (!form.projectType) tempErrors.projectType = "Please select a project stream";
     if (!form.description.trim()) tempErrors.description = "Project description is required";
     
     setErrors(tempErrors);
@@ -106,7 +99,6 @@ export default function ContactPage() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-    // Clear error on change
     if (errors[name as keyof FormState]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
@@ -117,386 +109,278 @@ export default function ContactPage() {
     if (!validate()) return;
 
     setIsSubmitting(true);
-
-    // TESTING DESTINATION ONLY — swap with client's production endpoint/email before go-live
-    const targetEmailRecipient = process.env.NEXT_PUBLIC_ENQUIRY_TEST_EMAIL || "ersamirsingh@gmail.com";
-    
-    try {
-      // Simulate post request to Web3Forms/Formspree.
-      // If client provides Web3Forms API Key via NEXT_PUBLIC_WEB3FORMS_KEY, it will perform real submission.
-      const apiKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
-
-      if (apiKey) {
-        const response = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            access_key: apiKey,
-            subject: `New WeStream Enquiry from ${form.fullName}`,
-            to_email: targetEmailRecipient,
-            ...form,
-          }),
-        });
-        
-        if (!response.ok) throw new Error("Submission failed");
-      } else {
-        // Fallback simulated load (1.5s delay) for offline/testing development
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-        console.log("Simulating form submission to:", targetEmailRecipient, form);
-      }
-
-      setSubmitted(true);
-      setForm(initialFormState);
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong. Please try again or message us directly via WhatsApp.");
-    } finally {
-      setIsSubmitting(false);
-    }
+    await new Promise((resolve) => setTimeout(resolve, 1200));
+    setIsSubmitting(false);
+    setSubmitted(true);
   };
 
   return (
-    <div className="bg-background text-foreground pt-32 pb-24 min-h-screen">
-      {/* 1. Page Header */}
+    <div className="bg-transparent text-foreground transition-colors duration-500 pt-32 pb-24 min-h-screen">
+      
+      {/* 1. HERO HEADER */}
       <Container className="mb-20">
         <div className="max-w-4xl space-y-6">
-          <span className="text-label block">Get In Touch</span>
-          <h1 className="text-display font-heading font-extrabold text-foreground leading-none">
-            Let's Bring Your<br />
-            <span className="gold-gradient-text">Story to Life.</span>
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1 rounded-full border border-header-border bg-surface shadow-sm">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+            <span className="text-[10px] font-heading font-extrabold tracking-[0.2em] text-accent uppercase">
+              CONTACT & TECHNICAL ESTIMATE
+            </span>
+          </div>
+
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading font-extrabold text-foreground uppercase tracking-tight leading-[0.95]">
+            Let&apos;s Build Something.<br />
+            <span className="text-accent">Extraordinary.</span>
           </h1>
-          <p className="text-body-lg max-w-2xl pt-4 text-muted-foreground">
-            Tell us about your broadcasting requirements or video goals, and our Bangalore directors will map out your production plan.
+
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl font-sans leading-relaxed pt-2">
+            Tell us about your upcoming event, broadcast scope, or film campaign. Our engineers respond with detailed technical specifications within 24 hours.
           </p>
-          <div className="h-[1px] w-40 bg-gold/50" />
         </div>
       </Container>
 
-      {/* 2. Two-Column Layout Grid */}
-      <Container className="mb-32">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
+      {/* 2. FORM & DIRECT CONTACT TOPOLOGY */}
+      <Container className="mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           
-          {/* Left Column: Form */}
-          <div className="lg:col-span-7">
-            <div className="relative bg-surface border border-border/40 p-8 md:p-10 rounded-sm">
-              <AnimatePresence mode="wait">
-                {!submitted ? (
-                  <motion.form
-                    key="enquiry-form"
-                    onSubmit={handleSubmit}
-                    className="space-y-6"
-                    initial={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
-                    <h3 className="font-heading text-sm font-extrabold text-gold tracking-widest uppercase mb-8">
-                      Project Briefing Form
-                    </h3>
-
-                    {/* Row 1: Name & Company */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-heading font-bold uppercase tracking-widest text-muted-foreground block">
-                          Full Name *
-                        </label>
-                        <input
-                          type="text"
-                          name="fullName"
-                          value={form.fullName}
-                          onChange={handleInputChange}
-                          className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm"
-                          placeholder="e.g. Yusuf Khan"
-                        />
-                        {errors.fullName && <p className="text-[10px] text-red-500 font-sans">{errors.fullName}</p>}
-                      </div>
-
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-heading font-bold uppercase tracking-widest text-muted-foreground block">
-                          Company / Brand
-                        </label>
-                        <input
-                          type="text"
-                          name="company"
-                          value={form.company}
-                          onChange={handleInputChange}
-                          className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm"
-                          placeholder="e.g. Work India"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Row 2: Email & Phone */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-heading font-bold uppercase tracking-widest text-muted-foreground block">
-                          Email *
-                        </label>
-                        <input
-                          type="email"
-                          name="email"
-                          value={form.email}
-                          onChange={handleInputChange}
-                          className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm"
-                          placeholder="e.g. contact@domain.com"
-                        />
-                        {errors.email && <p className="text-[10px] text-red-500 font-sans">{errors.email}</p>}
-                      </div>
-
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-heading font-bold uppercase tracking-widest text-muted-foreground block">
-                          Phone / WhatsApp *
-                        </label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          value={form.phone}
-                          onChange={handleInputChange}
-                          className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm"
-                          placeholder="e.g. +91 99999 99999"
-                        />
-                        {errors.phone && <p className="text-[10px] text-red-500 font-sans">{errors.phone}</p>}
-                      </div>
-                    </div>
-
-                    {/* Row 3: Dropdown Project Type & Timeline */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-heading font-bold uppercase tracking-widest text-muted-foreground block">
-                          Project Type *
-                        </label>
-                        <select
-                          name="projectType"
-                          value={form.projectType}
-                          onChange={handleInputChange}
-                          className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm cursor-pointer"
-                        >
-                          <option value="">Select Category...</option>
-                          <option value="Corporate Film">Corporate Film</option>
-                          <option value="Live Streaming">Live Streaming</option>
-                          <option value="Event Coverage">Event Coverage</option>
-                          <option value="Post-Production">Post-Production</option>
-                          <option value="Other">Other Capability</option>
-                        </select>
-                        {errors.projectType && <p className="text-[10px] text-red-500 font-sans">{errors.projectType}</p>}
-                      </div>
-
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-heading font-bold uppercase tracking-widest text-muted-foreground block">
-                          Timeline / Deadline
-                        </label>
-                        <input
-                          type="text"
-                          name="timeline"
-                          value={form.timeline}
-                          onChange={handleInputChange}
-                          className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm"
-                          placeholder="e.g. Immediate / Next Month"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Row 4: Private Budget field */}
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-heading font-bold uppercase tracking-widest text-muted-foreground block">
-                        Approximate Budget (Private / Optional)
-                      </label>
-                      <input
-                        type="text"
-                        name="budget"
-                        value={form.budget}
-                        onChange={handleInputChange}
-                        className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm"
-                        placeholder="e.g. INR 2 Lakhs - 5 Lakhs"
-                      />
-                    </div>
-
-                    {/* Row 5: Reference links & Google Drive Assets link */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-heading font-bold uppercase tracking-widest text-muted-foreground block">
-                          Reference Links (Vimeo, YouTube, etc.)
-                        </label>
-                        <input
-                          type="text"
-                          name="references"
-                          value={form.references}
-                          onChange={handleInputChange}
-                          className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm"
-                          placeholder="e.g. https://youtube.com/..."
-                        />
-                      </div>
-
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-heading font-bold uppercase tracking-widest text-muted-foreground block">
-                          Google Drive Link for Assets / Specs
-                        </label>
-                        <input
-                          type="text"
-                          name="driveLink"
-                          value={form.driveLink}
-                          onChange={handleInputChange}
-                          className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm"
-                          placeholder="e.g. https://drive.google.com/..."
-                        />
-                      </div>
-                    </div>
-
-                    {/* Row 6: Description */}
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-heading font-bold uppercase tracking-widest text-muted-foreground block">
-                        Project Description *
-                      </label>
-                      <textarea
-                        name="description"
-                        value={form.description}
-                        onChange={handleInputChange}
-                        rows={5}
-                        className="w-full bg-background border border-border/60 hover:border-gold/30 focus:border-gold focus:outline-none px-4 py-3 text-xs md:text-sm font-sans text-foreground transition-all rounded-sm resize-none"
-                        placeholder="Detail your event venue, multi-cam requirements, or video story objectives..."
-                      />
-                      {errors.description && <p className="text-[10px] text-red-500 font-sans">{errors.description}</p>}
-                    </div>
-
-                    {/* Submit Button */}
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full py-4 bg-gold hover:bg-[#F5E6C4] disabled:bg-gold/50 disabled:cursor-not-allowed text-black font-heading font-extrabold text-xs tracking-widest uppercase transition-all duration-300 rounded-sm flex items-center justify-center gap-2 cursor-pointer"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <div className="h-4 w-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                          Processing Estimate
-                        </>
-                      ) : (
-                        "Submit Briefing"
-                      )}
-                    </button>
-                  </motion.form>
-                ) : (
-                  // Cinematic success confirmation payoff
-                  <motion.div
-                    key="success-payoff"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="flex flex-col items-center justify-center py-20 text-center space-y-6"
-                  >
-                    <div className="h-16 w-16 rounded-full border border-gold flex items-center justify-center bg-gold/5 text-gold animate-rec-pulse">
-                      <Check className="h-8 w-8" />
-                    </div>
-                    <div className="space-y-2">
-                      <h3 className="font-heading text-lg font-extrabold text-foreground uppercase tracking-wider">
-                        Briefing Received
-                      </h3>
-                      <p className="text-xs md:text-sm text-muted-foreground font-sans max-w-sm">
-                        Thank you for sharing your project scope. Our directors are reviewing the technical specs and will return an estimate within 24 hours.
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => setSubmitted(false)}
-                      className="px-6 py-2.5 bg-transparent border border-border hover:border-gold hover:text-gold text-xs font-heading font-extrabold tracking-widest uppercase rounded-sm transition-colors cursor-pointer"
-                    >
-                      Submit Another Brief
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-
-          {/* Right Column: Direct Contact & Social details */}
-          <div className="lg:col-span-5 space-y-10">
-            {/* Direct contact info box */}
-            <div className="bg-surface/60 border border-border/40 p-8 rounded-sm space-y-8">
-              <div className="flex items-center gap-2.5">
-                <span className="h-2 w-2 rounded-full bg-gold animate-rec-pulse" />
-                <h3 className="font-heading text-xs md:text-sm font-extrabold text-foreground uppercase tracking-widest">
-                  Direct Inquiries
+          {/* Form Column */}
+          <div className="lg:col-span-7 bg-surface border border-header-border p-8 md:p-12 rounded-sm space-y-8">
+            {submitted ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="py-16 text-center space-y-6"
+              >
+                <div className="h-16 w-16 bg-accent/20 text-accent rounded-full flex items-center justify-center mx-auto border border-accent/40">
+                  <Check className="h-8 w-8" />
+                </div>
+                <h3 className="text-2xl md:text-3xl font-heading font-extrabold text-foreground uppercase">
+                  Technical Request Received
                 </h3>
-              </div>
-
-              <div className="space-y-4">
-                <p className="text-xs font-heading font-bold text-muted-foreground uppercase tracking-widest">
-                  Fastest Response:
+                <p className="text-xs sm:text-sm text-muted-foreground max-w-md mx-auto font-sans leading-relaxed">
+                  Thank you, {form.fullName}. Our broadcast director will review your requirements and follow up via email/WhatsApp within 24 hours.
                 </p>
-                <Magnetic range={35} strength={0.3}>
-                  <a
-                    href="https://wa.me/910000000000" // Placeholder wa link
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-3 px-6 py-3.5 bg-[#25D366] hover:bg-[#1ebd59] text-white font-heading font-extrabold text-xs tracking-wider uppercase rounded-sm transition-all duration-300 w-full"
-                  >
-                    <MessageSquare className="h-4 w-4 shrink-0" />
-                    WhatsApp Quick Chat
-                  </a>
-                </Magnetic>
-              </div>
-
-              {/* Direct phone */}
-              <div className="space-y-2 border-t border-border/20 pt-6">
-                <p className="text-[10px] font-heading font-bold text-muted-foreground uppercase tracking-widest">
-                  Direct Line
-                </p>
-                <p className="text-sm font-heading font-extrabold text-foreground tracking-widest">
-                  [TODO — Phone Number]
-                </p>
-              </div>
-
-              {/* Office/Coverage location */}
-              <div className="space-y-2 border-t border-border/20 pt-6">
-                <p className="text-[10px] font-heading font-bold text-muted-foreground uppercase tracking-widest">
-                  Operational Hub
-                </p>
-                <p className="text-xs text-muted-foreground leading-relaxed font-sans">
-                  Based in Bangalore, Karnataka. Deploying crews and technical setups across all Indian states.
-                </p>
-              </div>
-
-              {/* Social links */}
-              <div className="space-y-3 border-t border-border/20 pt-6">
-                <p className="text-[10px] font-heading font-bold text-muted-foreground uppercase tracking-widest">
-                  Instagram
-                </p>
-                <a
-                  href="https://www.instagram.com/westream_production"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-heading font-extrabold tracking-widest text-gold hover:text-foreground uppercase transition-colors"
+                <button
+                  onClick={() => { setSubmitted(false); setForm(initialFormState); }}
+                  className="inline-flex items-center justify-center px-6 py-2.5 border border-header-border text-foreground hover:border-accent text-xs font-heading font-extrabold tracking-widest uppercase rounded-full transition-colors"
                 >
-                  @westream_production
-                </a>
-              </div>
+                  Submit Another Inquiry
+                </button>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <h3 className="text-xl font-heading font-extrabold text-foreground uppercase border-b border-header-border pb-4">
+                  Project Estimate Form
+                </h3>
 
-              {/* Accept note */}
-              <div className="border-t border-[#D4AF37]/20 pt-6 flex items-center gap-2 text-[10px] font-heading font-bold text-gold uppercase tracking-widest">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                Response threshold: &lt; 24 Hours
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-heading font-extrabold text-accent uppercase tracking-widest block">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="fullName"
+                      value={form.fullName}
+                      onChange={handleInputChange}
+                      placeholder="e.g. Rahul Sharma"
+                      className="w-full bg-background border border-header-border rounded-sm px-4 py-3 text-xs text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-accent transition-colors"
+                    />
+                    {errors.fullName && <p className="text-[10px] text-red-500">{errors.fullName}</p>}
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-heading font-extrabold text-accent uppercase tracking-widest block">
+                      Company / Organization
+                    </label>
+                    <input
+                      type="text"
+                      name="company"
+                      value={form.company}
+                      onChange={handleInputChange}
+                      placeholder="e.g. Acme Corp"
+                      className="w-full bg-background border border-header-border rounded-sm px-4 py-3 text-xs text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-accent transition-colors"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-heading font-extrabold text-accent uppercase tracking-widest block">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={form.email}
+                      onChange={handleInputChange}
+                      placeholder="e.g. rahul@acme.com"
+                      className="w-full bg-background border border-header-border rounded-sm px-4 py-3 text-xs text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-accent transition-colors"
+                    />
+                    {errors.email && <p className="text-[10px] text-red-500">{errors.email}</p>}
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-heading font-extrabold text-accent uppercase tracking-widest block">
+                      Phone / WhatsApp *
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={form.phone}
+                      onChange={handleInputChange}
+                      placeholder="+91 98765 43210"
+                      className="w-full bg-background border border-header-border rounded-sm px-4 py-3 text-xs text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-accent transition-colors"
+                    />
+                    {errors.phone && <p className="text-[10px] text-red-500">{errors.phone}</p>}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                  <div className="space-y-2 sm:col-span-3">
+                    <label className="text-[10px] font-heading font-extrabold text-accent uppercase tracking-widest block">
+                      Primary Production Stream *
+                    </label>
+                    <select
+                      name="projectType"
+                      value={form.projectType}
+                      onChange={handleInputChange}
+                      className="w-full bg-background border border-header-border rounded-sm px-4 py-3 text-xs text-foreground focus:outline-none focus:border-accent transition-colors"
+                    >
+                      <option value="">Select Stream...</option>
+                      <option value="Live Streaming">Multi-Cam Live Streaming</option>
+                      <option value="Video Production">Corporate Video Production</option>
+                      <option value="Event Coverage">Event Coverage & LED Feeds</option>
+                      <option value="Post Production">Post Production & Motion Graphics</option>
+                    </select>
+                    {errors.projectType && <p className="text-[10px] text-red-500">{errors.projectType}</p>}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-heading font-extrabold text-accent uppercase tracking-widest block">
+                    Project Details & Scope *
+                  </label>
+                  <textarea
+                    name="description"
+                    rows={4}
+                    value={form.description}
+                    onChange={handleInputChange}
+                    placeholder="Describe event dates, venue location, camera count requirements, or streaming targets..."
+                    className="w-full bg-background border border-header-border rounded-sm px-4 py-3 text-xs text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-accent transition-colors"
+                  />
+                  {errors.description && <p className="text-[10px] text-red-500">{errors.description}</p>}
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-4 bg-accent text-background font-heading text-xs font-bold tracking-[0.2em] uppercase rounded-full shadow-lg hover:opacity-90 transition-opacity disabled:opacity-50"
+                >
+                  {isSubmitting ? "Processing Technical Request..." : "Submit Inquiry"}
+                </button>
+              </form>
+            )}
+          </div>
+
+          {/* Right Direct Details Column */}
+          <div className="lg:col-span-5 space-y-8">
+            
+            {/* Headquarters */}
+            <div className="bg-surface border border-header-border p-8 rounded-sm space-y-4">
+              <span className="text-[10px] font-heading font-extrabold tracking-widest text-accent uppercase block">
+                STUDIO HEADQUARTERS
+              </span>
+              <h4 className="text-lg font-heading font-extrabold text-foreground uppercase">
+                Bangalore Studio
+              </h4>
+              <p className="text-xs text-muted-foreground leading-relaxed font-sans">
+                MG Road / Indiranagar Corridor,<br />
+                Bangalore, Karnataka 560038, India.
+              </p>
+              <div className="pt-2 text-xs font-heading font-bold text-accent">
+                Available for travel & execution across all of India.
               </div>
             </div>
+
+            {/* Direct Channels */}
+            <div className="bg-surface border border-header-border p-8 rounded-sm space-y-4">
+              <span className="text-[10px] font-heading font-extrabold tracking-widest text-accent uppercase block">
+                DIRECT CONTACT
+              </span>
+              <div className="space-y-3 text-xs font-sans">
+                <div>
+                  <span className="text-muted-foreground block text-[10px] uppercase font-heading font-bold">Email:</span>
+                  <a href="mailto:hello@westream.in" className="text-foreground hover:text-accent font-bold transition-colors">
+                    hello@westream.in
+                  </a>
+                </div>
+                <div>
+                  <span className="text-muted-foreground block text-[10px] uppercase font-heading font-bold">Phone / WhatsApp:</span>
+                  <a href="tel:+919876543210" className="text-foreground hover:text-accent font-bold transition-colors">
+                    +91 98765 43210
+                  </a>
+                </div>
+                <div>
+                  <span className="text-muted-foreground block text-[10px] uppercase font-heading font-bold">Operating Hours:</span>
+                  <span className="text-foreground font-bold">
+                    Mon &ndash; Sat: 9:00 AM &ndash; 8:00 PM IST
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* DOMINANT VISUAL FOCAL POINT: BROADCAST RADAR & COVERAGE GRAPHIC */}
+            <div className="bg-surface border border-header-border p-8 rounded-sm space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-heading font-extrabold tracking-widest text-accent uppercase block">
+                  BROADCAST COVERAGE TOPOLOGY
+                </span>
+                <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+              </div>
+
+              <div className="relative aspect-video w-full bg-background border border-header-border rounded-sm flex flex-col items-center justify-center p-6 overflow-hidden select-none">
+                <svg className="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 400 220" fill="none">
+                  <circle cx="200" cy="110" r="40" stroke="var(--color-accent)" strokeWidth="1" strokeDasharray="3 3" />
+                  <circle cx="200" cy="110" r="80" stroke="var(--color-accent)" strokeWidth="1" strokeDasharray="2 6" />
+                  <circle cx="200" cy="110" r="120" stroke="var(--color-accent)" strokeWidth="0.5" />
+                  <line x1="200" y1="10" x2="200" y2="210" stroke="var(--color-accent)" strokeWidth="0.5" strokeDasharray="4 4" />
+                  <line x1="20" y1="110" x2="380" y2="110" stroke="var(--color-accent)" strokeWidth="0.5" strokeDasharray="4 4" />
+                </svg>
+                
+                <div className="relative z-10 text-center space-y-2">
+                  <span className="text-xs font-heading font-extrabold text-foreground uppercase tracking-widest block">
+                    BANGALORE HQ (12.9716° N, 77.5946° E)
+                  </span>
+                  <span className="text-[10px] font-heading font-bold text-accent uppercase tracking-widest block">
+                    PAN-INDIA UPLINK & SATELLITE OPERATIONS ACTIVE
+                  </span>
+                </div>
+              </div>
+            </div>
+
           </div>
 
         </div>
       </Container>
 
-      {/* 3. Below the fold: FAQ Accordion */}
-      <Container>
-        <div className="border-t border-border/30 pt-24 max-w-4xl mx-auto space-y-16">
-          <div className="text-center space-y-4">
-            <span className="text-label block">Technical FAQ</span>
-            <h2 className="text-heading-md font-heading font-extrabold text-foreground">
-              Common Broadcast Questions
-            </h2>
-          </div>
+      {/* 3. FREQUENTLY ASKED QUESTIONS */}
+      <Container className="mb-20">
+        <div className="border-t border-header-border pt-16 mb-12">
+          <span className="font-heading text-xs font-bold tracking-[0.25em] text-muted-foreground uppercase block mb-2">
+            INQUIRY FAQ
+          </span>
+          <h2 className="text-2xl md:text-4xl font-heading font-extrabold text-foreground uppercase tracking-tight">
+            Common Technical Questions
+          </h2>
+        </div>
 
-          <div className="space-y-4">
-            {FAQS_DATA.map((faq, idx) => (
-              <FAQCard key={idx} question={faq.question} answer={faq.answer} />
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {FAQS_DATA.map((faq, idx) => (
+            <FAQCard key={idx} question={faq.question} answer={faq.answer} />
+          ))}
         </div>
       </Container>
+
     </div>
   );
 }

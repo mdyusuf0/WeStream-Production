@@ -2,18 +2,15 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
 import { TEAM_MEMBERS } from "@/lib/data";
 
-// Team avatar headshot rendering component using standard next/image
 function TeamAvatar({ src, name, index }: { src: string; name: string; index: number }) {
   return (
-    <div className="relative w-full aspect-square bg-[#111111] border border-border/40 rounded-sm overflow-hidden group">
-      {/* Background radial gradient decoration */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(214,175,55,0.04)_0%,transparent_70%)] z-10 pointer-events-none" />
-      
-      {/* Profile portrait photo */}
+    <div className="relative w-full aspect-square bg-surface border border-header-border rounded-sm overflow-hidden group">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--color-accent-glow)_0%,transparent_70%)] z-10 pointer-events-none" />
       <Image
         src={src}
         alt={name}
@@ -21,11 +18,9 @@ function TeamAvatar({ src, name, index }: { src: string; name: string; index: nu
         sizes="(max-width: 768px) 100vw, 33vw"
         className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
       />
-
-      {/* Rec icon dot overlay */}
-      <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm px-2.5 py-1 rounded-full border border-border/50 z-20">
-        <span className="h-1.5 w-1.5 rounded-full bg-gold/70 animate-rec-pulse" />
-        <span className="text-[8px] font-heading font-extrabold text-white tracking-wider">
+      <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-background/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-header-border z-20">
+        <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+        <span className="text-[8px] font-heading font-extrabold text-foreground tracking-wider uppercase">
           STAFF.0{index + 1}
         </span>
       </div>
@@ -35,16 +30,24 @@ function TeamAvatar({ src, name, index }: { src: string; name: string; index: nu
 
 export default function TeamPage() {
   return (
-    <div className="bg-background text-foreground pt-32 pb-24 min-h-screen">
+    <div className="bg-background text-foreground transition-colors duration-500 pt-32 pb-24 min-h-screen">
+      
       {/* Page Header */}
-      <Container className="mb-24">
+      <Container className="mb-20">
         <div className="max-w-4xl space-y-6">
-          <span className="text-label block">Who We Are</span>
-          <h1 className="text-display font-heading font-extrabold text-foreground leading-none">
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1 rounded-full border border-header-border bg-surface shadow-sm">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+            <span className="text-[10px] font-heading font-extrabold tracking-[0.2em] text-accent uppercase">
+              STUDIO TEAM
+            </span>
+          </div>
+
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-heading font-extrabold text-foreground uppercase tracking-tight leading-[0.95]">
             The Minds Behind<br />
-            <span className="gold-gradient-text">The Lenses.</span>
+            <span className="text-accent">The Lenses.</span>
           </h1>
-          <p className="text-body-lg max-w-2xl pt-4 text-muted-foreground">
+
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl font-sans leading-relaxed pt-2">
             Meet the WeStream Production team. A select group of broadcast engineers, directors, and editors based in Bangalore, working together to deliver zero-fail streaming operations.
           </p>
         </div>
@@ -62,30 +65,27 @@ export default function TeamPage() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="flex flex-col gap-6 group"
             >
-              {/* Headshot portrait image frame */}
               <TeamAvatar src={member.avatar} name={member.name} index={index} />
 
-              {/* Bio & Details */}
               <div className="space-y-4 px-1">
                 <div className="space-y-1">
-                  <span className="text-[10px] font-heading font-extrabold tracking-widest text-gold uppercase">
+                  <span className="text-[10px] font-heading font-extrabold tracking-widest text-accent uppercase">
                     {member.role}
                   </span>
-                  <h3 className="text-lg md:text-xl font-heading font-extrabold text-foreground group-hover:text-gold transition-colors duration-300">
+                  <h2 className="text-lg md:text-xl font-heading font-extrabold text-foreground group-hover:text-accent transition-colors duration-300">
                     {member.name}
-                  </h3>
+                  </h2>
                 </div>
 
                 <p className="text-xs md:text-sm text-muted-foreground leading-relaxed font-sans">
                   {member.bio}
                 </p>
 
-                {/* Skill Tags */}
                 <div className="flex flex-wrap gap-1.5 pt-2">
                   {member.tags.map((tag, idx) => (
                     <span
                       key={idx}
-                      className="text-[9px] font-heading font-extrabold tracking-wider uppercase px-2.5 py-1 bg-surface border border-border/40 text-muted-foreground rounded-sm select-none"
+                      className="text-[9px] font-heading font-extrabold tracking-wider uppercase px-2.5 py-1 bg-surface border border-header-border text-muted-foreground rounded-full select-none"
                     >
                       {tag}
                     </span>
@@ -97,26 +97,26 @@ export default function TeamPage() {
         </div>
       </Container>
 
-      {/* Join the Team Section */}
-      <Container className="text-center">
-        <div className="max-w-2xl mx-auto space-y-6 py-12 border-t border-border/30">
-          <span className="text-label block">Work With Us</span>
-          <h3 className="text-lg md:text-xl font-heading font-extrabold text-foreground uppercase">
-            Join the WeStream Crew
-          </h3>
-          <p className="text-xs text-muted-foreground font-sans max-w-md mx-auto leading-relaxed">
-            We are always looking for passionate freelance cinematographers, vMix operators, and post-production editors in Bangalore and surrounding states.
+      {/* Join Team CTA */}
+      <Container>
+        <div className="text-center bg-surface border border-header-border p-12 md:p-16 rounded-sm space-y-6">
+          <h2 className="text-2xl sm:text-4xl font-heading font-extrabold uppercase text-foreground">
+            Join Our Broadcast Operations
+          </h2>
+          <p className="text-xs sm:text-sm text-muted-foreground max-w-lg mx-auto font-sans">
+            We are always seeking talented vMix engineers, drone operators, and cinema directors across India.
           </p>
-          <div className="pt-4">
-            <a
-              href="mailto:ersamirsingh@gmail.com?subject=WeStream%20Production%20Career%20Enquiry" // comment placeholder email
-              className="inline-flex px-8 py-3 bg-transparent hover:bg-foreground hover:text-background text-foreground border border-foreground font-heading font-extrabold text-[10px] tracking-widest uppercase rounded-sm transition-colors duration-300"
+          <div>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center px-8 py-3.5 bg-accent text-background font-heading text-xs font-bold tracking-[0.2em] uppercase rounded-full shadow-lg hover:opacity-90 transition-opacity"
             >
-              Submit Your Showreel
-            </a>
+              Apply / Get in Touch
+            </Link>
           </div>
         </div>
       </Container>
+
     </div>
   );
 }
