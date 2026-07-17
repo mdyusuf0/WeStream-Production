@@ -89,20 +89,20 @@ export default function CustomCursor() {
         className="fixed inset-x-0 pointer-events-none z-40 h-[1px] bg-gradient-to-r from-transparent via-accent/20 to-transparent mix-blend-screen"
         style={{ top: mouseY }}
         animate={{
-          opacity: cursorType === "pointer" ? 0.3 : 0.12,
+          opacity: cursorType === "pointer" ? 0.15 : 0.05,
         }}
         transition={{ duration: 0.2 }}
       />
 
       {/* 2. PRIMARY TRACKING DOT */}
       <motion.div
-        className="custom-cursor fixed h-1.5 w-1.5 rounded-full pointer-events-none z-50 -translate-x-1/2 -translate-y-1/2 mix-blend-difference"
+        className="custom-cursor fixed h-1 w-1 rounded-full pointer-events-none z-50 -translate-x-1/2 -translate-y-1/2 mix-blend-difference"
         style={{
           left: mouseX,
           top: mouseY,
         }}
         animate={{
-          scale: cursorType === "pointer" ? 1.8 : 1,
+          scale: cursorType === "pointer" ? 1.4 : 1,
           backgroundColor: cursorType === "pointer" ? "#FFFFFF" : "#D4AF37",
         }}
         transition={{ duration: 0.15 }}
@@ -110,27 +110,27 @@ export default function CustomCursor() {
 
       {/* 3. LENS FLARE GLASS REFLECTION 1 (Warm Gold Ring, slightly trailing) */}
       <motion.div
-        className="fixed h-10 w-10 rounded-full border border-accent/10 pointer-events-none z-45 -translate-x-1/2 -translate-y-1/2 mix-blend-screen"
+        className="fixed h-8 w-8 rounded-full border border-accent/5 pointer-events-none z-45 -translate-x-1/2 -translate-y-1/2 mix-blend-screen"
         style={{
           left: flareX1,
           top: flareY1,
         }}
         animate={{
-          scale: cursorType === "pointer" ? 1.4 : 1,
-          borderColor: cursorType === "pointer" ? "rgba(212, 175, 55, 0.25)" : "rgba(212, 175, 55, 0.08)",
+          scale: cursorType === "pointer" ? 1.2 : 1,
+          borderColor: cursorType === "pointer" ? "rgba(212, 175, 55, 0.15)" : "rgba(212, 175, 55, 0.05)",
         }}
       />
 
       {/* 4. LENS FLARE GLASS REFLECTION 2 (Cool Blue Spot, longer trail) */}
       <motion.div
-        className="fixed h-2 w-2 rounded-full bg-cyan-500/10 pointer-events-none z-45 -translate-x-1/2 -translate-y-1/2 mix-blend-screen blur-[1px]"
+        className="fixed h-1.5 w-1.5 rounded-full bg-cyan-500/5 pointer-events-none z-45 -translate-x-1/2 -translate-y-1/2 mix-blend-screen blur-[0.5px]"
         style={{
           left: flareX2,
           top: flareY2,
         }}
         animate={{
-          scale: cursorType === "pointer" ? 2.0 : 1,
-          opacity: cursorType === "pointer" ? 0.4 : 0.15,
+          scale: cursorType === "pointer" ? 1.5 : 1,
+          opacity: cursorType === "pointer" ? 0.25 : 0.1,
         }}
       />
 
@@ -142,9 +142,9 @@ export default function CustomCursor() {
           top: ringY,
         }}
         animate={{
-          width: cursorType === "pointer" ? 64 : cursorType === "text" ? 80 : 0,
-          height: cursorType === "pointer" ? 64 : cursorType === "text" ? 80 : 0,
-          borderColor: cursorType === "pointer" ? "rgba(255, 255, 255, 0.8)" : "rgba(212, 175, 55, 0.5)",
+          width: cursorType === "pointer" ? 48 : cursorType === "text" ? 64 : 0,
+          height: cursorType === "pointer" ? 48 : cursorType === "text" ? 64 : 0,
+          borderColor: cursorType === "pointer" ? "rgba(255, 255, 255, 0.5)" : "rgba(212, 175, 55, 0.3)",
           backgroundColor: cursorType === "text" ? "rgba(212, 175, 55, 0.95)" : "rgba(212, 175, 55, 0)",
         }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -153,7 +153,7 @@ export default function CustomCursor() {
           <motion.span
             initial={{ opacity: 0, scale: 0.6 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="text-[10px] font-heading font-extrabold text-black tracking-wider uppercase"
+            className="text-[9px] font-heading font-extrabold text-black tracking-wider uppercase"
           >
             {cursorText}
           </motion.span>

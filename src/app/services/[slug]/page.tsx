@@ -8,6 +8,7 @@ import { CellularBondingSimulator } from "@/components/interactive/CellularBondi
 import { CameraRigShowcase } from "@/components/interactive/CameraRigShowcase";
 import { SDIRouter } from "@/components/interactive/SDIRouter";
 import { AudioScrubber } from "@/components/interactive/AudioScrubber";
+import { getMediaBySlot } from "@/lib/media";
 
 export function generateStaticParams() {
   return SERVICES_DATA.map((service) => ({
@@ -21,11 +22,31 @@ interface PageProps {
 
 export default async function ServiceDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const service = SERVICES_DATA.find((s) => s.slug === slug);
+  const originalService = SERVICES_DATA.find((s) => s.slug === slug);
 
-  if (!service) {
+  if (!originalService) {
     notFound();
   }
+
+  // Map service slug to camelCase slot keys
+  const slugMap: Record<string, string> = {
+    "video-production": "videoProduction",
+    "live-streaming": "liveStreaming",
+    "event-coverage": "eventCoverage",
+    "post-production": "postProduction",
+  };
+  const camel = slugMap[originalService.slug] || originalService.slug;
+
+  const [videoMedia, imageMedia] = await Promise.all([
+    getMediaBySlot(`services.${camel}.video`),
+    getMediaBySlot(`services.${camel}.image`),
+  ]);
+
+  const service = {
+    ...originalService,
+    videoUrl: videoMedia.url,
+    imageUrl: imageMedia.url,
+  };
 
   const workflowSteps = [
     { phase: "01", title: "Pre-Production & Recon", desc: "Venue internet bandwidth testing, camera positioning maps, and technical scripting." },

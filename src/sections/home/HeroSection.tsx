@@ -6,7 +6,12 @@ import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { MediaStage } from "@/components/media/MediaStage";
 
-export function HeroSection() {
+interface HeroSectionProps {
+  videoSrc?: string;
+  videoPoster?: string;
+}
+
+export function HeroSection({ videoSrc, videoPoster }: HeroSectionProps) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -14,9 +19,19 @@ export function HeroSection() {
       setIsLoaded(true);
       return;
     }
+    
     const handleLoaded = () => setIsLoaded(true);
     window.addEventListener("westream_loaded", handleLoaded);
-    return () => window.removeEventListener("westream_loaded", handleLoaded);
+
+    // Fallback: If loader events are missed or raced, trigger auto-fade after 3.5 seconds
+    const fallbackTimer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 3500);
+
+    return () => {
+      window.removeEventListener("westream_loaded", handleLoaded);
+      clearTimeout(fallbackTimer);
+    };
   }, []);
 
   return (
@@ -30,7 +45,12 @@ export function HeroSection() {
         transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
         className="absolute inset-0 w-full h-full"
       >
-        <MediaStage mode="sculpture" withNoise={true} />
+        <MediaStage 
+          mode="hybrid" 
+          videoSrc={videoSrc} 
+          videoPoster={videoPoster} 
+          withNoise={true} 
+        />
       </motion.div>
 
       {/* OVERLAY TYPOGRAPHY & CTAs (Off-Axis Editorial Alignment for Spatial Tension) */}

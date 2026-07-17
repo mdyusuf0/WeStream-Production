@@ -3,10 +3,17 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Container } from "./Container";
 import { SERVICES_DATA } from "@/lib/data";
 
 export function SiteFooter() {
+  const pathname = usePathname();
+
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <footer className="relative bg-transparent text-foreground transition-colors duration-500 border-t border-header-border pt-24 md:pt-40 pb-10 overflow-hidden">
       

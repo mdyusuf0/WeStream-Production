@@ -4,9 +4,9 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
-import { SERVICES_DATA, CAPABILITIES_TAGS } from "@/lib/data";
+import { SERVICES_DATA, CAPABILITIES_TAGS, Service } from "@/lib/data";
 
-export function CapabilitiesSection() {
+export function CapabilitiesSection({ services }: { services?: Service[] }) {
   const signalNodes = [
     { step: "01", title: "6K Cinema Capture", desc: "Full-frame optical sensors & SDI feeds" },
     { step: "02", title: "Bonded Cellular Uplink", desc: "Multi-carrier redundant internet bonding" },
@@ -74,7 +74,7 @@ export function CapabilitiesSection() {
 
         {/* 4 Core Services Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-          {SERVICES_DATA.map((service, index) => (
+          {(services || SERVICES_DATA).map((service, index) => (
             <motion.div
               key={service.slug}
               initial={{ opacity: 0, y: 30 }}

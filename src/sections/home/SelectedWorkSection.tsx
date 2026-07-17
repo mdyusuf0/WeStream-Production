@@ -8,12 +8,12 @@ import { Container } from "@/components/layout/Container";
 import { PROJECTS_DATA, Project } from "@/lib/data";
 import { MediaLightbox } from "@/components/ui/MediaLightbox";
 
-export function SelectedWorkSection() {
+export function SelectedWorkSection({ projects }: { projects?: Project[] }) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeLightboxProject, setActiveLightboxProject] = useState<Project | null>(null);
 
   // Take first 3 projects for the home page teaser
-  const featuredProjects = PROJECTS_DATA.slice(0, 3);
+  const featuredProjects = (projects || PROJECTS_DATA).slice(0, 3);
 
   return (
     <section id="work" className="section-space relative bg-transparent text-foreground transition-colors duration-500">

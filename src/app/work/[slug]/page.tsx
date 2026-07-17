@@ -9,6 +9,7 @@ import { TelemetryMap } from "@/components/interactive/TelemetryMap";
 import { UplinkSwitcher } from "@/components/interactive/UplinkSwitcher";
 import { ColorGradingSlider } from "@/components/interactive/ColorGradingSlider";
 import { StageMatrix } from "@/components/interactive/StageMatrix";
+import { getMediaBySlot } from "@/lib/media";
 
 export function generateStaticParams() {
   return PROJECTS_DATA.map((project) => ({
@@ -23,13 +24,73 @@ interface PageProps {
 export default async function ProjectDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const projectIndex = PROJECTS_DATA.findIndex((p) => p.slug === slug);
-  const project = PROJECTS_DATA[projectIndex];
+  const originalProject = PROJECTS_DATA[projectIndex];
 
-  if (!project) {
+  if (!originalProject) {
     notFound();
   }
 
-  const nextProject = PROJECTS_DATA[(projectIndex + 1) % PROJECTS_DATA.length];
+  // Dynamic project media mapping
+  const projectMap: Record<string, string> = {
+    "work-india-live-broadcast": "work.workIndia.thumbnail",
+    "suggestable-brand-film": "work.suggestable.thumbnail",
+    "greenroom-summit-coverage": "work.greenroom.thumbnail",
+    "poonawalla-awards-broadcast": "work.poonawalla.thumbnail",
+    "tcz-studio-promo": "work.tczStudio.thumbnail",
+    "political-rally-live-stream": "work.politicalStream.thumbnail",
+    "national-music-festival": "work.concertStream.thumbnail",
+    "corporate-agm-broadcast": "work.corporateAgm.thumbnail",
+    "auto-expo-aftermovie": "work.autoExpo.thumbnail",
+  };
+
+  const projectVideoMap: Record<string, string> = {
+    "work-india-live-broadcast": "services.liveStreaming.video",
+    "suggestable-brand-film": "services.videoProduction.video",
+    "greenroom-summit-coverage": "services.eventCoverage.video",
+    "poonawalla-awards-broadcast": "services.liveStreaming.video",
+    "tcz-studio-promo": "services.postProduction.video",
+    "political-rally-live-stream": "services.liveStreaming.video",
+    "national-music-festival": "services.eventCoverage.video",
+    "corporate-agm-broadcast": "services.liveStreaming.video",
+    "auto-expo-aftermovie": "services.videoProduction.video",
+  };
+
+  const slotKey = projectMap[originalProject.slug];
+  const videoSlotKey = projectVideoMap[originalProject.slug];
+
+  let thumbUrl = originalProject.thumbnail;
+  let videoUrl = originalProject.videoUrl;
+
+  if (slotKey) {
+    const thumbMedia = await getMediaBySlot(slotKey);
+    thumbUrl = thumbMedia.url;
+  }
+  if (videoSlotKey) {
+    const videoMedia = await getMediaBySlot(videoSlotKey);
+    videoUrl = videoMedia.url;
+  }
+
+  const project = {
+    ...originalProject,
+    thumbnail: thumbUrl,
+    videoUrl: videoUrl,
+  };
+
+  // Next project link for continuous browsing
+  const nextProjectIndex = (projectIndex + 1) % PROJECTS_DATA.length;
+  const originalNext = PROJECTS_DATA[nextProjectIndex];
+  
+  const nextSlotKey = projectMap[originalNext.slug];
+  let nextThumbUrl = originalNext.thumbnail;
+  if (nextSlotKey) {
+    const nextMedia = await getMediaBySlot(nextSlotKey);
+    nextThumbUrl = nextMedia.url;
+  }
+
+  const nextProject = {
+    ...originalNext,
+    thumbnail: nextThumbUrl,
+  };
 
   const equipmentList = [
     "Sony FX6 / FX9 6K Full-Frame Cinema Systems",
@@ -95,10 +156,10 @@ export default async function ProjectDetailPage({ params }: PageProps) {
       {/* 3. SIGNATURE INTERACTION SECTION (UNIQUE TO EACH CASE STUDY) */}
       <Container className="mb-24">
         <InteractiveWrapper>
-          {slug === "global-leadership-summit-2025" && <TelemetryMap />}
-          {slug === "national-political-convention" && <UplinkSwitcher />}
-          {slug === "international-tech-conference" && <ColorGradingSlider imageSrc={project.thumbnail} />}
-          {slug === "live-music-festival" && <StageMatrix />}
+          {slug === "work-india-live-broadcast" && <TelemetryMap />}
+          {slug === "political-rally-live-stream" && <UplinkSwitcher />}
+          {slug === "suggestable-brand-film" && <ColorGradingSlider imageSrc={project.thumbnail} />}
+          {slug === "national-music-festival" && <StageMatrix />}
         </InteractiveWrapper>
       </Container>
 

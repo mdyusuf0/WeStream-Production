@@ -82,6 +82,10 @@ export function SiteHeader() {
 
   const isLight = mounted && resolvedTheme === "light";
 
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <>
       {/* ============================================================ */}

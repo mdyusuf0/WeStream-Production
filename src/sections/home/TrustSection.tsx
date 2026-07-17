@@ -4,13 +4,13 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/layout/Container";
 import Marquee from "@/components/ui/Marquee";
-import { PROJECTS_DATA } from "@/lib/data";
+import { PROJECTS_DATA, Project } from "@/lib/data";
 
-export function TrustSection() {
+export function TrustSection({ projects }: { projects?: Project[] }) {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
 
   // Extract testimonials from projects data
-  const testimonials = PROJECTS_DATA.filter((p) => p.testimonial).map((p) => ({
+  const testimonials = (projects || PROJECTS_DATA).filter((p) => p.testimonial).map((p) => ({
     text: p.testimonial!.text,
     author: p.testimonial!.author,
     role: p.testimonial!.role,

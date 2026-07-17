@@ -161,12 +161,12 @@ export const CAPABILITIES_TAGS: string[] = [
 
 export const PROJECTS_DATA: Project[] = [
   {
-    slug: "global-leadership-summit-2025",
-    title: "Global Leadership Summit 2025",
-    client: "Global Series",
+    slug: "work-india-live-broadcast",
+    title: "National Virtual Job Fair",
+    client: "Work India",
     category: "Live Streaming",
     year: "2025",
-    thumbnail: PLACEHOLDER_ASSETS.images.projects.globalSummit,
+    thumbnail: PLACEHOLDER_ASSETS.images.projects.workIndia,
     videoUrl: PLACEHOLDER_ASSETS.videos.liveStreaming,
     description: "Multi-city live broadcast connecting keynotes across 4 continents with over 150,000 concurrent delegates.",
     challenge: "Deliver a zero-latency broadcast with multiple remote keynote speakers logging in from international locations.",
@@ -180,63 +180,128 @@ export const PROJECTS_DATA: Project[] = [
     testimonial: {
       text: "WeStream Production delivered a flawless live broadcast under extreme constraints. Their network redundancies kept the stream buffer-free.",
       author: "Pooja Mehta",
-      role: "Events Director, Global Series"
+      role: "Events Director, Work India"
     }
   },
   {
-    slug: "national-political-convention",
-    title: "National Political Convention",
-    client: "Public Affairs",
+    slug: "suggestable-brand-film",
+    title: "The Next Era of Suggestable",
+    client: "Suggestable",
+    category: "Video Production",
+    year: "2024",
+    thumbnail: PLACEHOLDER_ASSETS.images.projects.suggestable,
+    videoUrl: PLACEHOLDER_ASSETS.videos.videoProduction,
+    description: "Cinematic brand film and launch campaign for Suggestable's AI matchmaking platform.",
+    challenge: "Create a highly engaging visual narrative highlighting abstract machine learning features.",
+    solution: "Shot on full-frame cinema glass and blended with custom 3D particle motion graphics.",
+    deliverables: ["Commercial Film", "3D Motion Graphics", "Social Media Cuts", "Color Grade Finishing"],
+    results: [
+      { label: "Total Views", value: "1.2 Million" },
+      { label: "Click-through Rate", value: "14.5%" }
+    ],
+    testimonial: {
+      text: "The creative vision and technical execution were outstanding. They captured our product's soul in 60 seconds.",
+      author: "Rahul Krishnan",
+      role: "Founder, Suggestable"
+    }
+  },
+  {
+    slug: "greenroom-summit-coverage",
+    title: "Influencer Marketing Summit",
+    client: "Greenroom",
     category: "Event Coverage",
+    year: "2025",
+    thumbnail: PLACEHOLDER_ASSETS.images.projects.greenroom,
+    videoUrl: PLACEHOLDER_ASSETS.videos.eventCoverage,
+    description: "Full event coverage, multi-cam live switching, and same-day highlights for India's biggest influencer summit.",
+    challenge: "Fast-turnaround post-production highlighting 40+ speakers across three stages.",
+    solution: "Established an on-site post trailer running simultaneous edits to deliver social assets within hours of panels wrapping.",
+    deliverables: ["Multi-Cam Recording", "Same-Day Highlight Film", "Stage LED Feed Control", "Social Highlight Clips"],
+    results: [
+      { label: "Speakers Captured", value: "40+" },
+      { label: "Delivery Speed", value: "<4 hours" }
+    ],
+    testimonial: {
+      text: "Outstanding coordination. Their on-site editing trailer delivered premium summaries before our attendees left the venue.",
+      author: "Nisha Rao",
+      role: "Ops Lead, Greenroom"
+    }
+  },
+  {
+    slug: "poonawalla-awards-broadcast",
+    title: "Annual Excellence Awards",
+    client: "Poonawalla Group",
+    category: "Live Streaming",
+    year: "2024",
+    thumbnail: PLACEHOLDER_ASSETS.images.projects.poonawalla,
+    videoUrl: PLACEHOLDER_ASSETS.videos.liveStreaming,
+    description: "High-security corporate awards ceremony broadcast live with multi-carrier network bonding.",
+    challenge: "Ensure zero stream interruptions inside a heavily shielded concrete convention hall.",
+    solution: "Deployed custom cellular bonding arrays combining four distinct 5G networks alongside physical fiber lines.",
+    deliverables: ["Bonded Cellular Streaming", "Multi-Angle Coverage", "Pre-Produced Nominee Clips", "Stage Display Control"],
+    results: [
+      { label: "Uptime Rate", value: "100%" },
+      { label: "Peak Bitrate", value: "8.5 Mbps" }
+    ],
+    testimonial: {
+      text: "Flawless execution of our annual awards. The network backup worked seamlessly when local lines went down.",
+      author: "Siddharth Poonawalla",
+      role: "Director, Poonawalla Group"
+    }
+  },
+  {
+    slug: "tcz-studio-promo",
+    title: "Studio Launch Promo",
+    client: "TCZ Studio",
+    category: "Post Production",
+    year: "2025",
+    thumbnail: PLACEHOLDER_ASSETS.images.projects.techConference,
+    videoUrl: PLACEHOLDER_ASSETS.videos.postProduction,
+    description: "Visual editing, display-calibrated color grading, and heavy sound design for TCZ's soundstage launch.",
+    challenge: "Highlight the acoustic spatial precision and visual scale of the soundstage in a teaser.",
+    solution: "Utilized DaVinci Resolve color grading to create deep contrast and custom Foley sound mixing.",
+    deliverables: ["Offline/Online Edit", "Color Grading", "Spatial Sound Mix", "Sound Effects & Foley"],
+    results: [
+      { label: "Color Space", value: "DCI-P3 Rec.709" },
+      { label: "Audio Channels", value: "5.1 Surround" }
+    ],
+    testimonial: {
+      text: "The audio soundscape they designed makes the teaser feel extremely cinematic. Outstanding work.",
+      author: "Karan Johar",
+      role: "Producer, TCZ Studio"
+    }
+  },
+  {
+    slug: "political-rally-live-stream",
+    title: "State Election Campaign Rally",
+    client: "Public Affairs",
+    category: "Live Streaming",
     year: "2024",
     thumbnail: PLACEHOLDER_ASSETS.images.projects.politicalConvention,
     videoUrl: PLACEHOLDER_ASSETS.videos.liveStreaming,
-    description: "High-security outdoor convention broadcast featuring satellite uplink redundancies and zero-latency LED stage feeds.",
-    challenge: "Operating in an outdoor area with congested cellular networks due to a crowd of 50,000+ attendees.",
-    solution: "Deployed a heavy-duty satellite uplink vehicle alongside multi-provider cellular bonding routers. Ran physical fiber links to the cameras.",
-    deliverables: ["Outdoor broadcast production", "Redundant uplink (Satellite + Bonded)", "Drone aerial feeds", "Instant social cuts"],
+    description: "Outdoor rally broadcast with satellite uplink backing and drone aerial footage.",
+    challenge: "High-congestion area with massive crowd of 80,000+ interfering with cellular signals.",
+    solution: "Deployed a dedicated satellite uplink truck to route the master feed directly.",
+    deliverables: ["Satellite Uplink Broadcast", "Drone Cinema Feeds", "Multi-Cam Field Switch", "Instant Social Clips"],
     results: [
-      { label: "Total Viewers", value: "2.8 Million" },
-      { label: "Peak Concurrent", value: "380K+" },
-      { label: "Uptime", value: "100%" }
+      { label: "Total Viewers", value: "3.2 Million" },
+      { label: "Peak Viewers", value: "450,000+" }
     ],
     testimonial: {
-      text: "The technical precision of WeStream's satellite uplink crew ensured zero disruption throughout the 8-hour live broadcast.",
-      author: "Rohan Varma",
-      role: "Communications Lead, Public Affairs"
+      text: "Reliable, uncompromised streaming under massive crowd densities. Deployed a solid backup system.",
+      author: "Aditi Rao",
+      role: "Media Advisor"
     }
   },
   {
-    slug: "international-tech-conference",
-    title: "International Tech Conference",
-    client: "Enterprise Tech",
-    category: "Video Production",
-    year: "2025",
-    thumbnail: PLACEHOLDER_ASSETS.images.projects.techConference,
-    videoUrl: PLACEHOLDER_ASSETS.videos.videoProduction,
-    description: "Cinematic keynote production, 3D motion graphics, and same-day social media highlight deliveries.",
-    challenge: "Synthesize complex enterprise software launches into an engaging 60-second visual film for global distribution.",
-    solution: "Blended 6K cinema camera footage with custom 3D motion graphics and a custom acoustic soundscape.",
-    deliverables: ["Keynote Film", "3D Motion Graphics", "Social Highlights", "Color Grade"],
-    results: [
-      { label: "Views in 1st Week", value: "400K+" },
-      { label: "Engagement", value: "22%" }
-    ],
-    testimonial: {
-      text: "They helped elevate our brand keynote to an international standard. The visual rhythm and editorial grade were outstanding.",
-      author: "Aditya Roy",
-      role: "VP Brand, Enterprise Tech"
-    }
-  },
-  {
-    slug: "live-music-festival",
-    title: "Live Music Festival",
+    slug: "national-music-festival",
+    title: "Live Concert Broadcast",
     client: "Cultural Arts",
     category: "Event Coverage",
     year: "2024",
     thumbnail: PLACEHOLDER_ASSETS.images.projects.musicFestival,
     videoUrl: PLACEHOLDER_ASSETS.videos.eventCoverage,
-    description: "End-to-end 6-camera live stream and high-dynamic-range aftermovie for a 30,000-attendee music festival.",
+    description: "Multi-camera streaming and aftermovie for a massive three-day live concert festival.",
     challenge: "Sync multi-cam video perfectly with live soundboard feeds under dynamic stage lighting.",
     solution: "Used digital audio embedders at source to lock audio/video sync, utilizing high-dynamic-range cinema cameras.",
     deliverables: ["6-Camera shoot", "Live switching & LED wall feeds", "Soundboard audio integration", "4K Event Aftermovie"],
@@ -248,6 +313,50 @@ export const PROJECTS_DATA: Project[] = [
       text: "WeStream captured the raw energy of our mainstage with breathtaking clarity. The LED wall feeds had zero latency.",
       author: "Vikram Sen",
       role: "Festival Director, Cultural Arts"
+    }
+  },
+  {
+    slug: "corporate-agm-broadcast",
+    title: "Tech Mahindra Global AGM",
+    client: "Tech Mahindra",
+    category: "Live Streaming",
+    year: "2026",
+    thumbnail: PLACEHOLDER_ASSETS.images.projects.workIndia,
+    videoUrl: PLACEHOLDER_ASSETS.videos.liveStreaming,
+    description: "Secure, encrypted live broadcast of Tech Mahindra's Annual General Meeting for global shareholders.",
+    challenge: "Incorporate strict security access controls and sub-1s low latency for real-time voting.",
+    solution: "Deployed private WebRTC feeds and multi-regional CDN distribution.",
+    deliverables: ["WebRTC Encrypted Feed", "Shareholder Dashboard", "Instant Q&A System", "Multi-Language Feeds"],
+    results: [
+      { label: "Shareholders Connected", value: "45,000+" },
+      { label: "Voting Latency", value: "<800ms" }
+    ],
+    testimonial: {
+      text: "The security protocols and real-time voting speed exceeded our compliance expectations.",
+      author: "Anil Kumar",
+      role: "Company Secretary, Tech Mahindra"
+    }
+  },
+  {
+    slug: "auto-expo-aftermovie",
+    title: "Tata Motors Brand Film Expo",
+    client: "Tata Motors",
+    category: "Video Production",
+    year: "2025",
+    thumbnail: PLACEHOLDER_ASSETS.images.projects.suggestable,
+    videoUrl: PLACEHOLDER_ASSETS.videos.videoProduction,
+    description: "High-octane commercial film showcasing Tata Motors' electric concept vehicles at the Auto Expo.",
+    challenge: "Highlight futuristic vehicle design detailing under chaotic public expo lights.",
+    solution: "Shot during pre-expo hours using heavy lighting rings and stabilization gimbal tracks.",
+    deliverables: ["Concept Car Showcase", "Gimbal Stabilization Rigs", "Pre-Expo Solo Footage", "4K Marketing Film"],
+    results: [
+      { label: "Marketing Campaign Reach", value: "5 Million+" },
+      { label: "Video Completion Rate", value: "78%" }
+    ],
+    testimonial: {
+      text: "Breathtaking visual energy. They highlighted our EV concepts exactly the way our designers envisioned them.",
+      author: "Meera Nair",
+      role: "Marketing Head, Tata Motors"
     }
   }
 ];
