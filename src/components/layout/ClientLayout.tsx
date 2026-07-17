@@ -95,6 +95,10 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         else if (window.location.pathname === "/work" && url.pathname.startsWith("/work/")) {
           type = "zoom";
         }
+        // Service card / detail transitions (use double shutter swipe)
+        else if (url.pathname.startsWith("/services")) {
+          type = "swipe";
+        }
         // Menu / footer navigation sweep
         else if (
           target.closest("header") || 

@@ -75,54 +75,54 @@ export function CapabilitiesSection({ services }: { services?: Service[] }) {
         {/* 4 Core Services Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
           {(services || SERVICES_DATA).map((service, index) => (
-            <motion.div
-              key={service.slug}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group bg-surface border border-header-border p-8 md:p-10 rounded-sm hover:border-accent/40 transition-all duration-500 ease-out flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-8">
-                  <span className="text-xs font-heading font-bold text-muted-foreground group-hover:text-accent transition-colors duration-300">
-                    /0{index + 1}
-                  </span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent/40 group-hover:bg-accent transition-colors" />
-                </div>
-
-                <h3 className="text-xl md:text-2xl font-heading font-extrabold text-foreground mb-4 group-hover:text-accent transition-colors duration-300">
-                  {service.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6 font-sans">
-                  {service.shortDesc}
-                </p>
-
-                <div className="border-t border-header-border pt-6 mb-8">
-                  <span className="text-[10px] font-heading font-extrabold tracking-widest text-accent uppercase block mb-4">
-                    Specializations:
-                  </span>
-                  <ul className="grid grid-cols-2 gap-2 text-xs text-muted-foreground font-sans">
-                    {service.subServices.slice(0, 4).map((sub, idx) => (
-                      <li key={idx} className="flex items-center gap-2">
-                        <span className="h-1 w-1 bg-accent/50 rounded-full" />
-                        {sub}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <Link
-                href={`/services/${service.slug}`}
-                className="text-xs font-heading font-extrabold tracking-widest text-foreground hover:text-accent uppercase py-2 transition-colors duration-300 inline-flex items-center gap-2"
+            <Link key={service.slug} href={`/services/${service.slug}`} className="block">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group bg-surface border border-header-border p-8 md:p-10 rounded-sm hover:border-accent/40 transition-all duration-500 ease-out flex flex-col justify-between h-full cursor-pointer"
               >
-                Explore Service
-                <span className="transform group-hover:translate-x-1.5 transition-transform duration-300">
-                  &rarr;
-                </span>
-              </Link>
-            </motion.div>
+                <div>
+                  <div className="flex items-center justify-between mb-8">
+                    <span className="text-xs font-heading font-bold text-muted-foreground group-hover:text-accent transition-colors duration-300">
+                      /0{index + 1}
+                    </span>
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent/40 group-hover:bg-accent transition-colors" />
+                  </div>
+
+                  <h3 className="text-xl md:text-2xl font-heading font-extrabold text-foreground mb-4 group-hover:text-accent transition-colors duration-300">
+                    {service.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6 font-sans">
+                    {service.shortDesc}
+                  </p>
+
+                  <div className="border-t border-header-border pt-6 mb-8">
+                    <span className="text-[10px] font-heading font-extrabold tracking-widest text-accent uppercase block mb-4">
+                      Specializations:
+                    </span>
+                    <ul className="grid grid-cols-2 gap-2 text-xs text-muted-foreground font-sans">
+                      {service.subServices.slice(0, 4).map((sub, idx) => (
+                        <li key={idx} className="flex items-center gap-2">
+                          <span className="h-1 w-1 bg-accent/50 rounded-full" />
+                          {sub}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div
+                  className="text-xs font-heading font-extrabold tracking-widest text-foreground group-hover:text-accent uppercase py-2 transition-colors duration-300 inline-flex items-center gap-2"
+                >
+                  Explore Service
+                  <span className="transform group-hover:translate-x-1.5 transition-transform duration-300">
+                    &rarr;
+                  </span>
+                </div>
+              </motion.div>
+            </Link>
           ))}
         </div>
 

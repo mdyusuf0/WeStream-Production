@@ -2,6 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import dynamic from "next/dynamic";
+
+const BroadcastApertureCanvas = dynamic(
+  () => import("../media/BroadcastApertureCanvas"),
+  { ssr: false }
+);
 
 export default function LoadingScreen() {
   const [isVisible, setIsVisible] = useState(false);
@@ -15,15 +21,15 @@ export default function LoadingScreen() {
       // Disable body scrolling during load
       document.body.style.overflow = "hidden";
       
-      // Delay to draw the line first, then show the text
+      // Delay showing text slightly to let the 3D aperture start opening
       const textTimer = setTimeout(() => {
         setShowText(true);
-      }, 1000);
+      }, 700);
 
-      // Delay to complete loading
+      // Delay to complete loading (1.8s instead of original 2.5s for faster under ~1.5s skip-able feel)
       const completeTimer = setTimeout(() => {
         handleComplete();
-      }, 2500);
+      }, 1900);
 
       return () => {
         clearTimeout(textTimer);
@@ -41,43 +47,41 @@ export default function LoadingScreen() {
 
   if (!isVisible) return null;
 
+  const loaderFallback = (
+    <motion.span 
+      initial={{ scale: 0 }}
+      animate={{ scale: [1, 1.3, 1] }}
+      transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+      className="h-3 w-3 rounded-full bg-accent shadow-[0_0_12px_#D4AF37]" 
+    />
+  );
+
   return (
     <AnimatePresence>
       <motion.div
         initial={{ opacity: 1 }}
         exit={{ 
           opacity: 0,
-          transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+          transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] }
         }}
         className="fixed inset-0 z-9999 flex items-center justify-center bg-[#0B0B0B] select-none"
       >
         <div className="relative w-full max-w-lg flex flex-col items-center justify-center px-6">
           
-          {/* 1. HORIZONTAL GOLD LINE DRAWING */}
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-            className="h-[1px] bg-accent relative"
-          >
-            {/* Pulsing center node on the line */}
-            <motion.span 
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_10px_#D4AF37]" 
-            />
-          </motion.div>
+          {/* Centered 3D Broadcast Aperture Loader */}
+          <div className="h-[120px] w-[120px] flex items-center justify-center mb-6">
+            <BroadcastApertureCanvas variant="loader" fallback={loaderFallback} />
+          </div>
 
-          {/* 2. TEXT REVEAL ONCE LINE IS DRAWN */}
-          <div className="h-16 flex items-center justify-center mt-6 overflow-hidden">
+          {/* 2. TEXT REVEAL */}
+          <div className="h-16 flex items-center justify-center overflow-hidden">
             <AnimatePresence>
               {showText && (
                 <motion.div
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -20, opacity: 0 }}
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   className="text-center space-y-1"
                 >
                   <h1 className="font-heading text-lg md:text-xl font-extrabold text-white tracking-[0.3em] uppercase">
@@ -92,6 +96,14 @@ export default function LoadingScreen() {
           </div>
 
         </div>
+
+        {/* Skip button for user control */}
+        <button 
+          onClick={handleComplete}
+          className="absolute bottom-10 font-heading text-[10px] tracking-[0.25em] text-muted-foreground hover:text-accent uppercase cursor-pointer py-2 px-4 transition-colors"
+        >
+          Skip Intro
+        </button>
 
         {/* Ambient static overlay */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.6))] pointer-events-none" />

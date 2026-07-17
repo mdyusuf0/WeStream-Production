@@ -3,6 +3,13 @@
 import React, { useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useTheme } from "@/components/theme/ThemeContext";
+import dynamic from "next/dynamic";
+
+// Dynamic load of the 3D Canvas wrapper to avoid blocking SSR or LCP
+const BroadcastApertureCanvas = dynamic(
+  () => import("./BroadcastApertureCanvas"),
+  { ssr: false }
+);
 
 interface OpticalSculptureProps {
   className?: string;
@@ -12,23 +19,24 @@ export function OpticalSculpture({ className = "" }: OpticalSculptureProps) {
   const [mounted, setMounted] = useState(false);
   const { resolvedTheme } = useTheme();
 
-  // Mouse tilt values
+  // Mouse tilt values for 2D Fallback
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Smooth spring physics for 60fps interaction
+  // Smooth spring physics for 60fps interaction on 2D Fallback
   const springX = useSpring(mouseX, { stiffness: 40, damping: 25 });
   const springY = useSpring(mouseY, { stiffness: 40, damping: 25 });
 
-  // Subtle 3D tilt angles (-4 deg to +4 deg)
+  // Subtle 3D tilt angles (-4 deg to +4 deg) for 2D Fallback
   const rotateX = useTransform(springY, [-0.5, 0.5], [4, -4]);
   const rotateY = useTransform(springX, [-0.5, 0.5], [-4, 4]);
 
-  // Light flare position tracking
+  // Light flare position tracking for 2D Fallback
   const flareX = useTransform(springX, [-0.5, 0.5], [-50, 50]);
   const flareY = useTransform(springY, [-0.5, 0.5], [-35, 35]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -50,7 +58,8 @@ export function OpticalSculpture({ className = "" }: OpticalSculptureProps) {
   const strokeMuted = isLight ? "rgba(17,17,17,0.06)" : "rgba(255,255,255,0.06)";
   const glassStroke = isLight ? "rgba(17,17,17,0.12)" : "rgba(255,255,255,0.12)";
 
-  return (
+  // The original 2D SVG markup acts as our fallback for low-power devices, reduced motion, or SSR
+  const fallbackSvg = (
     <div
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -184,6 +193,12 @@ export function OpticalSculpture({ className = "" }: OpticalSculptureProps) {
           <circle cx="500" cy="300" r="3" fill={primaryAccent} opacity="0.75" />
         </svg>
       </motion.div>
+    </div>
+  );
+
+  return (
+    <div className={`relative w-full h-full ${className}`}>
+      <BroadcastApertureCanvas variant="hero" fallback={fallbackSvg} />
     </div>
   );
 }

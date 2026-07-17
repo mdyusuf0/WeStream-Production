@@ -13,16 +13,16 @@ export default function CustomCursor() {
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  // Outer ring springs
-  const ringX = useSpring(mouseX, { damping: 30, stiffness: 400 });
-  const ringY = useSpring(mouseY, { damping: 30, stiffness: 400 });
+  // Outer ring springs (Snappier, half the weight/lag)
+  const ringX = useSpring(mouseX, { damping: 24, stiffness: 650 });
+  const ringY = useSpring(mouseY, { damping: 24, stiffness: 650 });
 
-  // Trailing glass reflection springs (Simulating lens reflection offsets)
-  const flareX1 = useSpring(mouseX, { damping: 40, stiffness: 180 });
-  const flareY1 = useSpring(mouseY, { damping: 40, stiffness: 180 });
+  // Trailing glass reflection springs (Snappier trail offsets)
+  const flareX1 = useSpring(mouseX, { damping: 30, stiffness: 320 });
+  const flareY1 = useSpring(mouseY, { damping: 30, stiffness: 320 });
 
-  const flareX2 = useSpring(mouseX, { damping: 55, stiffness: 100 });
-  const flareY2 = useSpring(mouseY, { damping: 55, stiffness: 100 });
+  const flareX2 = useSpring(mouseX, { damping: 40, stiffness: 200 });
+  const flareY2 = useSpring(mouseY, { damping: 40, stiffness: 200 });
 
   useEffect(() => {
     const checkTouch = () => {

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Container } from "@/components/layout/Container";
 import { Project } from "@/lib/data";
+import { TiltCard } from "@/components/interactive/TiltCard";
 
 const categories = ["All", "Video Production", "Live Streaming", "Event Coverage", "Post Production"];
 
@@ -101,49 +102,51 @@ export default function WorkClient({ projects }: WorkClientProps) {
                   onMouseLeave={() => setHoveredSlug(null)}
                 >
                   <Link href={`/work/${project.slug}`} className="block space-y-4">
-                    {/* Thumbnail Frame */}
-                    <div className="relative aspect-[16/9] w-full overflow-hidden border border-header-border bg-surface rounded-sm group-hover:border-accent/40 transition-colors duration-500">
-                      
-                      {/* Category Badge */}
-                      <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 bg-background/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-header-border">
-                        <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
-                        <span className="text-[9px] font-heading font-extrabold tracking-widest text-foreground uppercase">
-                          {project.category}
-                        </span>
+                    {/* Thumbnail Frame wrapped in TiltCard */}
+                    <TiltCard className="w-full">
+                      <div className="relative aspect-[16/9] w-full overflow-hidden border border-header-border bg-surface rounded-sm group-hover:border-accent/40 transition-colors duration-500">
+                        
+                        {/* Category Badge */}
+                        <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 bg-background/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-header-border">
+                          <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+                          <span className="text-[9px] font-heading font-extrabold tracking-widest text-foreground uppercase">
+                            {project.category}
+                          </span>
+                        </div>
+
+                        {/* Year Overlay */}
+                        <div className="absolute bottom-3 right-3 z-10 text-[9px] font-heading font-extrabold tracking-widest text-accent bg-background/80 backdrop-blur-md px-2.5 py-1 rounded-sm border border-header-border">
+                          {project.year}
+                        </div>
+
+                        {/* Image Thumbnail */}
+                        <Image
+                          src={project.thumbnail}
+                          alt={project.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          priority={idx < 2}
+                          className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] ${
+                            isHovered ? "opacity-90" : "opacity-100"
+                          }`}
+                        />
+
+                        {/* Hover Video Preview */}
+                        {isHovered && (
+                          <video
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            className="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 opacity-100 scale-[1.03]"
+                          >
+                            <source src={project.videoUrl} type="video/mp4" />
+                          </video>
+                        )}
+
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent pointer-events-none" />
                       </div>
-
-                      {/* Year Overlay */}
-                      <div className="absolute bottom-3 right-3 z-10 text-[9px] font-heading font-extrabold tracking-widest text-accent bg-background/80 backdrop-blur-md px-2.5 py-1 rounded-sm border border-header-border">
-                        {project.year}
-                      </div>
-
-                      {/* Image Thumbnail */}
-                      <Image
-                        src={project.thumbnail}
-                        alt={project.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        priority={idx < 2}
-                        className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] ${
-                          isHovered ? "opacity-90" : "opacity-100"
-                        }`}
-                      />
-
-                      {/* Hover Video Preview */}
-                      {isHovered && (
-                        <video
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                          className="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 opacity-100 scale-[1.03]"
-                        >
-                          <source src={project.videoUrl} type="video/mp4" />
-                        </video>
-                      )}
-
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent pointer-events-none" />
-                    </div>
+                    </TiltCard>
 
                     {/* Metadata */}
                     <div className="flex justify-between items-start gap-4 px-1">

@@ -8,6 +8,8 @@ import { Container } from "@/components/layout/Container";
 import { PROJECTS_DATA, Project } from "@/lib/data";
 import { MediaLightbox } from "@/components/ui/MediaLightbox";
 
+import { TiltCard } from "@/components/interactive/TiltCard";
+
 export function SelectedWorkSection({ projects }: { projects?: Project[] }) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeLightboxProject, setActiveLightboxProject] = useState<Project | null>(null);
@@ -60,55 +62,57 @@ export function SelectedWorkSection({ projects }: { projects?: Project[] }) {
                 onMouseLeave={() => setHoveredIndex(null)}
                 onClick={() => setActiveLightboxProject(project)}
               >
-                {/* Media frame with camera motif styling */}
-                <div
-                  className={`relative w-full overflow-hidden border border-header-border bg-surface rounded-sm transition-all duration-700 ease-out group-hover:border-accent/40 ${
-                    isFirst 
-                      ? "aspect-[16/9] md:max-h-[520px]" 
-                      : "aspect-[4/3] md:aspect-[3/2]"
-                  }`}
-                >
-                  {/* Category Pill */}
-                  <div className="absolute top-4 left-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 bg-background/80 backdrop-blur-md px-3 py-1 rounded-full border border-header-border">
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
-                    <span className="text-[9px] font-heading font-extrabold tracking-widest text-foreground uppercase">
-                      {project.category}
-                    </span>
-                  </div>
-
-                  {/* Case Study Year Overlay */}
-                  <div className="absolute bottom-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[10px] font-heading font-extrabold tracking-widest text-accent bg-background/80 backdrop-blur-md px-3 py-1 rounded-sm border border-header-border">
-                    {project.year}
-                  </div>
-
-                  {/* Base Image Thumbnail */}
-                  <Image
-                    src={project.thumbnail}
-                    alt={project.title}
-                    fill
-                    sizes={isFirst ? "100vw" : "50vw"}
-                    priority={isFirst}
-                    className={`object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.03] ${
-                      isHovered ? "opacity-0" : "opacity-100"
+                {/* Media frame wrapped in TiltCard with camera motif styling */}
+                <TiltCard className="w-full">
+                  <div
+                    className={`relative w-full overflow-hidden border border-header-border bg-surface rounded-sm transition-all duration-700 ease-out group-hover:border-accent/40 ${
+                      isFirst 
+                        ? "aspect-[16/9] md:max-h-[520px]" 
+                        : "aspect-[4/3] md:aspect-[3/2]"
                     }`}
-                  />
+                  >
+                    {/* Category Pill */}
+                    <div className="absolute top-4 left-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 bg-background/80 backdrop-blur-md px-3 py-1 rounded-full border border-header-border">
+                      <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+                      <span className="text-[9px] font-heading font-extrabold tracking-widest text-foreground uppercase">
+                        {project.category}
+                      </span>
+                    </div>
 
-                  {/* Muted video preview player triggering on hover */}
-                  {isHovered && (
-                    <video
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 opacity-100 scale-[1.03]"
-                    >
-                      <source src={project.videoUrl} type="video/mp4" />
-                    </video>
-                  )}
+                    {/* Case Study Year Overlay */}
+                    <div className="absolute bottom-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[10px] font-heading font-extrabold tracking-widest text-accent bg-background/80 backdrop-blur-md px-3 py-1 rounded-sm border border-header-border">
+                      {project.year}
+                    </div>
 
-                  {/* Dynamic Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent pointer-events-none" />
-                </div>
+                    {/* Base Image Thumbnail */}
+                    <Image
+                      src={project.thumbnail}
+                      alt={project.title}
+                      fill
+                      sizes={isFirst ? "100vw" : "50vw"}
+                      priority={isFirst}
+                      className={`object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.03] ${
+                        isHovered ? "opacity-0" : "opacity-100"
+                      }`}
+                    />
+
+                    {/* Muted video preview player triggering on hover */}
+                    {isHovered && (
+                      <video
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 opacity-100 scale-[1.03]"
+                      >
+                        <source src={project.videoUrl} type="video/mp4" />
+                      </video>
+                    )}
+
+                    {/* Dynamic Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent pointer-events-none" />
+                  </div>
+                </TiltCard>
 
                 {/* Meta details */}
                 <div className="flex flex-col sm:flex-row justify-between items-start gap-2 px-1">
