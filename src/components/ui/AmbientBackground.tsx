@@ -66,7 +66,7 @@ export function AmbientBackground() {
         baseY: y,
         vx: (Math.random() - 0.5) * 0.2,
         vy: (Math.random() - 0.5) * 0.2,
-        size: Math.random() * 2.0 + 1.0, // Crisp particle radius (1.0px - 3.0px)
+        size: Math.random() * 0.8 + 0.3, // Micro hairline particle radius (0.3px - 1.1px)
         alpha: baseAlpha,
         baseAlpha,
       });
