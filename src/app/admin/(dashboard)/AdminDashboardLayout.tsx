@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
-import { Film, Mail, ShieldAlert, Key, LogOut, ExternalLink, Menu, X, User, ChevronLeft, ChevronRight } from "lucide-react";
+import { Film, Mail, ShieldAlert, Key, LogOut, ExternalLink, Menu, X, User, ChevronLeft, ChevronRight, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 
 interface AdminDashboardLayoutProps {
   children: React.ReactNode;
@@ -119,8 +119,8 @@ export default function AdminDashboardLayout({ children, initialUnreadCount }: A
 
       {/* PERSISTENT SIDEBAR */}
       <aside className={`
-        fixed inset-y-0 left-0 bg-surface border-r border-header-border flex flex-col justify-between z-40
-        transform transition-all duration-300 md:relative md:transform-none
+        fixed inset-y-0 left-0 bg-surface border-r border-header-border flex flex-col justify-between z-40 h-screen
+        transform transition-all duration-300 md:sticky md:top-0 md:transform-none
         ${isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
         ${isCollapsed ? "md:w-20" : "md:w-56"}
       `}>
@@ -128,27 +128,32 @@ export default function AdminDashboardLayout({ children, initialUnreadCount }: A
         {/* Top Section */}
         <div>
           {/* Header */}
-          <div className={`p-6 border-b border-header-border flex items-center justify-between transition-all duration-300 ${isCollapsed ? "md:flex-col md:gap-4 md:px-2 md:py-6" : ""}`}>
-            {!isCollapsed ? (
-              <div className="space-y-1">
-                <span className="text-[9px] font-heading font-extrabold tracking-[0.25em] text-accent uppercase block">
-                  WESTREAM PRODUCTION
-                </span>
-                <h2 className="text-sm font-heading font-extrabold uppercase text-foreground">
-                  Control Center
-                </h2>
-              </div>
-            ) : (
-              <span className="font-heading text-sm font-extrabold tracking-[0.1em] text-accent uppercase block md:text-center">
-                WS
-              </span>
-            )}
-            
-            <div className="flex items-center">
-              <button className="md:hidden text-muted-foreground hover:text-foreground transition-colors" onClick={() => setIsSidebarOpen(false)}>
-                <X size={16} />
+          <div className={`p-4 border-b border-header-border flex items-center justify-between transition-all duration-300 ${isCollapsed ? "md:justify-center" : ""}`}>
+            <div className="flex items-center gap-3">
+              {/* Wrap button (Desktop Only, top-left position) */}
+              <button
+                onClick={() => setIsCollapsed(!isCollapsed)}
+                className="hidden md:flex p-1.5 rounded-sm hover:bg-background/60 hover:text-foreground text-muted-foreground transition-colors cursor-pointer"
+                title={isCollapsed ? "Expand Sidebar (Wrap Off)" : "Collapse Sidebar (Wrap In)"}
+              >
+                {isCollapsed ? <PanelLeftOpen size={16} /> : <PanelLeftClose size={16} />}
               </button>
+              
+              {!isCollapsed && (
+                <div className="space-y-0.5">
+                  <span className="text-[9px] font-heading font-extrabold tracking-[0.2em] text-accent uppercase block leading-none">
+                    WE STREAM
+                  </span>
+                  <h2 className="text-xs font-heading font-extrabold uppercase text-foreground leading-none">
+                    Control Center
+                  </h2>
+                </div>
+              )}
             </div>
+
+            <button className="md:hidden text-muted-foreground hover:text-foreground transition-colors" onClick={() => setIsSidebarOpen(false)}>
+              <X size={16} />
+            </button>
           </div>
 
           {/* Navigation Links */}
@@ -208,24 +213,6 @@ export default function AdminDashboardLayout({ children, initialUnreadCount }: A
 
           {/* Action Links */}
           <div className="space-y-1">
-            {/* Wrap option */}
-            <button
-              onClick={() => setIsCollapsed(!isCollapsed)}
-              title={isCollapsed ? "Expand Sidebar (Wrap Off)" : "Collapse Sidebar (Wrap In)"}
-              className={`w-full px-4 py-2.5 rounded-sm flex items-center gap-3 text-xs font-bold uppercase tracking-wider text-muted-foreground hover:bg-background/40 hover:text-foreground transition-colors text-left ${isCollapsed ? "md:justify-center md:px-0" : ""}`}
-            >
-              {isCollapsed ? (
-                <>
-                  <ChevronRight size={14} className="shrink-0 text-accent animate-pulse" />
-                  <span className="md:hidden">Wrap Off</span>
-                </>
-              ) : (
-                <>
-                  <ChevronLeft size={14} className="shrink-0" />
-                  <span>Wrap In</span>
-                </>
-              )}
-            </button>
             <button
               onClick={() => setIsPasswordModalOpen(true)}
               title={isCollapsed ? "Change Password" : undefined}
