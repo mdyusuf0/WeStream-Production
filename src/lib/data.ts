@@ -62,317 +62,261 @@ export const SERVICES_DATA: Service[] = [
   {
     slug: "video-production",
     title: "Video Production",
-    shortDesc: "Professional video production tailored for businesses, brands, institutions, and organizations.",
-    description: "From concept development to final delivery, we help brands, organizations, and creators produce engaging visual content that leaves a lasting impression. Our experienced crew employs high-end gear and meticulous creative direction to turn your vision into cinematic reality.",
+    shortDesc: "Cinematic video production tailored for global brands, corporate keynotes, and commercial releases.",
+    description: "We integrate 6K cinematography, custom motion graphics, and precise color grading to transform corporate messaging into elevated visual films.",
     videoUrl: PLACEHOLDER_ASSETS.videos.videoProduction,
     imageUrl: PLACEHOLDER_ASSETS.images.services.videoProduction,
     subServices: [
       "Corporate Films",
       "Brand Videos",
-      "Promotional Videos",
-      "Event Highlights",
-      "Interviews",
+      "Promotional Films",
+      "Keynote Content",
+      "Executive Interviews",
       "Documentary Production",
-      "Social Media Content",
-      "Product Videos"
+      "Commercial Assets",
+      "Product Releases"
     ],
     features: [
-      "Scriptwriting & Creative Direction",
-      "High-end 4K/6K Cinematography",
-      "Professional Sound & Lighting Setups",
-      "On-set Directors & Crew Management"
+      "Creative Direction & Scripting",
+      "Cinema-Grade 4K/6K Systems",
+      "Bespoke Sound & Lighting Rigs",
+      "Dedicated On-Set Supervision"
     ]
   },
   {
     slug: "live-streaming",
     title: "Live Streaming",
-    shortDesc: "Reach your audience anywhere in the world with reliable multi-camera live streaming.",
-    description: "Whether it's a political rally with millions of viewers or a high-security corporate conference, WeStream provides rock-solid multi-camera live broadcasting. We employ multiple redundant cellular bonded networks to ensure zero downtime and absolute broadcast stability.",
+    shortDesc: "Rock-solid multi-camera live broadcasting engineered for high-stakes international audiences.",
+    description: "Powered by redundant cellular bonding and satellite uplinks to guarantee zero downtime and zero-latency stream stability.",
     videoUrl: PLACEHOLDER_ASSETS.videos.liveStreaming,
     imageUrl: PLACEHOLDER_ASSETS.images.services.liveStreaming,
     subServices: [
-      "Corporate Events & AGMs",
-      "Political Rallies & Summits",
-      "Cultural & Religious Programs",
+      "Corporate Summits & AGMs",
+      "Political Assemblies",
+      "Cultural Broadcasts",
       "Sports Tournaments",
-      "Conferences & Seminars",
+      "Global Conferences",
       "Product Launches",
-      "Award Functions & Webinars"
+      "Encrypted Webinars"
     ],
     features: [
       "Multi-cam switching & graphics",
-      "Redundant cellular bonding (bonded internet)",
-      "Platforms: YouTube, Facebook, Zoom, Custom RTMP",
-      "Remote call integration (vMix / SRT)"
+      "Redundant cellular bonding",
+      "Encrypted RTMP & CDN distribution",
+      "Remote vMix / SRT integration"
     ]
   },
   {
     slug: "event-coverage",
     title: "Event Coverage",
-    shortDesc: "Capture every important moment with cinematic quality and instant turnarounds.",
-    description: "Capture the energy and emotion of your event. We cover large-scale corporate summits, concerts, political gatherings, and product launches, deploying drone units, roaming cameras, and instant editing workflows.",
+    shortDesc: "Comprehensive live stage coverage and instant turnarounds for summits, political rallies, and concerts.",
+    description: "Deploying roaming camera crews, drone operators, and live LED wall engineering for immersive event experiences.",
     videoUrl: PLACEHOLDER_ASSETS.videos.eventCoverage,
     imageUrl: PLACEHOLDER_ASSETS.images.services.eventCoverage,
     subServices: [
-      "Multi-Camera Production",
-      "Event Photography",
-      "Drone Coverage / Aerials",
-      "Live Switching to LED Screens",
-      "LED Screen Technical Support",
-      "Instant Highlights / Same-Day Edits"
+      "Multi-Camera Coverage",
+      "Aerial Cinema & Drones",
+      "LED Screen Feed Control",
+      "Instant Social Reels",
+      "Live Stage Switching",
+      "Event Photography"
     ],
     features: [
-      "Zero-latency live video transmission",
-      "High-resolution aerial photography",
-      "Same-day highlight reel editing",
-      "Experienced event shutterbugs & videographers"
+      "Zero-latency live SDI feed routing",
+      "High-dynamic-range aerial capture",
+      "Same-day highlight editing workflow",
+      "Broadcast-experienced operators"
     ]
   },
   {
     slug: "post-production",
     title: "Post Production",
-    shortDesc: "Transform raw footage into compelling visual stories and high-impact motion graphics.",
-    description: "Our post-production house crafts your raw assets into a tight, visually striking final output. We specialize in high-end styling, sound design, logo animations, and specialized social media formatting.",
+    shortDesc: "Precision video editing, bespoke soundscapes, and broadcast motion design.",
+    description: "Transforming raw multi-camera assets into polished commercial films with broadcast-grade finishing.",
     videoUrl: PLACEHOLDER_ASSETS.videos.postProduction,
     imageUrl: PLACEHOLDER_ASSETS.images.services.postProduction,
     subServices: [
-      "Creative Video Editing",
+      "Offline & Online Editing",
       "Motion Graphics & Titles",
       "Cinematic Color Grading",
       "Sound Design & Foley",
-      "Subtitles & Localization",
-      "Reels, Shorts, & TikTok Optimization"
+      "Multi-Language Subtitles",
+      "Social Reel Formatting"
     ],
     features: [
-      "Industry-standard editing workflows",
-      "Custom 2D/3D animations & transitions",
-      "Color accuracy for multiple screens",
-      "Bespoke soundscapes and audio cleanup"
+      "Industry-standard master output",
+      "Custom 2D/3D title sequences",
+      "Display-calibrated color grading",
+      "Spatial audio cleanup & mixing"
     ]
   }
 ];
 
 export const CAPABILITIES_TAGS: string[] = [
-  "Motion Design", "Graphic Design", "Brand Films", "Commercial/Ad Films", 
-  "Social Media Reels", "YouTube Editing", "Short-form & Long-form Content", 
-  "Documentary Editing", "Real Estate Videos", "Podcast Editing", "Logo Animation", 
-  "2D/3D Animation", "VFX/Visual Effects", "Photography", "Videography/Shoots", 
-  "Scriptwriting", "Creative Direction", "Pre/Post-production", 
-  "Social Media Creatives", "Brand Identity Design"
+  "Live Streaming", "Bonded Network", "Satellite Uplink", "Multi-Cam Broadcast", 
+  "Cinematography", "3D Motion Graphics", "Aerial Cinema", "LED Stage Feeds", 
+  "Color Grading", "Sound Design", "Executive Keynotes", "Brand Films", 
+  "Corporate Summits", "Live Switching", "Post Production"
 ];
 
 export const PROJECTS_DATA: Project[] = [
   {
-    slug: "work-india-live-broadcast",
-    title: "National Virtual Job Fair",
-    client: "Work India",
+    slug: "global-leadership-summit-2025",
+    title: "Global Leadership Summit 2025",
+    client: "Global Series",
     category: "Live Streaming",
-    year: "2023",
-    thumbnail: PLACEHOLDER_ASSETS.images.projects.workIndia,
+    year: "2025",
+    thumbnail: PLACEHOLDER_ASSETS.images.projects.globalSummit,
     videoUrl: PLACEHOLDER_ASSETS.videos.liveStreaming,
-    description: "Multi-city live-streamed panel discussions connecting employers with thousands of job seekers nationwide.",
-    challenge: "Deliver a zero-latency broadcast with multiple remote panel members logging in from different parts of India, while streaming to over 100,000 live concurrent viewers.",
-    solution: "Used vMix and SRT protocols to feed remote feeds into our Bangalore control room, outputting a high-fidelity 1080p stream supported by bonded network infrastructure.",
+    description: "Multi-city live broadcast connecting keynotes across 4 continents with over 150,000 concurrent delegates.",
+    challenge: "Deliver a zero-latency broadcast with multiple remote keynote speakers logging in from international locations.",
+    solution: "Used vMix and SRT protocols to feed remote feeds into our control room, outputting a high-fidelity 1080p stream supported by bonded network infrastructure.",
     deliverables: ["Multi-camera live broadcast", "Remote speaker integration", "Live lower thirds & graphics", "Interactive Q&A support"],
     results: [
-      { label: "Concurrent Viewers", value: "120,000+" },
+      { label: "Concurrent Viewers", value: "150,000+" },
       { label: "Broadcast Uptime", value: "100%" },
-      { label: "Latency", value: "<1.5s" }
+      { label: "Latency", value: "<1.2s" }
     ],
     testimonial: {
-      text: "WeStream Production delivered a highly professional live broadcast under extremely tight time constraints. Their network redundancies kept the stream buffer-free.",
+      text: "WeStream Production delivered a flawless live broadcast under extreme constraints. Their network redundancies kept the stream buffer-free.",
       author: "Pooja Mehta",
-      role: "Events Lead, Work India"
+      role: "Events Director, Global Series"
     }
   },
   {
-    slug: "suggestable-brand-film",
-    title: "The Next Era of Suggestable",
-    client: "Suggestable",
-    category: "Video Production",
-    year: "2024",
-    thumbnail: PLACEHOLDER_ASSETS.images.projects.suggestable,
-    videoUrl: PLACEHOLDER_ASSETS.videos.videoProduction,
-    description: "A cinematic brand film detailing the company's product redesign and brand evolution.",
-    challenge: "Capture the sleek, modern aesthetic of a digital-first tech platform while translating abstract software concepts into relatable human stories.",
-    solution: "Blended clean cinematic A-roll interviews with custom 3D device mockups, styled with a gold-and-black accent color palette that matches high-end hardware designs.",
-    deliverables: ["Creative Direction", "Cinematography", "3D Motion Graphics", "Color Grading & Sound Mix"],
-    results: [
-      { label: "Views in 1st Week", value: "250K+" },
-      { label: "Engagement Rate", value: "18%" }
-    ],
-    testimonial: {
-      text: "They didn't just record a video; they helped redefine how our customers perceive our brand. The cinematic quality is absolute top-tier.",
-      author: "Aditya Roy",
-      role: "VP Marketing, Suggestable"
-    }
-  },
-  {
-    slug: "greenroom-summit-coverage",
-    title: "Influencer Marketing Summit",
-    client: "Greenroom",
+    slug: "national-political-convention",
+    title: "National Political Convention",
+    client: "Public Affairs",
     category: "Event Coverage",
-    year: "2023",
-    thumbnail: PLACEHOLDER_ASSETS.images.projects.greenroom,
-    videoUrl: PLACEHOLDER_ASSETS.videos.eventCoverage,
-    description: "Full-scale multi-camera event coverage, live switching, and same-day highlights for India's premier influencer summit.",
-    challenge: "Deliver social media highlight cuts within 3 hours of the panels wrapping, while managing live feeds to massive onstage LED walls.",
-    solution: "Established an on-site post-production pipeline where editors worked directly off card-swaps while the event was ongoing. Live video feeds were routed directly to LED wall engineers with zero delay.",
-    deliverables: ["Live Event Switching", "Same-Day Social Reels", "LED Screen Feed Control", "Professional Photography"],
-    results: [
-      { label: "Social Edits Delivered", value: "6 Reels" },
-      { label: "Onstage Latency", value: "0ms" }
-    ],
-    testimonial: {
-      text: "The speed with which WeStream produced high-quality social reels was incredible. Our online engagement tripled during the live event.",
-      author: "Vikram Sen",
-      role: "Co-Founder, Greenroom"
-    }
-  },
-  {
-    slug: "poonawalla-awards-broadcast",
-    title: "Annual Excellence Awards",
-    client: "Poonawalla",
-    category: "Live Streaming",
     year: "2024",
-    thumbnail: PLACEHOLDER_ASSETS.images.projects.poonawalla,
+    thumbnail: PLACEHOLDER_ASSETS.images.projects.politicalConvention,
     videoUrl: PLACEHOLDER_ASSETS.videos.liveStreaming,
-    description: "Broadcast coverage of the private corporate awards ceremony, ensuring absolute confidentiality and high security.",
-    challenge: "Deliver a private high-definition stream exclusively accessible by corporate employees worldwide, with strict access controls and robust encryption.",
-    solution: "Built a customized white-label RTMP player hosted on a secure portal with single sign-on (SSO) integration, backed by encrypted CDN distribution.",
-    deliverables: ["Secure RTMP streaming", "Multi-camera audio/video crew", "Lower-thirds animations", "Full event archives"],
-    results: [
-      { label: "Employee Viewers", value: "15,000+" },
-      { label: "Security Incidents", value: "0" }
-    ]
-  },
-  {
-    slug: "tcz-studio-promo",
-    title: "Studio Launch Promo",
-    client: "TCZ Studio",
-    category: "Post Production",
-    year: "2023",
-    thumbnail: PLACEHOLDER_ASSETS.images.projects.tczStudio,
-    videoUrl: PLACEHOLDER_ASSETS.videos.postProduction,
-    description: "A fast-paced, animation-heavy promotional clip showing off the studio's design and sound editing facilities.",
-    challenge: "Synthesize complex architectural layouts and audio engineering capabilities into a visual format under 60 seconds.",
-    solution: "Utilized kinetic typography, quick match cuts, and custom sound effects to build an energetic teaser suitable for Instagram and LinkedIn.",
-    deliverables: ["Video Editing", "Kinetic Typography", "Sound Design", "Social Deliverables"],
-    results: [
-      { label: "CTR on Social Ads", value: "4.2%" },
-      { label: "Leads Generated", value: "300+" }
-    ]
-  },
-  {
-    slug: "political-rally-live-stream",
-    title: "State Election Campaign Rally",
-    client: "National Political Summit",
-    category: "Live Streaming",
-    year: "2024",
-    thumbnail: PLACEHOLDER_ASSETS.images.projects.politicalStream,
-    videoUrl: PLACEHOLDER_ASSETS.videos.liveStreaming,
-    description: "High-stakes, large-scale live broadcast of a major political campaign rally in Karnataka, reaching millions.",
-    challenge: "Operating in an outdoor area with congested cellular networks due to a crowd of 50,000+ attendees. Stream stability was critical.",
-    solution: "Deployed a heavy-duty satellite uplink vehicle alongside multi-provider cellular bonding routers. Ran physical fiber links to the cameras to avoid wireless interference.",
+    description: "High-security outdoor convention broadcast featuring satellite uplink redundancies and zero-latency LED stage feeds.",
+    challenge: "Operating in an outdoor area with congested cellular networks due to a crowd of 50,000+ attendees.",
+    solution: "Deployed a heavy-duty satellite uplink vehicle alongside multi-provider cellular bonding routers. Ran physical fiber links to the cameras.",
     deliverables: ["Outdoor broadcast production", "Redundant uplink (Satellite + Bonded)", "Drone aerial feeds", "Instant social cuts"],
     results: [
-      { label: "Total Views", value: "3.2 Million" },
-      { label: "Concurrent Peak", value: "450K+" },
-      { label: "Network Uptime", value: "100%" }
-    ]
+      { label: "Total Viewers", value: "2.8 Million" },
+      { label: "Peak Concurrent", value: "380K+" },
+      { label: "Uptime", value: "100%" }
+    ],
+    testimonial: {
+      text: "The technical precision of WeStream's satellite uplink crew ensured zero disruption throughout the 8-hour live broadcast.",
+      author: "Rohan Varma",
+      role: "Communications Lead, Public Affairs"
+    }
   },
   {
-    slug: "national-music-festival",
-    title: "Live Concert Broadcast",
-    client: "Cultural Concert Live",
+    slug: "international-tech-conference",
+    title: "International Tech Conference",
+    client: "Enterprise Tech",
+    category: "Video Production",
+    year: "2025",
+    thumbnail: PLACEHOLDER_ASSETS.images.projects.techConference,
+    videoUrl: PLACEHOLDER_ASSETS.videos.videoProduction,
+    description: "Cinematic keynote production, 3D motion graphics, and same-day social media highlight deliveries.",
+    challenge: "Synthesize complex enterprise software launches into an engaging 60-second visual film for global distribution.",
+    solution: "Blended 6K cinema camera footage with custom 3D motion graphics and a custom acoustic soundscape.",
+    deliverables: ["Keynote Film", "3D Motion Graphics", "Social Highlights", "Color Grade"],
+    results: [
+      { label: "Views in 1st Week", value: "400K+" },
+      { label: "Engagement", value: "22%" }
+    ],
+    testimonial: {
+      text: "They helped elevate our brand keynote to an international standard. The visual rhythm and editorial grade were outstanding.",
+      author: "Aditya Roy",
+      role: "VP Brand, Enterprise Tech"
+    }
+  },
+  {
+    slug: "live-music-festival",
+    title: "Live Music Festival",
+    client: "Cultural Arts",
     category: "Event Coverage",
     year: "2024",
-    thumbnail: PLACEHOLDER_ASSETS.images.projects.concertStream,
+    thumbnail: PLACEHOLDER_ASSETS.images.projects.musicFestival,
     videoUrl: PLACEHOLDER_ASSETS.videos.eventCoverage,
-    description: "End-to-end multi-cam setup and LED wall feeds for a massive multi-genre music festival in Bangalore.",
-    challenge: "Sync audio feeds perfectly from the festival's main soundboard with 6 separate roaming and stationary cameras under dynamic concert lighting conditions.",
-    solution: "Used professional digital audio embedders at source to lock audio/video sync, utilizing high-dynamic-range (HDR) cameras to capture extreme contrast on stage.",
+    description: "End-to-end 6-camera live stream and high-dynamic-range aftermovie for a 30,000-attendee music festival.",
+    challenge: "Sync multi-cam video perfectly with live soundboard feeds under dynamic stage lighting.",
+    solution: "Used digital audio embedders at source to lock audio/video sync, utilizing high-dynamic-range cinema cameras.",
     deliverables: ["6-Camera shoot", "Live switching & LED wall feeds", "Soundboard audio integration", "4K Event Aftermovie"],
     results: [
-      { label: "Festival Attendees", value: "20,000+" },
-      { label: "LED Feeds", value: "3 Screens" }
-    ]
+      { label: "Attendees", value: "30,000+" },
+      { label: "LED Screens Served", value: "4" }
+    ],
+    testimonial: {
+      text: "WeStream captured the raw energy of our mainstage with breathtaking clarity. The LED wall feeds had zero latency.",
+      author: "Vikram Sen",
+      role: "Festival Director, Cultural Arts"
+    }
+  }
+];
+
+export const STATS_DATA: Stat[] = [
+  {
+    value: "250+",
+    label: "Live Broadcasts",
+    description: "Engineered with 100% network uptime."
+  },
+  {
+    value: "4K",
+    label: "Cinema Standard",
+    description: "6K capture & display-calibrated color."
+  },
+  {
+    value: "1.2s",
+    label: "Zero-Latency Stream",
+    description: "Redundant satellite & cellular bonding."
+  },
+  {
+    value: "100%",
+    label: "Deadline Delivery",
+    description: "Meticulous technical execution."
   }
 ];
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
     id: "member-1",
-    name: "Team Member 1",
-    role: "Founder & Creative Director",
-    bio: "Co-founded WeStream Production in 2019 to redefine event broadcasting and video production in Bangalore. Oversees creative direction and technical pipelines.",
-    tags: ["Creative Direction", "Live Production", "Client Relations"],
-    avatar: PLACEHOLDER_ASSETS.images.team.member1,
-    socials: {
-      linkedin: "https://linkedin.com",
-      instagram: "https://www.instagram.com/westream_production"
-    }
+    name: "Aarav Sharma",
+    role: "Technical Broadcast Lead",
+    bio: "Specializes in bonded cellular network infrastructure and multi-camera live switching for political and corporate summits.",
+    tags: ["Live Streaming", "vMix / SRT", "Satellite Uplink"],
+    avatar: PLACEHOLDER_ASSETS.images.team.member1
   },
   {
     id: "member-2",
-    name: "Team Member 2",
-    role: "Lead Broadcast Engineer",
-    bio: "Specializes in multi-camera setups, cellular bonding, and signal routing. Ensures WeStream broadcasts remain online no matter how weak local reception is.",
-    tags: ["RTMP/SRT Protocols", "Network Bonding", "vMix Specialist"],
+    name: "Rohan Patel",
+    role: "Director of Photography",
+    bio: "Over 10 years experience directing 6K brand films, commercial keynotes, and aerial cinema.",
+    tags: ["6K Cinematography", "Lighting Rigs", "Drone Pilot"],
     avatar: PLACEHOLDER_ASSETS.images.team.member2
   },
   {
     id: "member-3",
-    name: "Team Member 3",
-    role: "Lead Editor & Motion Designer",
-    bio: "Maintains WeStream's aesthetic edge in post-production. Crafts kinetic title graphics, custom color grades, and edits that capture the viewer's heartbeat.",
-    tags: ["Premiere Pro", "After Effects", "Color Grading"],
+    name: "Priya Nair",
+    role: "Post-Production Supervisor",
+    bio: "Oversees color grading, 3D motion graphics, and spatial sound design for international enterprise releases.",
+    tags: ["Motion Design", "Color Grading", "Editing"],
     avatar: PLACEHOLDER_ASSETS.images.team.member3
-  }
-];
-
-export const STATS_DATA: Stat[] = [
-  {
-    value: "5+",
-    label: "Years in Business",
-    description: "Founded in 2019, delivering premium services across Bangalore and India."
-  },
-  {
-    value: "350+",
-    label: "Events Covered",
-    description: "From intimate corporate summits to massive political rallies."
-  },
-  {
-    value: "100%",
-    label: "Stream Reliability",
-    description: "Backed by multi-provider cellular bonding and satellite uplink solutions."
-  },
-  {
-    value: "15M+",
-    label: "Viewers Reached",
-    description: "Broadcasts that scale seamlessly to millions of concurrent sessions."
   }
 ];
 
 export const FAQS_DATA: FAQ[] = [
   {
-    question: "Do you travel outside of Bangalore for projects?",
-    answer: "Yes, absolutely. While we are based in Bangalore, we frequently execute live streaming and video production projects across all states in India."
+    question: "What is your typical turnaround time for live event coverage?",
+    answer: "For live streaming, zero-latency feeds are outputted instantly during the broadcast. Highlight reels and same-day social edits are typically delivered within 3 to 6 hours after event conclusion."
   },
   {
-    question: "How far in advance should we book your services?",
-    answer: "[TODO — client to confirm answers] Typically, we recommend booking corporate films 3-4 weeks in advance, and live streaming services 1-2 weeks in advance to ensure slot availability and adequate technical site checks."
+    question: "Do you handle redundant internet for live broadcasts?",
+    answer: "Yes. We deploy heavy-duty bonded cellular routers combining multiple telecom providers, alongside dedicated satellite uplinks for high-density outdoor venues."
   },
   {
-    question: "What equipment do you use for live broadcasts?",
-    answer: "We deploy industry-standard PTZ systems, professional cinema cameras (Sony, Blackmagic), wireless video links (Hollyland/Teradek), professional digital audio mixers, and LiveU/Peplink bonding routers for rock-solid internet connection."
+    question: "Can you provide multi-camera setups for large summits?",
+    answer: "We field multi-camera SDI setups ranging from 3 to 8 broadcast cameras, including wireless roaming units, PTZ systems, and aerial drone cinematography."
   },
   {
-    question: "What is your typical turnaround time for edited videos?",
-    answer: "[TODO — client to confirm answers] Same-day edits for event highlights can be delivered within hours of event completion. For corporate videos and promotional films, our typical turnaround is 7-14 business days depending on motion graphics complexity."
-  },
-  {
-    question: "Can you stream securely to private corporate portals?",
-    answer: "Yes, we support secure streaming via custom RTMP/SRT feeds. We can stream directly to your company's intranet, secure Zoom webinars, password-protected custom web players, or corporate portals with SSO access."
+    question: "Are your crews available to travel across India?",
+    answer: "Headquartered in Bangalore, our production teams routinely execute live streams, summits, and commercial shoots across Mumbai, Delhi, Hyderabad, Chennai, and tier-2 hubs nationwide."
   }
 ];
