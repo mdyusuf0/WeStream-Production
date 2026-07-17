@@ -17,7 +17,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const router = useRouter();
   
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [transitionType, setTransitionType] = useState<"zoom" | "swipe" | "fade" | "sibling">("fade");
+  const [transitionType, setTransitionType] = useState<"zoom" | "aperture" | "fade" | "sibling">("aperture");
   const [pendingPath, setPendingPath] = useState<string | null>(null);
   const [expandedImage, setExpandedImage] = useState<ExpandedImageState | null>(null);
   const [prevPath, setPrevPath] = useState<string>(pathname);
@@ -85,7 +85,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         e.preventDefault();
         e.stopPropagation();
 
-        let type: "zoom" | "swipe" | "fade" | "sibling" = "fade";
+        let type: "zoom" | "aperture" | "fade" | "sibling" = "aperture";
 
         // Sibling transition between project detail pages
         if (window.location.pathname.startsWith("/work/") && url.pathname.startsWith("/work/")) {
@@ -94,15 +94,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         // Zoom card zoom transition
         else if (window.location.pathname === "/work" && url.pathname.startsWith("/work/")) {
           type = "zoom";
-        }
-        // Menu / footer navigation sweep
-        else if (
-          target.closest("header") || 
-          target.closest("footer") || 
-          anchor.closest("header") || 
-          anchor.closest("footer")
-        ) {
-          type = "swipe";
         }
 
         setTransitionType(type);
@@ -119,8 +110,11 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   useEffect(() => {
     if (!isTransitioning || !pendingPath) return;
 
-    // Wait for fade out / slide out to complete before swapping children route
-    const exitDuration = transitionType === "swipe" ? 600 : transitionType === "zoom" ? 500 : 400;
+    // Aperture iris takes 650ms to close completely, zoom takes 500ms
+    const exitDuration = 
+      transitionType === "zoom" ? 500 : 
+      transitionType === "aperture" ? 650 : 400;
+
     const timer = setTimeout(() => {
       setPrevPath(pathname);
       router.push(pendingPath);
@@ -156,7 +150,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
               overflow: "hidden",
             }}
             animate={{
-              top: "16vh", // aligned to start of project detail banner container
+              top: "16vh",
               left: "5vw",
               width: "90vw",
               height: "45vh",
@@ -170,28 +164,45 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         )}
       </AnimatePresence>
 
-      {/* 2. DOUBLE SHUTTER SWEEP BLADES */}
+      {/* 2. GLOBAL CAMERA APERTURE LENS IRIS REVEAL */}
       <AnimatePresence>
-        {isTransitioning && transitionType === "swipe" && (
+        {isTransitioning && transitionType === "aperture" && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-99998 pointer-events-none flex flex-col justify-between"
+            className="fixed inset-0 z-99998 bg-transparent flex items-center justify-center pointer-events-none overflow-hidden"
           >
-            <motion.div 
-              initial={{ y: "-100%" }}
-              animate={{ y: "0%" }}
-              exit={{ y: "-100%" }}
-              transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-              className="h-1/2 w-full bg-[#0B0B0B] border-b border-accent/20"
-            />
-            <motion.div 
-              initial={{ y: "100%" }}
-              animate={{ y: "0%" }}
-              exit={{ y: "100%" }}
-              transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-              className="h-1/2 w-full bg-[#0B0B0B] border-t border-accent/20"
+            <div className="absolute inset-0 flex items-center justify-center">
+              <svg viewBox="0 0 100 100" className="w-[150vw] h-[150vh] max-w-none text-[#0B0B0B]">
+                {[...Array(8)].map((_, i) => {
+                  const angle = (i * 360) / 8;
+                  return (
+                    <motion.path
+                      key={i}
+                      d="M 50 50 L 140 0 L 140 100 Z"
+                      fill="currentColor"
+                      stroke="#D4AF37"
+                      strokeWidth="0.5"
+                      strokeOpacity="0.2"
+                      style={{
+                        transformOrigin: "50px 50px",
+                      }}
+                      initial={{ rotate: angle, scale: 0 }}
+                      animate={{ rotate: angle + 25, scale: 1 }}
+                      exit={{ rotate: angle + 50, scale: 0 }}
+                      transition={{ duration: 0.65, ease: [0.76, 0, 0.24, 1] }}
+                    />
+                  );
+                })}
+              </svg>
+            </div>
+            {/* Focal indicator in center */}
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 0.15 }}
+              exit={{ scale: 1.2, opacity: 0 }}
+              className="absolute w-44 h-44 border border-accent rounded-full"
             />
           </motion.div>
         )}

@@ -109,8 +109,8 @@ export default function WorkPage() {
                       }
                     }}
                   >
-                    {/* Thumbnail Frame */}
-                    <div className="relative aspect-[16/9] w-full overflow-hidden border border-header-border bg-surface rounded-sm group-hover:border-accent/40 transition-colors duration-500">
+                     {/* Thumbnail Frame */}
+                    <div className="relative aspect-[16/9] w-full overflow-hidden border border-header-border bg-surface rounded-sm group-hover:border-accent/30 group-hover:-translate-y-2 group-hover:shadow-[0_20px_40px_rgba(212,175,55,0.06)] transition-all duration-700 ease-[0.16,1,0.3,1]">
                       
                       {/* Category Badge */}
                       <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 bg-background/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-header-border">
@@ -132,7 +132,7 @@ export default function WorkPage() {
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
                         priority={idx < 2}
-                        className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] ${
+                        className={`object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] ${
                           isHovered ? "opacity-90" : "opacity-100"
                         }`}
                       />
@@ -144,7 +144,7 @@ export default function WorkPage() {
                           muted
                           loop
                           playsInline
-                          className="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 opacity-100 scale-[1.03]"
+                          className="absolute inset-0 w-full h-full object-cover z-0 transition-opacity duration-500 opacity-100 scale-[1.02]"
                         >
                           <source src={project.videoUrl} type="video/mp4" />
                         </video>
@@ -154,7 +154,7 @@ export default function WorkPage() {
                     </div>
 
                     {/* Metadata */}
-                    <div className="flex justify-between items-start gap-4 px-1">
+                    <div className="flex justify-between items-start gap-4 px-1 group-hover:translate-x-2 transition-transform duration-700 ease-[0.16,1,0.3,1]">
                       <div className="space-y-1">
                         <span className="text-[10px] font-heading font-extrabold tracking-[0.2em] text-accent uppercase">
                           {project.client}

@@ -99,7 +99,7 @@ export function StudioTeaserSection() {
               <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
             </div>
 
-            <div className="grid grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
               {STATS_DATA.map((stat, idx) => (
                 <motion.div
                   key={idx}
@@ -107,15 +107,15 @@ export function StudioTeaserSection() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: idx * 0.1 }}
-                  className="space-y-1 border-l border-header-border pl-4"
+                  className="space-y-2 border-l-2 border-accent/20 pl-4 py-1 hover:border-accent transition-colors duration-300"
                 >
-                  <div className="text-3xl md:text-5xl">
+                  <div className="text-4xl md:text-5xl font-heading font-extrabold text-accent">
                     <Counter value={stat.value} />
                   </div>
-                  <h3 className="text-xs font-heading font-bold tracking-widest uppercase text-foreground">
+                  <h3 className="text-xs font-heading font-extrabold tracking-widest uppercase text-foreground">
                     {stat.label}
                   </h3>
-                  <p className="text-[10px] text-muted-foreground leading-relaxed font-sans">
+                  <p className="text-[11px] text-muted-foreground leading-relaxed font-sans">
                     {stat.description}
                   </p>
                 </motion.div>

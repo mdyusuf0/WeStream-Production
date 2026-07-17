@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { MediaStage } from "@/components/media/MediaStage";
+import { ApertureContainer } from "@/components/media/ApertureContainer";
 
 export function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -32,6 +33,9 @@ export function HeroSection() {
       >
         <MediaStage mode="sculpture" withNoise={true} />
       </motion.div>
+
+      {/* 3D BROADCAST APERTURE OVERLAY */}
+      <ApertureContainer />
 
       {/* OVERLAY TYPOGRAPHY & CTAs (Off-Axis Editorial Alignment for Spatial Tension) */}
       <Container className="relative z-30 w-full h-full flex flex-col justify-between pt-28 pb-12 md:pb-16 pointer-events-none">
@@ -73,16 +77,15 @@ export function HeroSection() {
           >
             <Link
               href="/work"
-              className="inline-flex items-center justify-center min-h-[48px] px-8 bg-accent text-background font-heading text-xs font-bold tracking-[0.2em] uppercase rounded-full shadow-xl hover:opacity-90 transition-opacity"
+              className="inline-flex items-center justify-center min-h-[54px] px-10 bg-accent text-background font-heading text-[11px] font-extrabold tracking-[0.25em] uppercase rounded-sm shadow-2xl hover:opacity-90 transition-opacity"
             >
               View Our Work
             </Link>
             <Link
               href="/contact"
-              className="group inline-flex items-center gap-3 font-heading text-xs font-bold tracking-[0.2em] uppercase text-foreground hover:text-accent transition-colors py-2"
+              className="inline-flex items-center justify-center min-h-[54px] px-10 border border-header-border text-foreground font-heading text-[11px] font-extrabold tracking-[0.25em] uppercase rounded-sm hover:border-accent hover:text-accent transition-colors"
             >
               Get a Quote
-              <span className="w-6 h-[1.5px] bg-accent transition-all duration-300 group-hover:w-10" />
             </Link>
           </motion.div>
 

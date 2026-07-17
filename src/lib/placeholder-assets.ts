@@ -60,10 +60,10 @@ export const PLACEHOLDER_ASSETS = {
     },
 
     projects: {
-      globalSummit: createCinematicGradient("Global Leadership Summit 2025", "Live Streaming"),
-      politicalConvention: createCinematicGradient("National Political Convention", "Event Coverage"),
-      techConference: createCinematicGradient("International Tech Conference", "Video Production"),
-      musicFestival: createCinematicGradient("Live Music Festival", "Event Coverage"),
+      globalSummit: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80",
+      politicalConvention: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1200&q=80",
+      techConference: "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=1200&q=80",
+      musicFestival: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1200&q=80",
       
       workIndia: "https://images.unsplash.com/photo-1460881680858-30d872d5b530?auto=format&fit=crop&w=1200&q=80",
       suggestable: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",

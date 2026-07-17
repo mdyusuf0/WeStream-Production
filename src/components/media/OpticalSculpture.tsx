@@ -68,7 +68,7 @@ export function OpticalSculpture({ className = "" }: OpticalSculptureProps) {
           ease: "easeInOut",
         }}
         className={`absolute w-[600px] h-[600px] rounded-full blur-[120px] pointer-events-none transition-colors duration-700 ${
-          isLight ? "bg-amber-600/10" : "bg-gold/15"
+          isLight ? "bg-amber-600/15" : "bg-gold/22"
         }`}
       />
 
@@ -76,7 +76,7 @@ export function OpticalSculpture({ className = "" }: OpticalSculptureProps) {
       <motion.div
         animate={{
           x: ["-30%", "30%", "-30%"],
-          opacity: [0.2, 0.55, 0.2],
+          opacity: [0.3, 0.65, 0.3],
         }}
         transition={{
           duration: 18,
@@ -84,7 +84,7 @@ export function OpticalSculpture({ className = "" }: OpticalSculptureProps) {
           ease: "easeInOut",
         }}
         className={`absolute w-[450px] h-[450px] rounded-full blur-[90px] pointer-events-none transition-colors duration-700 ${
-          isLight ? "bg-amber-500/15" : "bg-gold/20"
+          isLight ? "bg-amber-500/20" : "bg-gold/28"
         }`}
       />
 
