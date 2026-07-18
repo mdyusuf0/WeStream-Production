@@ -123,6 +123,7 @@ export function SiteHeader() {
                   src="/logo.png" 
                   alt="WeStream Logo Icon" 
                   fill
+                  sizes="28px"
                   className="object-contain"
                   priority
                 />
@@ -234,8 +235,15 @@ export function SiteHeader() {
             transition={{ duration: 0.65, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-40 bg-menu-overlay-bg text-menu-overlay-text w-full h-[100dvh] flex flex-col justify-center overflow-hidden transition-colors duration-500 pt-[env(safe-area-inset-top,0)]"
           >
-            {/* Subtle Texture Overlay */}
-            <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.025] mix-blend-overlay pointer-events-none" aria-hidden="true" />
+             {/* Subtle Texture Overlay */}
+             <div 
+               className="absolute inset-0 mix-blend-overlay pointer-events-none" 
+               style={{
+                 opacity: 0.025,
+                 backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+               }} 
+               aria-hidden="true" 
+             />
             
             <div className="container-safe h-full flex flex-col justify-center pt-20 pb-8 sm:py-12">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 h-full items-center">

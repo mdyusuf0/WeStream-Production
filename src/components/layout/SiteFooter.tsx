@@ -58,6 +58,7 @@ export function SiteFooter() {
                   src="/logo.png" 
                   alt="WeStream Logo Icon" 
                   fill
+                  sizes="24px"
                   className="object-contain"
                 />
               </div>

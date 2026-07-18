@@ -109,6 +109,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           type = "swipe";
         }
 
+        // Prefetch target chunk immediately on click to load Next.js page data in background
+        router.prefetch(url.pathname);
+
         setTransitionType(type);
         setPendingPath(url.pathname + url.search + url.hash);
         setIsTransitioning(true);
@@ -117,14 +120,17 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
     document.addEventListener("click", handleLinkClick, { capture: true });
     return () => document.removeEventListener("click", handleLinkClick, { capture: true });
-  }, []);
+  }, [router]);
 
   // Sync route switch after exit animations finish playing
   useEffect(() => {
     if (!isTransitioning || !pendingPath) return;
 
-    // Wait for fade out / slide out to complete before swapping children route
-    const exitDuration = transitionType === "swipe" ? 600 : transitionType === "zoom" ? 500 : 400;
+    // Prefetch again in background to ensure caching
+    router.prefetch(pendingPath);
+
+    // Wait for exit animation to complete (reduced durations for instant feel)
+    const exitDuration = transitionType === "swipe" ? 220 : transitionType === "zoom" ? 180 : 120;
     const timer = setTimeout(() => {
       setPrevPath(pathname);
       router.push(pendingPath);
@@ -167,7 +173,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
               borderRadius: "0px",
             }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
           >
             <img src={expandedImage.src} className="w-full h-full object-cover" alt="Expanding Project Grid Card" />
           </motion.div>
@@ -187,14 +193,14 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
               initial={{ y: "-100%" }}
               animate={{ y: "0%" }}
               exit={{ y: "-100%" }}
-              transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+              transition={{ duration: 0.25, ease: [0.76, 0, 0.24, 1] }}
               className="h-1/2 w-full bg-[#0B0B0B] border-b border-accent/20"
             />
             <motion.div 
               initial={{ y: "100%" }}
               animate={{ y: "0%" }}
               exit={{ y: "100%" }}
-              transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+              transition={{ duration: 0.25, ease: [0.76, 0, 0.24, 1] }}
               className="h-1/2 w-full bg-[#0B0B0B] border-t border-accent/20"
             />
           </motion.div>
@@ -205,10 +211,10 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       <motion.div
         animate={{ 
           opacity: isTransitioning ? 0 : 1, 
-          x: isTransitioning && transitionType === "sibling" ? -60 : 0,
-          y: isTransitioning && transitionType === "fade" ? -15 : 0 
+          x: isTransitioning && transitionType === "sibling" ? -30 : 0,
+          y: isTransitioning && transitionType === "fade" ? -10 : 0 
         }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: isTransitioning ? 0.15 : 0.3, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10"
       >
         {children}
