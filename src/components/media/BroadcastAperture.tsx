@@ -123,8 +123,10 @@ export function BroadcastAperture({
     if (bladesGroupRef.current) {
       // Loop over child mesh blades and update their Z rotation around individual pivots
       bladesGroupRef.current.children.forEach((child, index) => {
-        // Pivot points are calculated using base angles + seeds
         const seed = bladeSeeds[index];
+        if (!seed) return; // Safeguard against extra children crashing the render loop
+        
+        // Pivot points are calculated using base angles + seeds
         const angle = (index / totalBlades) * Math.PI * 2;
         const baseRotation = angle + Math.PI / 2;
         

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -59,7 +59,10 @@ export default function BroadcastApertureCanvas({
       ([entry]) => {
         setInView(entry.isIntersecting);
       },
-      { threshold: 0.01 } // Pause frame loop as soon as it goes off-screen by 99%
+      {
+        rootMargin: "100px", // pre-load and keep running slightly off-screen
+        threshold: 0.0, // trigger as soon as any pixel is visible
+      }
     );
 
     observer.observe(element);
@@ -141,7 +144,9 @@ export default function BroadcastApertureCanvas({
           background: "transparent",
         }}
       >
-        <BroadcastAperture scrollProgressRef={scrollRef} variant={variant} />
+        <Suspense fallback={null}>
+          <BroadcastAperture scrollProgressRef={scrollRef} variant={variant} />
+        </Suspense>
       </Canvas>
     </div>
   );

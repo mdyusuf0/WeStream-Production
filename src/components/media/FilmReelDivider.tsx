@@ -177,7 +177,10 @@ export function FilmReelDivider({ className = "", triggerId }: FilmReelDividerPr
       ([entry]) => {
         setInView(entry.isIntersecting);
       },
-      { threshold: 0.01 }
+      {
+        rootMargin: "100px", // pre-load and keep running slightly off-screen
+        threshold: 0.0, // trigger as soon as any pixel is visible
+      }
     );
 
     observer.observe(element);

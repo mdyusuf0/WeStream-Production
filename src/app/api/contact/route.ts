@@ -160,7 +160,7 @@ export async function POST(req: NextRequest) {
       message: "Your enquiry has been successfully stored.",
       submission 
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Public contact form submission failed:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
