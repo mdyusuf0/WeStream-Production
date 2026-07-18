@@ -29,7 +29,7 @@ export function OpticalSculpture({ className = "" }: OpticalSculptureProps) {
   const flareY = useTransform(springY, [-0.5, 0.5], [-35, 35]);
 
   useEffect(() => {
-    setMounted(true);
+    requestAnimationFrame(() => setMounted(true));
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {

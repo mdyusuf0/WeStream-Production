@@ -28,12 +28,12 @@ export function SiteHeader() {
   const { theme, setTheme, resolvedTheme } = useTheme();
 
   useEffect(() => {
-    setMounted(true);
+    requestAnimationFrame(() => setMounted(true));
     if (sessionStorage.getItem("westream_loader_seen")) {
-      setIsLoaded(true);
+      requestAnimationFrame(() => setIsLoaded(true));
       return;
     }
-    const handleLoaded = () => setIsLoaded(true);
+    const handleLoaded = () => requestAnimationFrame(() => setIsLoaded(true));
     window.addEventListener("westream_loaded", handleLoaded);
     return () => window.removeEventListener("westream_loaded", handleLoaded);
   }, []);

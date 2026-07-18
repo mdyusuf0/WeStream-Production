@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { X, Play, Volume2, VolumeX, ArrowRight } from "lucide-react";
+import { X, Volume2, VolumeX, ArrowRight } from "lucide-react";
 import { Project } from "@/lib/data";
 
 interface MediaLightboxProps {

@@ -17,10 +17,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const router = useRouter();
   
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [transitionType, setTransitionType] = useState<"zoom" | "aperture" | "fade" | "sibling">("aperture");
+  const [transitionType, setTransitionType] = useState<"zoom" | "aperture" | "sibling">("aperture");
   const [pendingPath, setPendingPath] = useState<string | null>(null);
   const [expandedImage, setExpandedImage] = useState<ExpandedImageState | null>(null);
-  const [prevPath, setPrevPath] = useState<string>(pathname);
 
   // Initialize Lenis Scroll
   useEffect(() => {
@@ -85,7 +84,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         e.preventDefault();
         e.stopPropagation();
 
-        let type: "zoom" | "aperture" | "fade" | "sibling" = "aperture";
+        let type: "zoom" | "aperture" | "sibling" = "aperture";
 
         // Sibling transition between project detail pages
         if (window.location.pathname.startsWith("/work/") && url.pathname.startsWith("/work/")) {
@@ -106,29 +105,26 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     return () => document.removeEventListener("click", handleLinkClick, { capture: true });
   }, []);
 
-  // Sync route switch after exit animations finish playing
+  // Sync route switch after exit transitions finish
   useEffect(() => {
     if (!isTransitioning || !pendingPath) return;
 
-    // Aperture iris takes 650ms to close completely, zoom takes 500ms
-    const exitDuration = 
-      transitionType === "zoom" ? 500 : 
-      transitionType === "aperture" ? 650 : 400;
+    // Use a fixed 500ms duration for all transitions to remain crisp
+    const exitDuration = 450;
 
     const timer = setTimeout(() => {
-      setPrevPath(pathname);
       router.push(pendingPath);
       
-      // Delay resetting transition state to let enter animation play
+      // Delay resetting transition state slightly to let the new page fade in
       setTimeout(() => {
         setIsTransitioning(false);
         setPendingPath(null);
         setExpandedImage(null);
-      }, exitDuration);
+      }, 100);
     }, exitDuration);
 
     return () => clearTimeout(timer);
-  }, [isTransitioning, pendingPath, transitionType, router, pathname]);
+  }, [isTransitioning, pendingPath, router]);
 
   return (
     <>
@@ -159,50 +155,31 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={expandedImage.src} className="w-full h-full object-cover" alt="Expanding Project Grid Card" />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* 2. GLOBAL CAMERA APERTURE LENS IRIS REVEAL */}
+      {/* 2. CINEMATIC HORIZONTAL ANAMORPHIC FLARE SHUTTER SWEEP */}
       <AnimatePresence>
         {isTransitioning && transitionType === "aperture" && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-99998 bg-transparent flex items-center justify-center pointer-events-none overflow-hidden"
+            className="fixed inset-0 z-[99998] pointer-events-none flex flex-col justify-between overflow-hidden"
           >
-            <div className="absolute inset-0 flex items-center justify-center">
-              <svg viewBox="0 0 100 100" className="w-[150vw] h-[150vh] max-w-none text-[#0B0B0B]">
-                {[...Array(8)].map((_, i) => {
-                  const angle = (i * 360) / 8;
-                  return (
-                    <motion.path
-                      key={i}
-                      d="M 50 50 L 140 0 L 140 100 Z"
-                      fill="currentColor"
-                      stroke="#D4AF37"
-                      strokeWidth="0.5"
-                      strokeOpacity="0.2"
-                      style={{
-                        transformOrigin: "50px 50px",
-                      }}
-                      initial={{ rotate: angle, scale: 0 }}
-                      animate={{ rotate: angle + 25, scale: 1 }}
-                      exit={{ rotate: angle + 50, scale: 0 }}
-                      transition={{ duration: 0.65, ease: [0.76, 0, 0.24, 1] }}
-                    />
-                  );
-                })}
-              </svg>
-            </div>
-            {/* Focal indicator in center */}
+            {/* Subtle light vignette backdrop */}
+            <div className="absolute inset-0 bg-black/25 backdrop-blur-[1px] transition-opacity duration-300" />
+            
+            {/* Golden flare line sweeping dynamically across screen (fully GPU accelerated) */}
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 0.15 }}
-              exit={{ scale: 1.2, opacity: 0 }}
-              className="absolute w-44 h-44 border border-accent rounded-full"
+              initial={{ y: "-10vh" }}
+              animate={{ y: "110vh" }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.55, ease: [0.4, 0, 0.2, 1] }}
+              className="absolute top-0 left-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-accent to-transparent shadow-[0_0_10px_#D4AF37,0_0_25px_#D4AF37]"
             />
           </motion.div>
         )}
@@ -212,10 +189,10 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       <motion.div
         animate={{ 
           opacity: isTransitioning ? 0 : 1, 
-          x: isTransitioning && transitionType === "sibling" ? -60 : 0,
-          y: isTransitioning && transitionType === "fade" ? -15 : 0 
+          scale: isTransitioning ? 0.99 : 1,
+          x: isTransitioning && transitionType === "sibling" ? -50 : 0,
         }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.45, ease: [0.25, 1, 0.5, 1] }}
         className="relative z-10"
       >
         {children}

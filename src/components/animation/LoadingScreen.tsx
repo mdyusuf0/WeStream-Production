@@ -7,20 +7,23 @@ export default function LoadingScreen() {
   const [isVisible, setIsVisible] = useState(false);
   const [showText, setShowText] = useState(false);
 
+  const handleComplete = () => {
+    sessionStorage.setItem("westream_loader_seen", "true");
+    setIsVisible(false);
+    document.body.style.overflow = "";
+    window.dispatchEvent(new Event("westream_loaded"));
+  };
+
   useEffect(() => {
-    // Check if the user has already seen the loader in this session
     const hasSeenLoader = sessionStorage.getItem("westream_loader_seen");
     if (!hasSeenLoader) {
-      setIsVisible(true);
-      // Disable body scrolling during load
+      requestAnimationFrame(() => setIsVisible(true));
       document.body.style.overflow = "hidden";
       
-      // Delay to draw the line first, then show the text
       const textTimer = setTimeout(() => {
         setShowText(true);
       }, 1000);
 
-      // Delay to complete loading
       const completeTimer = setTimeout(() => {
         handleComplete();
       }, 2500);
@@ -31,13 +34,6 @@ export default function LoadingScreen() {
       };
     }
   }, []);
-
-  const handleComplete = () => {
-    sessionStorage.setItem("westream_loader_seen", "true");
-    setIsVisible(false);
-    document.body.style.overflow = "";
-    window.dispatchEvent(new Event("westream_loaded"));
-  };
 
   if (!isVisible) return null;
 

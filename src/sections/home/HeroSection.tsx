@@ -5,17 +5,16 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { MediaStage } from "@/components/media/MediaStage";
-import { ApertureContainer } from "@/components/media/ApertureContainer";
 
 export function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (sessionStorage.getItem("westream_loader_seen")) {
-      setIsLoaded(true);
+      requestAnimationFrame(() => setIsLoaded(true));
       return;
     }
-    const handleLoaded = () => setIsLoaded(true);
+    const handleLoaded = () => requestAnimationFrame(() => setIsLoaded(true));
     window.addEventListener("westream_loaded", handleLoaded);
     return () => window.removeEventListener("westream_loaded", handleLoaded);
   }, []);
@@ -33,9 +32,6 @@ export function HeroSection() {
       >
         <MediaStage mode="sculpture" withNoise={true} />
       </motion.div>
-
-      {/* 3D BROADCAST APERTURE OVERLAY */}
-      <ApertureContainer />
 
       {/* OVERLAY TYPOGRAPHY & CTAs (Off-Axis Editorial Alignment for Spatial Tension) */}
       <Container className="relative z-30 w-full h-full flex flex-col justify-between pt-28 pb-12 md:pb-16 pointer-events-none">

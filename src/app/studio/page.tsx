@@ -94,7 +94,7 @@ export default function StudioPage() {
               className="bg-surface border border-header-border p-6 md:p-8 rounded-sm hover:border-accent/40 transition-all duration-300 space-y-4"
             >
               <span className="text-xs font-heading font-bold text-accent">
-                0{idx + 1} //
+                0{idx + 1}{" //"}
               </span>
               <h3 className="text-lg font-heading font-extrabold text-foreground uppercase">
                 {v.title}

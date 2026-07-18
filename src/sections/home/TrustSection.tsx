@@ -100,7 +100,7 @@ export function TrustSection() {
                       </p>
                     </div>
                     <span className="text-[10px] font-heading font-extrabold text-accent tracking-widest uppercase">
-                      // {testimonials[activeTestimonial].client}
+                      {"// "}{testimonials[activeTestimonial].client}
                     </span>
                   </div>
                 </motion.div>

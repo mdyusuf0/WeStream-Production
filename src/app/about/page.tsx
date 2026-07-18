@@ -3,9 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
-import { STATS_DATA, TEAM_MEMBERS } from "@/lib/data";
+import { TEAM_MEMBERS } from "@/lib/data";
 
 export default function AboutPage() {
   const industries = [

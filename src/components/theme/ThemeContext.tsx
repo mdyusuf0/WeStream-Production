@@ -19,7 +19,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Read preference on client mount
     const savedTheme = (localStorage.getItem("westream_theme") as Theme) || "dark";
-    setThemeState(savedTheme);
+    requestAnimationFrame(() => setThemeState(savedTheme));
   }, []);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       }
 
       root.classList.add(activeTheme);
-      setResolvedTheme(activeTheme);
+      requestAnimationFrame(() => setResolvedTheme(activeTheme));
     };
 
     applyTheme(theme);

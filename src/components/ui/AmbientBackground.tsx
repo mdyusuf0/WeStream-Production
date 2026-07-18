@@ -24,7 +24,7 @@ export function AmbientBackground() {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
+    requestAnimationFrame(() => setPrefersReducedMotion(mediaQuery.matches));
 
     const handleChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
     mediaQuery.addEventListener("change", handleChange);
@@ -52,7 +52,7 @@ export function AmbientBackground() {
     };
 
     const isMobile = width < 768;
-    const dustCount = isMobile ? 80 : 220;
+    const dustCount = isMobile ? 180 : 520;
 
     const particles: Particle[] = [];
 
@@ -86,20 +86,20 @@ export function AmbientBackground() {
       // Determine depth layer
       const rand = Math.random();
       let type: "foreground" | "midground" | "background" = "background";
-      let size = 0.6;
+      let size = 0.3;
       let baseAlpha = 0.2;
 
-      if (rand > 0.92) {
-        type = "foreground"; // Large blurred bokeh
-        size = Math.random() * 12 + 6;
+      if (rand > 0.88) {
+        type = "foreground"; // Large blurred yellow bokeh
+        size = Math.random() * 8 + 4.5;
         baseAlpha = Math.random() * 0.05 + 0.02;
-      } else if (rand > 0.7) {
-        type = "midground"; // Floating medium dust
-        size = Math.random() * 2.5 + 1.2;
-        baseAlpha = Math.random() * 0.15 + 0.08;
+      } else if (rand > 0.58) {
+        type = "midground"; // Floating medium yellow dust
+        size = Math.random() * 2.6 + 1.2;
+        baseAlpha = Math.random() * 0.16 + 0.08;
       } else {
-        type = "background"; // Micro specs
-        size = Math.random() * 0.9 + 0.3;
+        type = "background"; // Micro white specs
+        size = Math.random() * 0.45 + 0.15;
         baseAlpha = Math.random() * 0.35 + 0.15;
       }
 
@@ -110,8 +110,8 @@ export function AmbientBackground() {
         y,
         baseX: x,
         baseY: y,
-        vx: (Math.random() - 0.5) * 0.15 * speedMultiplier,
-        vy: (Math.random() - 0.5) * 0.15 * speedMultiplier,
+        vx: (Math.random() - 0.5) * 0.42 * speedMultiplier,
+        vy: (Math.random() - 0.5) * 0.42 * speedMultiplier,
         size,
         alpha: baseAlpha,
         baseAlpha,
@@ -183,8 +183,8 @@ export function AmbientBackground() {
 
         if (!prefersReducedMotion) {
           // Slow organic fluid drift
-          const driftX = Math.sin(time * 0.8 + p.angleOffset) * 0.08;
-          const driftY = Math.cos(time * 0.8 + p.angleOffset) * 0.08;
+          const driftX = Math.sin(time * 0.8 + p.angleOffset) * 0.22;
+          const driftY = Math.cos(time * 0.8 + p.angleOffset) * 0.22;
 
           p.x += p.vx + driftX;
           p.y += p.vy + driftY;

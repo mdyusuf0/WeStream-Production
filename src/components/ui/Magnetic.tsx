@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 interface MagneticProps {
-  children: React.ReactElement<any>;
+  children: React.ReactElement;
   range?: number; // Distance at which magnet starts working
   strength?: number; // How strong the pull is (0 to 1)
 }
