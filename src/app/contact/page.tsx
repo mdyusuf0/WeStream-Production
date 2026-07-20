@@ -75,7 +75,9 @@ export default function ContactPage() {
         else if (serviceParam.includes("coverage")) type = "Event Coverage";
         else if (serviceParam.includes("post")) type = "Post Production";
         
-        setForm((prev) => ({ ...prev, projectType: type }));
+        requestAnimationFrame(() => {
+          setForm((prev) => ({ ...prev, projectType: type }));
+        });
       }
     }
   }, []);

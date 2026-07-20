@@ -4,6 +4,7 @@ import React, { useRef } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 interface MagneticProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   children: React.ReactElement<any>;
   range?: number; // Distance at which magnet starts working
   strength?: number; // How strong the pull is (0 to 1)

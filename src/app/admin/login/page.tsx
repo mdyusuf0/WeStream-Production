@@ -28,11 +28,11 @@ function LoginForm() {
   useEffect(() => {
     const errorParam = searchParams.get("error");
     if (errorParam === "Blocked") {
-      setError("Access suspended. Too many failed attempts. Try again in 10 minutes.");
+      requestAnimationFrame(() => setError("Access suspended. Too many failed attempts. Try again in 10 minutes."));
     } else if (errorParam === "CredentialsSignin") {
-      setError("Invalid email or password.");
+      requestAnimationFrame(() => setError("Invalid email or password."));
     } else if (errorParam) {
-      setError("An error occurred during authentication.");
+      requestAnimationFrame(() => setError("An error occurred during authentication."));
     }
   }, [searchParams]);
 

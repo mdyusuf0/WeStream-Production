@@ -28,9 +28,14 @@ export function getRedisClient(): Redis {
   const redisUrl = process.env.REDIS_URL;
 
   const options = {
-    maxRetriesPerRequest: null,
+    maxRetriesPerRequest: 3,
+    connectTimeout: 2000, // Timeout after 2 seconds
+    enableOfflineQueue: false, // Don't queue commands if offline
     retryStrategy(times: number) {
-      const delay = Math.min(times * 50, 2000);
+      if (times > 3) {
+        return null; // Stop retrying
+      }
+      const delay = Math.min(times * 100, 1000);
       return delay;
     },
   };

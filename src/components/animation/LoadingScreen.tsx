@@ -13,11 +13,18 @@ export default function LoadingScreen() {
   const [isVisible, setIsVisible] = useState(false);
   const [showText, setShowText] = useState(false);
 
+  function handleComplete() {
+    sessionStorage.setItem("westream_loader_seen", "true");
+    setIsVisible(false);
+    document.body.style.overflow = "";
+    window.dispatchEvent(new Event("westream_loaded"));
+  }
+
   useEffect(() => {
     // Check if the user has already seen the loader in this session
     const hasSeenLoader = sessionStorage.getItem("westream_loader_seen");
     if (!hasSeenLoader) {
-      setIsVisible(true);
+      requestAnimationFrame(() => setIsVisible(true));
       // Disable body scrolling during load
       document.body.style.overflow = "hidden";
       
@@ -37,13 +44,6 @@ export default function LoadingScreen() {
       };
     }
   }, []);
-
-  const handleComplete = () => {
-    sessionStorage.setItem("westream_loader_seen", "true");
-    setIsVisible(false);
-    document.body.style.overflow = "";
-    window.dispatchEvent(new Event("westream_loaded"));
-  };
 
   if (!isVisible) return null;
 

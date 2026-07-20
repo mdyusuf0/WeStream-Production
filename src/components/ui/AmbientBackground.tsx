@@ -22,7 +22,7 @@ export function AmbientBackground() {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
+    requestAnimationFrame(() => setPrefersReducedMotion(mediaQuery.matches));
 
     const handleChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
     mediaQuery.addEventListener("change", handleChange);
@@ -41,7 +41,7 @@ export function AmbientBackground() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Mouse position tracking
+    // Mouse coordinates tracking
     const mouse = {
       x: -2000,
       y: -2000,
@@ -50,10 +50,10 @@ export function AmbientBackground() {
     };
 
     const isMobile = width < 768;
-    // Enhanced particle count for clear visibility
-    const starCount = isMobile ? 150 : 400;
+    const starCount = isMobile ? 120 : 380;
 
     const particles: Particle[] = [];
+
     for (let i = 0; i < starCount; i++) {
       const x = Math.random() * width;
       const y = Math.random() * height;

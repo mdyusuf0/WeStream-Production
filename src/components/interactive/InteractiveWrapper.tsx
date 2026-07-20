@@ -6,7 +6,7 @@ export function InteractiveWrapper({ children }: { children: React.ReactNode }) 
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    requestAnimationFrame(() => setMounted(true));
   }, []);
 
   if (!mounted) {

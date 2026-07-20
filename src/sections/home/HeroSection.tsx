@@ -16,16 +16,16 @@ export function HeroSection({ videoSrc, videoPoster }: HeroSectionProps) {
 
   useEffect(() => {
     if (sessionStorage.getItem("westream_loader_seen")) {
-      setIsLoaded(true);
+      requestAnimationFrame(() => setIsLoaded(true));
       return;
     }
     
-    const handleLoaded = () => setIsLoaded(true);
+    const handleLoaded = () => requestAnimationFrame(() => setIsLoaded(true));
     window.addEventListener("westream_loaded", handleLoaded);
 
     // Fallback: If loader events are missed or raced, trigger auto-fade after 3.5 seconds
     const fallbackTimer = setTimeout(() => {
-      setIsLoaded(true);
+      requestAnimationFrame(() => setIsLoaded(true));
     }, 3500);
 
     return () => {
